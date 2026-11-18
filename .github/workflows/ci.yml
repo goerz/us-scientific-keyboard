@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - name: Install libxkbcommon, for the Linux layout test
+        run: sudo apt-get update && sudo apt-get install -y libxkbcommon0 xkb-data libx11-data
+      - name: Run the tests
+        run: make test
+        env:
+          PYTEST_ADDOPTS: -rs  # list the reasons for skipped tests
+
+  # The release assets, one artifact per file (unzipped, as on the release page)
+
+  build-macos:
+    name: macOS bundle and Keyman package
+    runs-on: macos-latest  # the Keyman icon needs sips
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+      - name: Install ImageMagick
+        run: brew install imagemagick
+      - name: Build
+        run: make macos keyman
+      - uses: actions/upload-artifact@v7
+        with:
+          path: build/us_scientific.bundle.zip
+          archive: false
+      - uses: actions/upload-artifact@v7
+        with:
+          path: build/us_scientific.kmp
+          archive: false
+
+  build-linux:
+    name: Linux layout, Windows source, and cheat sheet
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - name: Install rsvg-convert and LuaLaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends librsvg2-bin texlive-luatex texlive-latex-recommended
+      - name: Build
+        run: make linux windows cheatsheet
+      - uses: actions/upload-artifact@v7
+        with:
+          path: build/us_scientific-linux.zip
+          archive: false
+      - uses: actions/upload-artifact@v7
+        with:
+          path: build/kbdussci-src.zip
+          archive: false
+      - uses: actions/upload-artifact@v7
+        with:
+          path: build/us-scientific.pdf
+          archive: false
+
+  # Compiles the native layout with MSVC, as build.cmd does on a user's machine
+  build-windows:
+    name: Native Windows DLL
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - name: Generate the source
+        run: uv run --quiet layoutgen windows build/windows
+      - name: Compile
+        shell: cmd
+        run: build\windows\build.cmd
+      - uses: actions/upload-artifact@v7
+        with:
+          name: kbdussci-dll
+          path: |
+            build/windows/x64/kbdussci.dll
+            build/windows/x86/kbdussci.dll
+            build/windows/wow64/kbdussci.dll
+            build/windows/arm64/kbdussci.dll
+          if-no-files-found: error
