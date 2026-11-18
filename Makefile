@@ -61,15 +61,13 @@ build/keyman/$(ID).kmx: build/keyman/$(ID).kmn build/keyman/$(ID).ico
 build/$(ID).kmp: build/keyman/$(ID).kmx LICENSE
 	$(KMC) build build/keyman/$(ID).kps --out-file $@
 
-windows: build/$(DLL)-src.zip  ## Build the native Windows layout source, zipped for building on Windows
+# Compiled on Windows (CI zips it with the DLLs as $(ID)-windows.zip)
+windows: build/$(ID)-windows/$(DLL).c  ## Generate the native Windows layout (source and scripts) into a folder
 
-build/windows/$(DLL).c: $(SOURCES)
-	$(LAYOUTGEN) windows build/windows
-
-build/$(DLL)-src.zip: build/windows/$(DLL).c LICENSE
-	cp LICENSE build/windows/LICENSE.txt
-	rm -f $@
-	cd build/windows && zip -q ../$(notdir $@) *
+build/$(ID)-windows/$(DLL).c: $(SOURCES) LICENSE
+	rm -rf $(@D)
+	$(LAYOUTGEN) windows $(@D)
+	cp LICENSE $(@D)/LICENSE.txt
 
 linux: build/$(ID)-linux.zip  ## Build the native Linux layout (XKB and Compose), zipped for download
 

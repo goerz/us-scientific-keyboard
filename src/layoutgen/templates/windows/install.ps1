@@ -72,6 +72,7 @@ switch ($arch) {
 foreach ($build in $copies.Keys) {
     $source = Join-Path (Join-Path $PSScriptRoot $build) $Dll
     if (-not (Test-Path $source)) { throw "Missing $source; run build.cmd first." }
+    Unblock-File $source  # from a downloaded zip: remove the mark of the web
     $target = Join-Path $copies[$build] $Dll
     try { Copy-Item $source $target -Force }
     catch {

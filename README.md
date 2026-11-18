@@ -247,19 +247,19 @@ Use the **right** Alt key (AltGr) wherever this README shows `⌥`. The left Alt
 
 ### Windows (native layout)
 
-There is also a native Windows keyboard layout that doesn't need Keyman. It has to be compiled on Windows with the free Visual Studio build tools, and it can't do everything:
+There is also a native Windows keyboard layout that doesn't need Keyman. It can't do everything:
 
 * Native Windows dead keys can only produce characters from the Unicode Basic Multilingual Plane. The math bold dead key is therefore missing, and the script and double-struck dead keys only have the letters from the "Letterlike Symbols" block (`ℂ ℕ ℍ ℙ ℚ ℝ ℤ`, `ℬ ℰ ℱ ℋ ℐ ℒ ℳ ℛ ℯ ℊ ℴ`). The double-struck dead key's symbol is `ℍ`.
 * `𝕚` and `𝟙` on AltGr+I and Shift+AltGr+I may not work in all programs.
 * Shift with Caps Lock on gives lowercase letters, as usual on Windows.
 
-Unzip `kbdussci-src.zip` on the Windows machine and follow its `README.txt`:
+1. Unzip `us_scientific-windows.zip`.
+2. In an Administrator PowerShell, change to the unzipped folder and run `powershell -ExecutionPolicy Bypass -File install.ps1`.
+3. Sign out and back in. Switch to the layout with Win+Space.
 
-1. Install the [Build Tools for Visual Studio](https://visualstudio.microsoft.com/downloads/) with the "Desktop development with C++" workload and the "MSVC ARM64/ARM64EC build tools" component.
-2. Open a Command Prompt in the unzipped folder and run `build.cmd`.
-3. In an Administrator PowerShell, run `powershell -ExecutionPolicy Bypass -File install.ps1`, then sign out and back in.
+To remove it, run `install.ps1 -Uninstall` the same way. The zip has the layout compiled for x64, x86, and ARM64 Windows, and its source; its `README.txt` explains how to compile it yourself with the free Visual Studio build tools.
 
-To remove it, run `install.ps1 -Uninstall` the same way.
+The layout is installed, loaded, and checked key by key on Windows for every change to this repository, but it hasn't been tried in daily use yet.
 
 ### Linux
 
@@ -315,11 +315,11 @@ After changing it, run `make docs` to update this README and the diagrams, and `
 
 The `Makefile` drives the [`layoutgen`](src/layoutgen) package, which needs [uv](https://docs.astral.sh/uv/):
 
-* `make` lists the available targets. `make all` builds everything into `build/`: the macOS bundle (`make macos`), the Keyman package (`make keyman`, which also needs Node.js for Keyman's `kmc` compiler and ImageMagick for the icon), the native Windows source (`make windows`), the native Linux layout (`make linux`), and the PDF cheat sheet (`make cheatsheet`, which needs `rsvg-convert` and LuaLaTeX).
+* `make` lists the available targets. `make all` builds everything into `build/`: the macOS bundle (`make macos`), the Keyman package (`make keyman`, which also needs Node.js for Keyman's `kmc` compiler and ImageMagick for the icon), the native Windows layout's source and scripts (`make windows`; compiling it needs Windows, so the release's `us_scientific-windows.zip` comes from CI), the native Linux layout (`make linux`), and the PDF cheat sheet (`make cheatsheet`, which needs `rsvg-convert` and LuaLaTeX).
 * `make install` and `make uninstall` install or remove the layout for the current user, as appropriate for the operating system (see [Installation](#installation)); on Linux, `make install-keyman` and `make uninstall-keyman` do the same with the Keyman package.
 * `make docs` regenerates the tables and diagrams in this README.
 * The diagrams and the cheat sheet are set in [JuliaMono](https://github.com/cormullion/juliamono) (SIL Open Font License), which `make fonts` downloads into `fonts/`; the diagrams contain the glyph outlines, so viewing them doesn't need the font.
-* `make test` runs the tests. They check every generated layout against `layout.toml`, key by key, in every layer and dead key, and that the README is up to date. Where libxkbcommon and xkeyboard-config are installed (on Linux), they also run the Linux layout in libxkbcommon itself.
+* `make test` runs the tests. They check every generated layout against `layout.toml`, key by key, in every layer and dead key, and that the README is up to date. Where libxkbcommon and xkeyboard-config are installed (on Linux), they also run the Linux layout in libxkbcommon itself. On Windows, with the native layout installed, they check it through Windows itself.
 
 
 ## License

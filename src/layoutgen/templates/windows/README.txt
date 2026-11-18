@@ -1,20 +1,12 @@
 @@NAME@@: native Windows keyboard layout
 ================================================================
 
-This folder contains the source of a native Windows keyboard layout DLL,
-generated from the macOS layout. It has everything except the math bold,
-math script, and double-struck alphabets, which Windows dead keys cannot
-produce. The full layout is available for Windows through Keyman.
-
-Build
------
-
-1. Install the free "Build Tools for Visual Studio" (or Visual Studio) from
-   https://visualstudio.microsoft.com/downloads/ . In the installer, select
-   the workload "Desktop development with C++" and, under "Individual
-   components", "MSVC ... ARM64/ARM64EC build tools (Latest)".
-2. Open a Command Prompt in this folder and run build.cmd. It creates
-   x64\, x86\, wow64\, and arm64\ folders with @@DLL@@.dll.
+This folder contains a native Windows keyboard layout, @@DLL@@.dll,
+compiled for x64, x86, and ARM64, together with its source. It has
+everything except the math bold alphabet and the math script and
+double-struck letters outside the "Letterlike Symbols" block, which
+Windows dead keys cannot produce. The full layout is available for Windows
+through Keyman.
 
 Install
 -------
@@ -30,3 +22,15 @@ Uninstall
 
 Run:  powershell -ExecutionPolicy Bypass -File install.ps1 -Uninstall
 and sign out and back in.
+
+Build
+-----
+
+The x64\, x86\, wow64\, and arm64\ folders hold the compiled DLLs. To
+compile them yourself (or if they are missing):
+
+1. Install the free "Build Tools for Visual Studio" (or Visual Studio) from
+   https://visualstudio.microsoft.com/downloads/ . In the installer, select
+   the workload "Desktop development with C++" and, under "Individual
+   components", "MSVC ... ARM64/ARM64EC build tools (Latest)".
+2. Open a Command Prompt in this folder and run build.cmd.

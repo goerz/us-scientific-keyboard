@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [master]
+    tags: ['v*']
   pull_request:
   workflow_dispatch:
 
@@ -24,7 +25,7 @@ jobs:
         env:
           PYTEST_ADDOPTS: -rs  # list the reasons for skipped tests
 
-  # The release assets, one artifact per file (unzipped, as on the release page)
+  # The release files, one artifact per file (unzipped, as on the release page)
 
   build-macos:
     name: macOS bundle and Keyman package
@@ -49,7 +50,7 @@ jobs:
           archive: false
 
   build-linux:
-    name: Linux layout, Windows source, and cheat sheet
+    name: Linux layout and cheat sheet
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -59,38 +60,105 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends librsvg2-bin texlive-luatex texlive-latex-recommended
       - name: Build
-        run: make linux windows cheatsheet
+        run: make linux cheatsheet
       - uses: actions/upload-artifact@v7
         with:
           path: build/us_scientific-linux.zip
           archive: false
       - uses: actions/upload-artifact@v7
         with:
-          path: build/kbdussci-src.zip
-          archive: false
-      - uses: actions/upload-artifact@v7
-        with:
           path: build/us-scientific.pdf
           archive: false
 
-  # Compiles the native layout with MSVC, as build.cmd does on a user's machine
+  # The native layout: compiled as build.cmd does it on a user's machine,
+  # zipped with its source and scripts, then installed and tested in Windows
   build-windows:
-    name: Native Windows DLL
+    name: Native Windows layout
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v10.3.3
-      - name: Generate the source
-        run: uv run --quiet layoutgen windows build/windows
+      - name: Generate the source (as make windows)
+        shell: bash
+        run: |
+          uv run --quiet layoutgen windows build/us_scientific-windows
+          cp LICENSE build/us_scientific-windows/LICENSE.txt
       - name: Compile
         shell: cmd
-        run: build\windows\build.cmd
+        run: build\us_scientific-windows\build.cmd
+      - name: Zip
+        shell: pwsh
+        run: Compress-Archive -Path build/us_scientific-windows -DestinationPath build/us_scientific-windows.zip
+      - name: Install
+        shell: cmd
+        run: powershell -ExecutionPolicy Bypass -File build\us_scientific-windows\install.ps1
+      - name: Test the installed layout
+        run: uv run --quiet pytest -rs tests/test_windows_installed.py
+        env:
+          REQUIRE_INSTALLED_LAYOUT: 1
+      - name: Uninstall
+        shell: cmd
+        run: powershell -ExecutionPolicy Bypass -File build\us_scientific-windows\install.ps1 -Uninstall
       - uses: actions/upload-artifact@v7
         with:
-          name: kbdussci-dll
-          path: |
-            build/windows/x64/kbdussci.dll
-            build/windows/x86/kbdussci.dll
-            build/windows/wow64/kbdussci.dll
-            build/windows/arm64/kbdussci.dll
-          if-no-files-found: error
+          path: build/us_scientific-windows.zip
+          archive: false
+
+  # Collects the release files and notes on every run; for a tag vX.Y.Z,
+  # creates a draft release with them (or updates the files of an existing one)
+  release:
+    name: Release
+    needs: [test, build-macos, build-linux, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@v10.3.3
+      - uses: actions/download-artifact@v8
+        with:
+          name: us_scientific.bundle.zip
+          path: dist
+          skip-decompress: true  # the zips are release files
+      - uses: actions/download-artifact@v8
+        with:
+          name: us_scientific.kmp
+          path: dist
+          skip-decompress: true  # the zips are release files
+      - uses: actions/download-artifact@v8
+        with:
+          name: us_scientific-windows.zip
+          path: dist
+          skip-decompress: true  # the zips are release files
+      - uses: actions/download-artifact@v8
+        with:
+          name: us_scientific-linux.zip
+          path: dist
+          skip-decompress: true  # the zips are release files
+      - uses: actions/download-artifact@v8
+        with:
+          name: us-scientific.pdf
+          path: dist
+          skip-decompress: true  # the zips are release files
+      - name: Release notes
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then version="$GITHUB_REF_NAME"; else version=Unreleased; fi
+          uv run --quiet tools/release-notes.py "$version" > notes.md
+          uv run --quiet tools/release-notes.py "$version" --title > title.txt
+          cat title.txt notes.md
+          ls -l dist
+          for f in us_scientific.bundle.zip us_scientific.kmp us_scientific-windows.zip us_scientific-linux.zip us-scientific.pdf; do
+            test -f "dist/$f" || { echo "::error::dist/$f is missing"; exit 1; }
+          done
+          test "$(ls dist | wc -l)" -eq 5 || { echo "::error::unexpected files in dist"; exit 1; }
+      - name: Draft the release
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/* --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" dist/* --draft --verify-tag \
+              --title "$(cat title.txt)" --notes-file notes.md
+          fi
