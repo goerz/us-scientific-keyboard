@@ -16,7 +16,7 @@
 [layout]
 name = "U.S. Scientific"
 id = "us_scientific"
-version = "4.0.0"
+version = "4.1.0"
 author = "Michael Goerz"
 copyright = "2021-2026"
 license = "MIT"

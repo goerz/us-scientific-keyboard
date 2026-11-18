@@ -8,6 +8,8 @@ All notable changes to this project are documented in this file. The format is b
 
 ## [Unreleased]
 
+## [4.1.0] - 2026-11-18
+
 ### Added
 
 - Native Linux layout (`us_scientific-linux.zip`): an XKB layout with a Compose file for the dead keys, which `install.py` (or `make install`) installs for the current user. It doesn't need Keyman.
@@ -37,5 +39,6 @@ First release of U.S. Scientific, the successor of the macOS-only "U.S. Internat
 - Caps Lock uppercases letters consistently, also after dead keys and on the alternative layer, and no longer turns `'` and `` ` `` into dead keys.
 - Grave dead key: removed the stray `c` and `C` entries.
 
-[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v4.0.0...HEAD
+[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v4.1.0...HEAD
+[4.1.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/goerz/us-scientific-keyboard/releases/tag/v4.0.0
