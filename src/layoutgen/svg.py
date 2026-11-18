@@ -5,12 +5,22 @@ the legends on a keycap, with the key's US label small in the corner. Dead
 keys show their symbol on a dark badge; in a dead key's diagram, the key
 that triggers it is highlighted. The diagrams show a US (ANSI) keyboard with
 macOS conventions.
+
+All text is drawn as glyph outlines from a font file (JuliaMono), so the
+diagrams look the same everywhere without the font being installed, and no
+font software is distributed with them.
 """
 
 import unicodedata
+from pathlib import Path
 from xml.sax.saxutils import escape
 
+from fontTools.pens.svgPathPen import SVGPathPen
+from fontTools.ttLib import TTFont
+
 from .model import Char, Dead, Layout
+
+DEFAULT_FONT = Path("fonts/JuliaMono-Regular.ttf")
 
 U = 60  # key unit in pixels
 GAP = 4
@@ -33,14 +43,10 @@ STYLE = """
   .badge { fill: #4a4a4a; }
   .active { fill: #f6c445; stroke: #c99a17; }
   .unused { fill: #f4f4f4; stroke: #d6d6d6; }
-  .out { font-family: 'STIX Two Math', 'STIX Two Text', 'Cambria Math', 'Noto Sans Math',
-         'Apple Symbols', 'Segoe UI Symbol', 'DejaVu Sans', sans-serif;
-         font-size: 22px; fill: #111111; }
+  .out { fill: #111111; }
   .dead-out { fill: #ffffff; }
-  .label { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-           font-size: 10px; fill: #8a8a8a; }
-  .note { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
-          font-size: 9px; fill: #5a5a5a; }
+  .label { fill: #8a8a8a; }
+  .note { fill: #5a5a5a; }
   .bg { fill: #f8f8f8; }
   @media (prefers-color-scheme: dark) {
     .bg { fill: #1e1e1e; }
@@ -86,13 +92,78 @@ def _box(x, y, w, cls):
     )
 
 
-def _text(x, y, text, cls, anchor="start"):
-    return f'<text class="{cls}" x="{x:.1f}" y="{y:.1f}" text-anchor="{anchor}">{escape(text)}</text>'
+# Font sizes in pixels
+SIZES = {"out": 22, "label": 10, "note": 10}
 
 
-def diagram(layout: Layout, title: str, legends, active=None) -> str:
+class Font:
+    """Glyph outlines from a font file."""
+
+    def __init__(self, path: Path):
+        if not Path(path).exists():
+            raise FileNotFoundError(f"{path} is missing; run `make fonts`")
+        self.font = TTFont(str(path))
+        self.cmap = self.font.getBestCmap()
+        self.glyphs = self.font.getGlyphSet()
+        self.upm = self.font["head"].unitsPerEm
+        self.paths = {}  # glyph name -> SVG path data
+
+    def glyph(self, char: str) -> str:
+        if ord(char) not in self.cmap:
+            raise ValueError(f"the font has no glyph for {char!r} (U+{ord(char):04X})")
+        return self.cmap[ord(char)]
+
+    def path(self, name: str) -> str:
+        if name not in self.paths:
+            pen = SVGPathPen(self.glyphs)
+            self.glyphs[name].draw(pen)
+            self.paths[name] = pen.getCommands()
+        return self.paths[name]
+
+    def width(self, text: str, size: float) -> float:
+        return sum(
+            self.glyphs[self.glyph(c)].width for c in text if not unicodedata.combining(c)
+        ) * size / self.upm
+
+
+class Drawing:
+    """Collects the glyphs one SVG uses, to define each of them once."""
+
+    def __init__(self, font: Font):
+        self.font = font
+        self.used = {}  # glyph name -> id
+
+    def text(self, x, y, text, cls, anchor="start"):
+        size = SIZES[cls.split()[0]]
+        if anchor != "start":
+            x -= self.font.width(text, size) / (2 if anchor == "middle" else 1)
+        scale = size / self.font.upm
+        uses = []
+        base_x = x
+        for c in text:
+            name = self.font.glyph(c)
+            # In a monospaced font, a combining mark is centered in a full
+            # cell; drawn at the preceding character's position, it sits on it.
+            mark = unicodedata.combining(c) > 0
+            gx = base_x if mark else x
+            if self.font.path(name):
+                gid = self.used.setdefault(name, f"g{len(self.used)}")
+                uses.append(f'<use href="#{gid}" transform="translate({gx:.1f} {y:.1f}) scale({scale:.5f} {-scale:.5f})"/>')
+            if not mark:
+                base_x = x
+                x += self.font.glyphs[name].width * scale
+        return f'<g class="{cls}">' + "".join(uses) + "</g>"
+
+    def defs(self) -> str:
+        paths = "".join(f'<path id="{gid}" d="{self.font.path(name)}"/>' for name, gid in self.used.items())
+        return f"<defs>{paths}</defs>"
+
+
+def diagram(layout: Layout, font: Font, title: str, legends, active=None) -> str:
     """SVG for one view. `legends(key)` gives (top, bottom) for a key, each
     None (nothing), ("char", text), or ("dead", DeadKey)."""
+    drawing = Drawing(font)
+    _text = drawing.text
     width, height = 15 * U + 2 * PAD, 5 * U + 2 * PAD + 26
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
@@ -138,6 +209,7 @@ def diagram(layout: Layout, title: str, legends, active=None) -> str:
                 parts.append(_text(x + 9, ly - 2, short_note(value), "note"))
             else:
                 parts.append(_text(x + 9, ly, display(value), "out"))
+    parts.insert(3, drawing.defs())
     parts.append("</svg>")
     return "\n".join(parts) + "\n"
 
@@ -154,16 +226,16 @@ def _legend(binding, dead_map=None):
     return None
 
 
-def alternative(layout: Layout) -> str:
+def alternative(layout: Layout, font: Font) -> str:
     def legends(key):
         dead = lambda b: _legend(b) if not isinstance(b, Dead) else ("dead", layout.dead[b.id])  # noqa: E731
         upper = key.layers["shift-option"] if key.physical.shift != key.physical.base else None
         return dead(upper) if upper is not None else None, dead(key.layers["option"])
 
-    return diagram(layout, "Alternative layer: Option (macOS) or AltGr (Windows, Linux); top: with Shift", legends)
+    return diagram(layout, font, "Alternative layer: Option (macOS) or AltGr (Windows, Linux); top: with Shift", legends)
 
 
-def dead_key(layout: Layout, dead_id: str) -> str:
+def dead_key(layout: Layout, font: Font, dead_id: str) -> str:
     dead = layout.dead[dead_id]
 
     def legends(key):
@@ -178,12 +250,13 @@ def dead_key(layout: Layout, dead_id: str) -> str:
         for layer in ("option", "shift-option")
         if isinstance(key.layers[layer], Dead) and key.layers[layer].id == dead_id
     )
-    return diagram(layout, f"Dead key: {dead.name} ({dead.desc})", legends, active=trigger)
+    return diagram(layout, font, f"Dead key: {dead.name} ({dead.desc})", legends, active=trigger)
 
 
-def all_diagrams(layout: Layout) -> dict:
+def all_diagrams(layout: Layout, font_path: Path = DEFAULT_FONT) -> dict:
     """{file name: SVG} for all diagrams."""
-    result = {"alternative.svg": alternative(layout)}
+    font = Font(font_path)
+    result = {"alternative.svg": alternative(layout, font)}
     for dead_id in layout.dead:
-        result[f"dead-{dead_id}.svg"] = dead_key(layout, dead_id)
+        result[f"dead-{dead_id}.svg"] = dead_key(layout, font, dead_id)
     return result

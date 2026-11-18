@@ -6,10 +6,13 @@ If this fails after changing layout.toml or layoutgen, run `make docs`.
 import re
 from pathlib import Path
 
+import pytest
+
 from layoutgen import docs, model, svg
 
 ROOT = Path(__file__).resolve().parent.parent
 LAYOUT = model.load(ROOT / "layout.toml")
+FONT = ROOT / svg.DEFAULT_FONT
 
 
 def test_readme_up_to_date():
@@ -17,9 +20,10 @@ def test_readme_up_to_date():
     assert docs.update_readme(readme, LAYOUT) == readme, "run `make docs`"
 
 
+@pytest.mark.skipif(not FONT.exists(), reason="run `make fonts`")
 def test_diagrams_up_to_date():
     diagram_dir = ROOT / docs.DIAGRAM_DIR
-    expected = svg.all_diagrams(LAYOUT)
+    expected = svg.all_diagrams(LAYOUT, FONT)
     assert sorted(p.name for p in diagram_dir.glob("*.svg")) == sorted(expected), "run `make docs`"
     for name, content in expected.items():
         assert (diagram_dir / name).read_text(encoding="utf-8") == content, f"{name}: run `make docs`"

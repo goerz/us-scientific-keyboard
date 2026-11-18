@@ -10,6 +10,7 @@ from . import cheatsheet, docs, keyman, macos, model, svg, windows
 def main(argv=None) -> None:
     parser = argparse.ArgumentParser(prog="layoutgen", description=__doc__)
     parser.add_argument("--layout", type=Path, default=Path("layout.toml"))
+    parser.add_argument("--font", type=Path, default=svg.DEFAULT_FONT, help="font for diagrams")
     sub = parser.add_subparsers(dest="target", required=True)
 
     p = sub.add_parser("keylayout", help="macOS .keylayout file")
@@ -57,7 +58,7 @@ def main(argv=None) -> None:
     elif args.target == "docs":
         args.readme.write_text(docs.update_readme(args.readme.read_text(encoding="utf-8"), layout), encoding="utf-8")
         args.diagrams.mkdir(parents=True, exist_ok=True)
-        for name, content in svg.all_diagrams(layout).items():
+        for name, content in svg.all_diagrams(layout, args.font).items():
             (args.diagrams / name).write_text(content, encoding="utf-8")
     elif args.target == "cheatsheet":
-        cheatsheet.write(layout, args.output)
+        cheatsheet.write(layout, args.output, args.font)

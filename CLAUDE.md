@@ -16,7 +16,7 @@ Derived, not written in the TOML: the plain and Shift layers (US), Caps Lock (Sh
 - `model.py`: loads and validates `layout.toml`; `Layout.binding(key, layer, platform)` is what all generators use (layers include the derived `caps` and `caps-option`).
 - `macos.py`: `.keylayout` (filled into `templates/macos.keylayout`, which holds the non-character keys, Command/Control layers, and JIS key maps) and the `.bundle`.
 - `keyman.py`: `.kmn` and `.kps`. `windows.py`: native layout DLL source against `kbd.h` plus scripts from `templates/windows/` (CRLF, see `.gitattributes`; `@@DLL@@`/`@@NAME@@` placeholders). Native Windows dead keys can't produce non-BMP characters; those are dropped and reported.
-- `svg.py`, `docs.py`, `cheatsheet.py`: keyboard diagrams, the generated README sections (between `<!-- BEGIN/END generated: NAME -->` markers), and the PDF cheat sheet.
+- `svg.py`, `docs.py`, `cheatsheet.py`: keyboard diagrams, the generated README sections (between `<!-- BEGIN/END generated: NAME -->` markers), and the PDF cheat sheet. The diagrams draw all text as glyph outlines from JuliaMono (`fonts/JuliaMono-Regular.ttf`, downloaded and checksum-verified by `make fonts`, gitignored); combining marks are placed at the preceding character's position, since there's no text shaping. A character missing from the font is an error.
 
 ## Make
 

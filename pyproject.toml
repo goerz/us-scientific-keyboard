@@ -4,7 +4,7 @@ version = "4.0.0"
 description = "Generate the U.S. International - Scientific keyboard layout for macOS, Windows, and Linux from layout.toml"
 license = "MIT"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = ["fonttools>=4.50"]
 
 [project.scripts]
 layoutgen = "layoutgen.cli:main"
