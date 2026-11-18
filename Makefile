@@ -85,15 +85,28 @@ build/us-scientific.pdf: build/cheatsheet/cheatsheet.tex
 docs: $(SOURCES) $(FONT)
 	$(LAYOUTGEN) docs
 
-# Install for the current user, as appropriate for the operating system
+# Install, as appropriate for the operating system: for the current user, or
+# with SYSTEM=1 for all users (macOS; asks for the sudo password only for the
+# copy, and removes the current user's copy)
 UNAME := $(shell uname -s)
-MACOS_LAYOUTS ?= $(HOME)/Library/Keyboard Layouts
+USER_LAYOUTS = $(HOME)/Library/Keyboard Layouts
+ifdef SYSTEM
+MACOS_LAYOUTS ?= /Library/Keyboard Layouts
+SUDO = sudo
+else
+MACOS_LAYOUTS ?= $(USER_LAYOUTS)
+SUDO =
+endif
 
 ifeq ($(UNAME),Darwin)
 install: build/$(ID).bundle
-	rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
-	mkdir -p "$(MACOS_LAYOUTS)"
-	cp -R build/$(ID).bundle "$(MACOS_LAYOUTS)/"
+	$(SUDO) rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
+	$(SUDO) mkdir -p "$(MACOS_LAYOUTS)"
+	$(SUDO) cp -R build/$(ID).bundle "$(MACOS_LAYOUTS)/"
+	@if [ "$(MACOS_LAYOUTS)" != "$(USER_LAYOUTS)" ] && [ -e "$(USER_LAYOUTS)/$(ID).bundle" ]; then \
+	    rm -rf "$(USER_LAYOUTS)/$(ID).bundle"; \
+	    echo "Removed the copy in $(USER_LAYOUTS)."; \
+	fi
 	@echo "Installed $(ID).bundle in $(MACOS_LAYOUTS)."
 	@swift tools/macos-activate.swift "$(MACOS_LAYOUTS)/$(ID).bundle" 2>&1 | grep -v '^Keyboard Layouts:' || true
 	@for dir in "$(HOME)/Library/Keyboard Layouts" "/Library/Keyboard Layouts"; do \
@@ -104,8 +117,8 @@ install: build/$(ID).bundle
 	done
 
 uninstall:
-	rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
-	@echo "Removed $(ID).bundle; log out and back in to finish."
+	$(SUDO) rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
+	@echo "Removed $(ID).bundle from $(MACOS_LAYOUTS); log out and back in to finish."
 else ifeq ($(UNAME),Linux)
 install: build/$(ID).kmp
 	@command -v km-package-install > /dev/null || \
