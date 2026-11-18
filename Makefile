@@ -1,5 +1,3 @@
-.PHONY: all macos keyman windows cheatsheet docs fonts test install uninstall clean
-
 # Everything is generated from layout.toml by the layoutgen package.
 SOURCES = layout.toml $(shell find src/layoutgen -type f -not -name '*.pyc')
 LAYOUTGEN = uv run --quiet layoutgen
@@ -7,18 +5,25 @@ KMC = npx -y @keymanapp/kmc@18.0.255
 ID = us_scientific
 DLL = kbdussci
 
-all: macos keyman windows cheatsheet
-
-test: $(FONT)
-	uv run --quiet pytest
-
 # JuliaMono (SIL Open Font License) for the diagrams and the cheat sheet,
 # from https://github.com/cormullion/juliamono
 JULIAMONO = v0.63.2
 JULIAMONO_SHA256 = be6517295198ec5c92bdbaad42f4f6f8d83f921d80512b79f54fe036add95c0c
 FONT = fonts/JuliaMono-Regular.ttf
 
-fonts: $(FONT)
+.PHONY: help all macos keyman windows cheatsheet docs fonts test install uninstall clean
+
+.DEFAULT_GOAL := help
+
+help:  ## Show this help
+	@grep -E '^([a-zA-Z_-]+):.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "%-12s %s\n", $$1, $$2}'
+
+all: macos keyman windows cheatsheet  ## Build everything into build/
+
+test: $(FONT)  ## Run the tests (generated layouts against layout.toml, README up to date)
+	uv run --quiet pytest
+
+fonts: $(FONT)  ## Download the JuliaMono font into fonts/
 
 $(FONT):
 	rm -rf fonts/download && mkdir -p fonts/download
@@ -29,8 +34,7 @@ $(FONT):
 	mv fonts/LICENSE fonts/JuliaMono-LICENSE
 	rm -rf fonts/download
 
-# macOS: installable bundle, zipped for download
-macos: build/$(ID).bundle.zip
+macos: build/$(ID).bundle.zip  ## Build the macOS bundle, zipped for download
 
 build/$(ID).bundle: $(SOURCES) icon.icns
 	$(LAYOUTGEN) bundle $@ --icon icon.icns
@@ -40,8 +44,7 @@ build/$(ID).bundle.zip: build/$(ID).bundle
 	rm -f $@
 	cd build && zip -q -r $(notdir $@) $(ID).bundle
 
-# Keyman (Windows, macOS, Linux): compiled keyboard package
-keyman: build/$(ID).kmp
+keyman: build/$(ID).kmp  ## Build the Keyman package (Windows, macOS, Linux)
 
 build/keyman/$(ID).kmn: $(SOURCES)
 	$(LAYOUTGEN) keyman build/keyman --license ../../LICENSE
@@ -58,8 +61,7 @@ build/keyman/$(ID).kmx: build/keyman/$(ID).kmn build/keyman/$(ID).ico
 build/$(ID).kmp: build/keyman/$(ID).kmx LICENSE
 	$(KMC) build build/keyman/$(ID).kps --out-file $@
 
-# Native Windows layout: source and scripts, zipped for building on Windows
-windows: build/$(DLL)-src.zip
+windows: build/$(DLL)-src.zip  ## Build the native Windows layout source, zipped for building on Windows
 
 build/windows/$(DLL).c: $(SOURCES)
 	$(LAYOUTGEN) windows build/windows
@@ -69,8 +71,8 @@ build/$(DLL)-src.zip: build/windows/$(DLL).c LICENSE
 	rm -f $@
 	cd build/windows && zip -q ../$(notdir $@) *
 
-# Cheat sheet: diagrams as PDF, assembled with LuaLaTeX
-cheatsheet: build/us-scientific.pdf
+# Diagrams as PDF, assembled with LuaLaTeX
+cheatsheet: build/us-scientific.pdf  ## Build the PDF cheat sheet
 
 build/cheatsheet/cheatsheet.tex: $(SOURCES) $(FONT)
 	rm -rf build/cheatsheet
@@ -81,8 +83,8 @@ build/us-scientific.pdf: build/cheatsheet/cheatsheet.tex
 	cd build/cheatsheet && lualatex -interaction=nonstopmode -halt-on-error cheatsheet.tex > /dev/null
 	cp build/cheatsheet/cheatsheet.pdf $@
 
-# README tables and diagrams (committed, so that GitHub shows them)
-docs: $(SOURCES) $(FONT)
+# Committed, so that GitHub shows them
+docs: $(SOURCES) $(FONT)  ## Regenerate the README tables and docs/*.svg diagrams
 	$(LAYOUTGEN) docs
 
 # Install, as appropriate for the operating system: for the current user, or
@@ -97,6 +99,9 @@ else
 MACOS_LAYOUTS ?= $(USER_LAYOUTS)
 SUDO =
 endif
+
+install:  ## Install the layout for this OS (SYSTEM=1 on macOS: for all users)
+uninstall:  ## Remove the installed layout (SYSTEM=1 on macOS: for all users)
 
 ifeq ($(UNAME),Darwin)
 install: build/$(ID).bundle
@@ -135,5 +140,5 @@ install uninstall:
 	@echo "in its README.txt."
 endif
 
-clean:
+clean:  ## Remove build/
 	rm -rf build

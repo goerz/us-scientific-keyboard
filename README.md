@@ -290,7 +290,7 @@ After changing it, run `make docs` to update this README and the diagrams, and `
 
 The `Makefile` drives the [`layoutgen`](src/layoutgen) package, which needs [uv](https://docs.astral.sh/uv/):
 
-* `make` builds everything into `build/`: the macOS bundle (`make macos`), the Keyman package (`make keyman`, which also needs Node.js for Keyman's `kmc` compiler and ImageMagick for the icon), the native Windows source (`make windows`), and the PDF cheat sheet (`make cheatsheet`, which needs `rsvg-convert` and LuaLaTeX).
+* `make` lists the available targets. `make all` builds everything into `build/`: the macOS bundle (`make macos`), the Keyman package (`make keyman`, which also needs Node.js for Keyman's `kmc` compiler and ImageMagick for the icon), the native Windows source (`make windows`), and the PDF cheat sheet (`make cheatsheet`, which needs `rsvg-convert` and LuaLaTeX).
 * `make install` and `make uninstall` install or remove the layout for the current user, as appropriate for the operating system (see [Installation](#installation)).
 * `make docs` regenerates the tables and diagrams in this README.
 * The diagrams and the cheat sheet are set in [JuliaMono](https://github.com/cormullion/juliamono) (SIL Open Font License), which `make fonts` downloads into `fonts/`; the diagrams contain the glyph outlines, so viewing them doesn't need the font.
