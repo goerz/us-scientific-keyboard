@@ -18,6 +18,7 @@ Derived, not written in the TOML: the plain and Shift layers (US), Caps Lock (Sh
   The `.keylayout` is filled into `templates/macos.keylayout`, which holds the non-character keys, Command/Control layers, and JIS key maps.
 - `keyman.py`: `.kmn` and `.kps`. `windows.py`: native layout DLL source against `kbd.h` plus scripts from `templates/windows/` (CRLF, see `.gitattributes`; `@@DLL@@`/`@@NAME@@` placeholders). Native Windows dead keys can't produce non-BMP characters; those are dropped and reported.
 - `svg.py`, `docs.py`, `cheatsheet.py`: keyboard diagrams, the generated README sections (between `<!-- BEGIN/END generated: NAME -->` markers), and the PDF cheat sheet. The diagrams draw all text as glyph outlines from JuliaMono (`fonts/JuliaMono-Regular.ttf`, downloaded and checksum-verified by `make fonts`, gitignored); combining marks are placed at the preceding character's position, since there's no text shaping. A character missing from the font is an error.
+  The cheat sheet must fit on one sheet printed double-sided (two letter pages): it uses compact diagrams (`compact=True`, no title line), five per page, with each description in a column beside its diagram.
 
 ## Make
 

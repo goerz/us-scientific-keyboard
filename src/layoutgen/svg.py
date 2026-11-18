@@ -159,12 +159,14 @@ class Drawing:
         return f"<defs>{paths}</defs>"
 
 
-def diagram(layout: Layout, font: Font, title: str, legends, active=None) -> str:
+def diagram(layout: Layout, font: Font, title: str, legends, active=None, compact=False) -> str:
     """SVG for one view. `legends(key)` gives (top, bottom) for a key, each
-    None (nothing), ("char", text), or ("dead", DeadKey)."""
+    None (nothing), ("char", text), or ("dead", DeadKey). A compact diagram
+    (for the cheat sheet) has no title line."""
     drawing = Drawing(font)
     _text = drawing.text
-    width, height = 15 * U + 2 * PAD, 5 * U + 2 * PAD + 26
+    title_height = 0 if compact else 26
+    width, height = 15 * U + 2 * PAD, 5 * U + 2 * PAD + title_height
     parts = [
         f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
         f'viewBox="0 0 {width} {height}" role="img">',
@@ -172,8 +174,9 @@ def diagram(layout: Layout, font: Font, title: str, legends, active=None) -> str
         f"<style>{STYLE}</style>",
         f'<rect class="bg" x="0" y="0" width="{width}" height="{height}" rx="10"/>',
     ]
-    top = PAD + 26
-    parts.append(_text(PAD + 4, PAD + 16, title, "note"))
+    top = PAD + title_height
+    if not compact:
+        parts.append(_text(PAD + 4, PAD + 16, title, "note"))
     for row, col, w, label in FRAME:
         x, y = PAD + col * U, top + row * U
         parts.append(_box(x, y, w, "frame"))
@@ -226,16 +229,19 @@ def _legend(binding, dead_map=None):
     return None
 
 
-def alternative(layout: Layout, font: Font) -> str:
+def alternative(layout: Layout, font: Font, compact=False) -> str:
     def legends(key):
         dead = lambda b: _legend(b) if not isinstance(b, Dead) else ("dead", layout.dead[b.id])  # noqa: E731
         upper = key.layers["shift-option"] if key.physical.shift != key.physical.base else None
         return dead(upper) if upper is not None else None, dead(key.layers["option"])
 
-    return diagram(layout, font, "Alternative layer: Option (macOS) or AltGr (Windows, Linux); top: with Shift", legends)
+    return diagram(
+        layout, font, "Alternative layer: Option (macOS) or AltGr (Windows, Linux); top: with Shift", legends,
+        compact=compact,
+    )
 
 
-def dead_key(layout: Layout, font: Font, dead_id: str) -> str:
+def dead_key(layout: Layout, font: Font, dead_id: str, compact=False) -> str:
     dead = layout.dead[dead_id]
 
     def legends(key):
@@ -250,13 +256,15 @@ def dead_key(layout: Layout, font: Font, dead_id: str) -> str:
         for layer in ("option", "shift-option")
         if isinstance(key.layers[layer], Dead) and key.layers[layer].id == dead_id
     )
-    return diagram(layout, font, f"Dead key: {dead.name} ({dead.desc})", legends, active=trigger)
+    return diagram(
+        layout, font, f"Dead key: {dead.name} ({dead.desc})", legends, active=trigger, compact=compact
+    )
 
 
-def all_diagrams(layout: Layout, font_path: Path = DEFAULT_FONT) -> dict:
+def all_diagrams(layout: Layout, font_path: Path = DEFAULT_FONT, compact=False) -> dict:
     """{file name: SVG} for all diagrams."""
     font = Font(font_path)
-    result = {"alternative.svg": alternative(layout, font)}
+    result = {"alternative.svg": alternative(layout, font, compact)}
     for dead_id in layout.dead:
-        result[f"dead-{dead_id}.svg"] = dead_key(layout, font, dead_id)
+        result[f"dead-{dead_id}.svg"] = dead_key(layout, font, dead_id, compact)
     return result
