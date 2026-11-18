@@ -1,6 +1,10 @@
 # Changelog
 
-All notable changes to this project are documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+All notable changes to this project are documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html), applied to what the keys type:
+
+- Major: something that worked before works differently, e.g., a key or dead key types something else or nothing anymore, Caps Lock or a modifier behaves differently, or the layout has to be reinstalled or selected again.
+- Minor: additions that don't change anything existing, e.g., a character on a free key, a new dead key entry, or a new platform or package.
+- Patch: fixes that don't change `layout.toml`, such as a platform that didn't do what `layout.toml` says, and fixes to the documentation, cheat sheet, or packaging.
 
 ## [Unreleased]
 
