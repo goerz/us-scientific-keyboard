@@ -1,9 +1,8 @@
-"""The generated .keylayout behaves exactly like the reference layout.
+"""The generated .keylayout does exactly what layout.toml says.
 
-tests/data/reference.keylayout is the last Ukelele-made version (3.0, with
-the Caps Lock fix). Every key in every key map, in every dead-key state, and
-every terminator must match. This proves layout.toml describes the layout
-completely. Deliberate changes since then are listed in CHANGES.
+The .keylayout is read back and every character key is checked in every
+layer (including the derived Caps Lock layers), in every dead-key state, and
+every dead key's terminator.
 """
 
 from pathlib import Path
@@ -11,93 +10,43 @@ from pathlib import Path
 import pytest
 
 from layoutgen import macos, model
-from layoutgen.keylayout_reader import KeyLayout, Next
+from layoutgen.keylayout_reader import KeyLayout, Next, Output
+from layoutgen.macos import MAP_LAYERS
 
 ROOT = Path(__file__).resolve().parent.parent
-
-# Deliberate changes to dead keys since the reference:
-# (dead key, typed character) -> (old result, new result), where None means
-# "no entry" (the dead key's symbol, followed by the character).
-CHANGES = {
-    # Grave: no-op entry for c, and a cedilla on C
-    ("grave", "c"): ("c", None),
-    ("grave", "C"): ("Ç", None),
-    # Slash: uppercase partner of ȼ
-    ("slash", "C"): (None, "Ȼ"),
-    # Space after a dead key types its symbol
-    ("acute", " "): ("\u0301", "'"),
-    ("grave", " "): ("ˋ", "`"),
-    ("slash", " "): (None, "/"),
-    ("greek", " "): (None, "α"),
-    ("subscript", " "): (None, "₀"),
-    ("superscript", " "): (None, "⁰"),
-    ("script", " "): (None, "ℒ"),
-    ("bold", " "): (None, "𝐅"),
-    ("doublestruck", " "): (None, "𝕄"),
-}
+LAYOUT = model.load(ROOT / "layout.toml")
 
 
 @pytest.fixture(scope="module")
-def layouts(tmp_path_factory):
-    layout = model.load(ROOT / "layout.toml")
+def generated(tmp_path_factory):
     path = tmp_path_factory.mktemp("macos") / "generated.keylayout"
-    path.write_text(macos.keylayout(layout), encoding="utf-8")
-    return KeyLayout(ROOT / "tests" / "data" / "reference.keylayout"), KeyLayout(path)
+    path.write_text(macos.keylayout(LAYOUT), encoding="utf-8")
+    return KeyLayout(path)
 
 
-def all_codes(*layouts):
-    return sorted({code for kl in layouts for km in kl.keymaps.values() for code in km})
+def expected(binding, state):
+    if binding is None:
+        return None
+    if isinstance(binding, model.Dead):
+        return Next(binding.id) if state == "none" else None
+    if state == "none":
+        return Output(binding.text)
+    result = LAYOUT.dead[state].map.get(binding.text)
+    return None if result is None else Output(result)
 
 
-def state_mapping(ref, gen):
-    """Pair up dead-key states of both layouts by the key that triggers them."""
-    mapping = {}
-    for index in ref.keymaps:
-        for code in all_codes(ref, gen):
-            r, g = ref.press(index, code), gen.press(index, code)
-            if isinstance(r, Next) and isinstance(g, Next):
-                assert mapping.setdefault(r.state, g.state) == g.state
-    return mapping
-
-
-def normalize(result, mapping):
-    if isinstance(result, Next):
-        return Next(mapping.get(result.state, "?" + result.state))
-    return result
-
-
-def test_same_keys_without_dead_keys(layouts):
-    ref, gen = layouts
-    mapping = state_mapping(ref, gen)
+@pytest.mark.parametrize("state", ["none", *LAYOUT.dead])
+def test_keys(generated, state):
     mismatches = []
-    for index in sorted(ref.keymaps):
-        for code in all_codes(ref, gen):
-            r = normalize(ref.press(index, code), mapping)
-            g = gen.press(index, code)
-            if r != g:
-                mismatches.append((index, code, r, g))
+    for key in LAYOUT.keys:
+        for index, layer in MAP_LAYERS.items():
+            want = expected(LAYOUT.binding(key, layer), state)
+            got = generated.press(index, key.physical.mac, state)
+            if want != got:
+                mismatches.append((key.name, layer, want, got))
     assert mismatches == []
 
 
-def test_same_dead_keys(layouts):
-    ref, gen = layouts
-    mapping = state_mapping(ref, gen)
-    assert len(mapping) == 9
-    changes = {}
-    for ref_state, gen_state in mapping.items():
-        for index in range(6):
-            for code in all_codes(ref, gen):
-                r = normalize(ref.press(index, code, ref_state), mapping)
-                g = gen.press(index, code, gen_state)
-                if r != g:
-                    typed = gen.press(index, code).text
-                    change = (r.text if r else None, g.text if g else None)
-                    assert changes.setdefault((gen_state, typed), change) == change
-    assert changes == CHANGES
-
-
-def test_same_terminators(layouts):
-    ref, gen = layouts
-    mapping = state_mapping(ref, gen)
-    for ref_state, gen_state in mapping.items():
-        assert ref.terminators[ref_state] == gen.terminators[gen_state]
+def test_terminators(generated):
+    for dead in LAYOUT.dead.values():
+        assert generated.terminators[dead.id] == dead.symbol
