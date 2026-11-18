@@ -2,7 +2,7 @@
 
 ## What this is
 
-The "US Scientific" keyboard layout (successor of the macOS-only "U.S. International - Scientific", github.com/goerz/USScientific.bundle). `layout.toml` is the single source of the layout; the `layoutgen` package (`src/layoutgen/`, run with `uv run layoutgen`) generates everything else. Never edit generated files by hand.
+The "U.S. Scientific" keyboard layout (successor of the macOS-only "U.S. International - Scientific", github.com/goerz/USScientific.bundle). `layout.toml` is the single source of the layout; the `layoutgen` package (`src/layoutgen/`, run with `uv run layoutgen`) generates everything else. Never edit generated files by hand.
 
 ## layout.toml
 

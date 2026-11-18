@@ -1,4 +1,4 @@
-# US Scientific keyboard layout
+# U.S. Scientific keyboard layout
 #
 # This file is the single source of the layout for all platforms.
 #
@@ -14,7 +14,7 @@
 # characters without a note are described by their Unicode name.
 
 [layout]
-name = "US Scientific"
+name = "U.S. Scientific"
 id = "us_scientific"
 version = "4.0.0"
 author = "Michael Goerz"

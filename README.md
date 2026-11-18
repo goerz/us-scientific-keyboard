@@ -1,4 +1,4 @@
-# US Scientific
+# U.S. Scientific
 
 A keyboard layout for typing Unicode math and European accented characters directly, on a standard US keyboard, on macOS, Windows, and Linux.
 
@@ -227,7 +227,7 @@ From a clone of this repository, `make install` builds and installs the layout f
 
 ### macOS
 
-Unzip `us_scientific.bundle.zip` and copy `us_scientific.bundle` to `~/Library/Keyboard Layouts/` (for the current user) or `/Library/Keyboard Layouts/` (for all users). Log out and back in. Then add the layout in System Settings, under Keyboard, Text Input, Input Sources, as "US Scientific" (in the English group).
+Unzip `us_scientific.bundle.zip` and copy `us_scientific.bundle` to `~/Library/Keyboard Layouts/` (for the current user) or `/Library/Keyboard Layouts/` (for all users). Log out and back in. Then add the layout in System Settings, under Keyboard, Text Input, Input Sources, as "U.S. Scientific" (in the English group).
 
 If you used the predecessor, "U.S. International - Scientific", remove its `USScientific.bundle` from the same folder.
 
