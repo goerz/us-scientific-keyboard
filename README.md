@@ -1,5 +1,9 @@
 # U.S. Scientific
 
+[![CI](https://github.com/goerz/us-scientific-keyboard/actions/workflows/ci.yml/badge.svg)](https://github.com/goerz/us-scientific-keyboard/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/goerz/us-scientific-keyboard)](https://github.com/goerz/us-scientific-keyboard/releases/latest)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A keyboard layout for typing Unicode math and European accented characters directly, on a standard US keyboard, on macOS, Windows, and Linux.
 
 Without modifiers, it is the standard US layout. The alternative layer (Option on macOS, AltGr, that is, the right Alt key, on Windows and Linux) adds:
