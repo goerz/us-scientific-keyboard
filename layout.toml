@@ -27,7 +27,7 @@ windows-dll = "kbdussci"
 
 [alternative]
 # number row
-"~" = "̃"  # combining tilde
+"~" = "\u0303"  # combining tilde
 1 = "′"
 "!" = "¡"
 2 = "²"
@@ -36,10 +36,10 @@ windows-dll = "kbdussci"
 "#" = "∫"
 4 = "∀"
 "$" = "€"
-5 = "̅"  # combining overline
+5 = "\u0305"  # combining overline
 "%" = "÷"
 6 = "⋅"
-"^" = "̂"  # combining circumflex accent
+"^" = "\u0302"  # combining circumflex accent
 7 = "≠"
 "&" = "≢"
 8 = "∞"
@@ -93,10 +93,10 @@ j = "←"
 J = "⇐"
 k = "→"
 K = "⇒"
-l = "⃗"  # combining right arrow above
+l = "\u20D7"  # combining right arrow above
 L = "⇔"
-";" = "̇"  # combining dot above
-":" = "̈"  # combining diaeresis
+";" = "\u0307"  # combining dot above
+":" = "\u0308"  # combining diaeresis
 "\"" = "″"
 # bottom row
 x = "×"
@@ -116,7 +116,7 @@ m = "µ"
 ">" = "≥"
 "?" = "¿"
 # space bar
-" " = " "  # no-break space
+" " = "\u00A0"  # no-break space
 
 [dead.acute]
 key = "'"
@@ -569,7 +569,7 @@ Z = "ℤ"
 9 = "𝟡"
 
 [notes]
-"̃" = "combining over-tilde for the previous character, e.g., ``S⌥⇧` `` gives `S̃` (Fourier transform)"  # combining tilde
+"\u0303" = "combining over-tilde for the previous character, e.g., ``S⌥⇧` `` gives `S̃` (Fourier transform)"  # combining tilde
 "′" = "prime"
 "¡" = "inverted exclamation mark"
 "²" = "square"
@@ -578,10 +578,10 @@ Z = "ℤ"
 "∫" = "integral"
 "∀" = "for all"
 "€" = "euro"
-"̅" = "combining over-bar for the previous character, e.g., `z⌥5` gives `z̅` (complex conjugate)"  # combining overline
+"\u0305" = "combining over-bar for the previous character, e.g., `z⌥5` gives `z̅` (complex conjugate)"  # combining overline
 "÷" = "division sign (integer division in Julia)"
 "⋅" = "dot operator (inner product)"
-"̂" = "combining hat for the previous character, e.g., `H⌥⇧6` gives `Ĥ` (operator)"  # combining circumflex accent
+"\u0302" = "combining hat for the previous character, e.g., `H⌥⇧6` gives `Ĥ` (operator)"  # combining circumflex accent
 "≠" = "not equal"
 "≢" = "not identical to"
 "∞" = "infinity"
@@ -632,10 +632,10 @@ Z = "ℤ"
 "⇐" = "double left arrow"
 "→" = "right arrow"
 "⇒" = "double right arrow (implies)"
-"⃗" = "combining over-arrow (vector) for the previous character, e.g., `v⌥l` gives `v⃗`"  # combining right arrow above
+"\u20D7" = "combining over-arrow (vector) for the previous character, e.g., `v⌥l` gives `v⃗`"  # combining right arrow above
 "⇔" = "double left-right arrow (logically equivalent)"
-"̇" = "combining over-dot for the previous character, e.g., `x⌥;` gives `ẋ` (time derivative)"  # combining dot above
-"̈" = "combining double dot for the previous character, e.g., `x⌥⇧;` gives `ẍ` (second time derivative)"  # combining diaeresis
+"\u0307" = "combining over-dot for the previous character, e.g., `x⌥;` gives `ẋ` (time derivative)"  # combining dot above
+"\u0308" = "combining double dot for the previous character, e.g., `x⌥⇧;` gives `ẍ` (second time derivative)"  # combining diaeresis
 "″" = "double prime"
 "×" = "multiplication sign, e.g., `3×10⁻³`"
 "⊗" = "tensor (Kronecker) product"
