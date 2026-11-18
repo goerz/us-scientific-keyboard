@@ -1,4 +1,4 @@
-.PHONY: all macos keyman windows test clean
+.PHONY: all macos keyman windows cheatsheet docs test clean
 
 # Everything is generated from layout.toml by the layoutgen package.
 SOURCES = layout.toml $(shell find src/layoutgen -type f -not -name '*.pyc')
@@ -7,7 +7,7 @@ KMC = npx -y @keymanapp/kmc@18.0.255
 ID = us_scientific
 DLL = kbdussci
 
-all: macos keyman windows
+all: macos keyman windows cheatsheet
 
 test:
 	uv run --quiet pytest
@@ -51,6 +51,22 @@ build/$(DLL)-src.zip: build/windows/$(DLL).c LICENSE
 	cp LICENSE build/windows/LICENSE.txt
 	rm -f $@
 	cd build/windows && zip -q ../$(notdir $@) *
+
+# Cheat sheet: diagrams as PDF, assembled with LuaLaTeX
+cheatsheet: build/us-scientific.pdf
+
+build/cheatsheet/cheatsheet.tex: $(SOURCES)
+	rm -rf build/cheatsheet
+	$(LAYOUTGEN) cheatsheet build/cheatsheet
+	cd build/cheatsheet && for f in *.svg; do rsvg-convert -f pdf "$$f" -o "$${f%.svg}.pdf"; done
+
+build/us-scientific.pdf: build/cheatsheet/cheatsheet.tex
+	cd build/cheatsheet && lualatex -interaction=nonstopmode -halt-on-error cheatsheet.tex > /dev/null
+	cp build/cheatsheet/cheatsheet.pdf $@
+
+# README tables and diagrams (committed, so that GitHub shows them)
+docs: $(SOURCES)
+	$(LAYOUTGEN) docs
 
 clean:
 	rm -rf build

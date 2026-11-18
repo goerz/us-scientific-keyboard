@@ -1,0 +1,197 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="916" height="342" viewBox="0 0 916 342" role="img">
+<title>Dead key: Greek (Greek letters, plus the first few Hebrew letters used in mathematics)</title>
+<style>
+  .key { fill: #ffffff; stroke: #9a9a9a; stroke-width: 1; }
+  .frame { fill: #ececec; stroke: #c4c4c4; stroke-width: 1; }
+  .badge { fill: #4a4a4a; }
+  .active { fill: #f6c445; stroke: #c99a17; }
+  .unused { fill: #f4f4f4; stroke: #d6d6d6; }
+  .out { font-family: 'STIX Two Math', 'STIX Two Text', 'Cambria Math', 'Noto Sans Math',
+         'Apple Symbols', 'Segoe UI Symbol', 'DejaVu Sans', sans-serif;
+         font-size: 22px; fill: #111111; }
+  .dead-out { fill: #ffffff; }
+  .label { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+           font-size: 10px; fill: #8a8a8a; }
+  .note { font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+          font-size: 9px; fill: #5a5a5a; }
+  .bg { fill: #f8f8f8; }
+  @media (prefers-color-scheme: dark) {
+    .bg { fill: #1e1e1e; }
+    .key { fill: #2d2d2d; stroke: #5c5c5c; }
+    .frame { fill: #262626; stroke: #444444; }
+    .unused { fill: #232323; stroke: #3a3a3a; }
+    .badge { fill: #c8c8c8; }
+    .dead-out { fill: #111111; }
+    .active { fill: #8a6a10; stroke: #c99a17; }
+    .out { fill: #eeeeee; }
+    .label { fill: #8a8a8a; }
+    .note { fill: #b0b0b0; }
+  }
+</style>
+<rect class="bg" x="0" y="0" width="916" height="342" rx="10"/>
+<text class="note" x="12.0" y="24.0" text-anchor="start">Dead key: Greek (Greek letters, plus the first few Hebrew letters used in mathematics)</text>
+<rect class="frame" x="790.0" y="36.0" width="116.0" height="56" rx="6"/>
+<text class="label" x="796.0" y="84.0" text-anchor="start">delete</text>
+<rect class="frame" x="10.0" y="96.0" width="86.0" height="56" rx="6"/>
+<text class="label" x="16.0" y="144.0" text-anchor="start">tab</text>
+<rect class="frame" x="10.0" y="156.0" width="101.0" height="56" rx="6"/>
+<text class="label" x="16.0" y="204.0" text-anchor="start">caps lock</text>
+<rect class="frame" x="775.0" y="156.0" width="131.0" height="56" rx="6"/>
+<text class="label" x="781.0" y="204.0" text-anchor="start">return</text>
+<rect class="frame" x="10.0" y="216.0" width="131.0" height="56" rx="6"/>
+<text class="label" x="16.0" y="264.0" text-anchor="start">shift</text>
+<rect class="frame" x="745.0" y="216.0" width="161.0" height="56" rx="6"/>
+<text class="label" x="751.0" y="264.0" text-anchor="start">shift</text>
+<rect class="key unused" x="10.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="61.0" y="49.0" text-anchor="end">~ `</text>
+<rect class="key" x="70.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="121.0" y="49.0" text-anchor="end">! 1</text>
+<text class="out" x="77.0" y="82.0" text-anchor="start">ℵ</text>
+<rect class="key" x="130.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="181.0" y="49.0" text-anchor="end">@ 2</text>
+<text class="out" x="137.0" y="82.0" text-anchor="start">ℶ</text>
+<rect class="key" x="190.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="241.0" y="49.0" text-anchor="end"># 3</text>
+<text class="out" x="197.0" y="82.0" text-anchor="start">ℷ</text>
+<rect class="key" x="250.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="301.0" y="49.0" text-anchor="end">$ 4</text>
+<text class="out" x="257.0" y="82.0" text-anchor="start">ℸ</text>
+<rect class="key unused" x="310.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="361.0" y="49.0" text-anchor="end">% 5</text>
+<rect class="key unused" x="370.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="421.0" y="49.0" text-anchor="end">^ 6</text>
+<rect class="key unused" x="430.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="481.0" y="49.0" text-anchor="end">&amp; 7</text>
+<rect class="key unused" x="490.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="541.0" y="49.0" text-anchor="end">* 8</text>
+<rect class="key unused" x="550.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="601.0" y="49.0" text-anchor="end">( 9</text>
+<rect class="key unused" x="610.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="661.0" y="49.0" text-anchor="end">) 0</text>
+<rect class="key unused" x="670.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="721.0" y="49.0" text-anchor="end">_ -</text>
+<rect class="key unused" x="730.0" y="36.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="781.0" y="49.0" text-anchor="end">+ =</text>
+<rect class="key" x="100.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="151.0" y="109.0" text-anchor="end">Q</text>
+<text class="out" x="107.0" y="120.0" text-anchor="start">Ψ</text>
+<text class="out" x="107.0" y="142.0" text-anchor="start">ψ</text>
+<rect class="key" x="160.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="211.0" y="109.0" text-anchor="end">W</text>
+<text class="out" x="167.0" y="120.0" text-anchor="start">Ω</text>
+<text class="out" x="167.0" y="142.0" text-anchor="start">ω</text>
+<rect class="key" x="220.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="271.0" y="109.0" text-anchor="end">E</text>
+<text class="out" x="227.0" y="120.0" text-anchor="start">Ε</text>
+<text class="out" x="227.0" y="142.0" text-anchor="start">ϵ</text>
+<rect class="key" x="280.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="331.0" y="109.0" text-anchor="end">R</text>
+<text class="out" x="287.0" y="120.0" text-anchor="start">Ρ</text>
+<text class="out" x="287.0" y="142.0" text-anchor="start">ρ</text>
+<rect class="key" x="340.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="391.0" y="109.0" text-anchor="end">T</text>
+<text class="out" x="347.0" y="120.0" text-anchor="start">Τ</text>
+<text class="out" x="347.0" y="142.0" text-anchor="start">τ</text>
+<rect class="key" x="400.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="451.0" y="109.0" text-anchor="end">Y</text>
+<text class="out" x="407.0" y="120.0" text-anchor="start">Η</text>
+<text class="out" x="407.0" y="142.0" text-anchor="start">η</text>
+<rect class="key" x="460.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="511.0" y="109.0" text-anchor="end">U</text>
+<text class="out" x="467.0" y="120.0" text-anchor="start">Υ</text>
+<text class="out" x="467.0" y="142.0" text-anchor="start">υ</text>
+<rect class="key" x="520.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="571.0" y="109.0" text-anchor="end">I</text>
+<text class="out" x="527.0" y="120.0" text-anchor="start">Ι</text>
+<text class="out" x="527.0" y="142.0" text-anchor="start">ι</text>
+<rect class="key" x="580.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="631.0" y="109.0" text-anchor="end">O</text>
+<text class="out" x="587.0" y="120.0" text-anchor="start">Ο</text>
+<text class="out" x="587.0" y="142.0" text-anchor="start">ο</text>
+<rect class="key" x="640.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="691.0" y="109.0" text-anchor="end">P</text>
+<text class="out" x="647.0" y="120.0" text-anchor="start">Π</text>
+<text class="out" x="647.0" y="142.0" text-anchor="start">π</text>
+<rect class="key unused" x="700.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="751.0" y="109.0" text-anchor="end">{ [</text>
+<rect class="key unused" x="760.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="811.0" y="109.0" text-anchor="end">} ]</text>
+<rect class="key unused" x="820.0" y="96.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="871.0" y="109.0" text-anchor="end">| \</text>
+<rect class="key" x="115.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="166.0" y="169.0" text-anchor="end">A</text>
+<text class="out" x="122.0" y="180.0" text-anchor="start">Α</text>
+<text class="out" x="122.0" y="202.0" text-anchor="start">α</text>
+<rect class="key" x="175.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="226.0" y="169.0" text-anchor="end">S</text>
+<text class="out" x="182.0" y="180.0" text-anchor="start">Σ</text>
+<text class="out" x="182.0" y="202.0" text-anchor="start">σ</text>
+<rect class="key" x="235.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="286.0" y="169.0" text-anchor="end">D</text>
+<text class="out" x="242.0" y="180.0" text-anchor="start">Δ</text>
+<text class="out" x="242.0" y="202.0" text-anchor="start">δ</text>
+<rect class="key active" x="295.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="346.0" y="169.0" text-anchor="end">F</text>
+<text class="out" x="302.0" y="180.0" text-anchor="start">Φ</text>
+<text class="out" x="302.0" y="202.0" text-anchor="start">ϕ</text>
+<rect class="key" x="355.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="406.0" y="169.0" text-anchor="end">G</text>
+<text class="out" x="362.0" y="180.0" text-anchor="start">Γ</text>
+<text class="out" x="362.0" y="202.0" text-anchor="start">γ</text>
+<rect class="key" x="415.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="466.0" y="169.0" text-anchor="end">H</text>
+<text class="out" x="422.0" y="180.0" text-anchor="start">Θ</text>
+<text class="out" x="422.0" y="202.0" text-anchor="start">θ</text>
+<rect class="key" x="475.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="526.0" y="169.0" text-anchor="end">J</text>
+<text class="out" x="482.0" y="202.0" text-anchor="start">ς</text>
+<rect class="key" x="535.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="586.0" y="169.0" text-anchor="end">K</text>
+<text class="out" x="542.0" y="180.0" text-anchor="start">Κ</text>
+<text class="out" x="542.0" y="202.0" text-anchor="start">κ</text>
+<rect class="key" x="595.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="646.0" y="169.0" text-anchor="end">L</text>
+<text class="out" x="602.0" y="180.0" text-anchor="start">Λ</text>
+<text class="out" x="602.0" y="202.0" text-anchor="start">λ</text>
+<rect class="key unused" x="655.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="706.0" y="169.0" text-anchor="end">: ;</text>
+<rect class="key unused" x="715.0" y="156.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="766.0" y="169.0" text-anchor="end">" '</text>
+<rect class="key" x="145.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="196.0" y="229.0" text-anchor="end">Z</text>
+<text class="out" x="152.0" y="240.0" text-anchor="start">Ζ</text>
+<text class="out" x="152.0" y="262.0" text-anchor="start">ζ</text>
+<rect class="key" x="205.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="256.0" y="229.0" text-anchor="end">X</text>
+<text class="out" x="212.0" y="240.0" text-anchor="start">Χ</text>
+<text class="out" x="212.0" y="262.0" text-anchor="start">χ</text>
+<rect class="key" x="265.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="316.0" y="229.0" text-anchor="end">C</text>
+<text class="out" x="272.0" y="240.0" text-anchor="start">Ξ</text>
+<text class="out" x="272.0" y="262.0" text-anchor="start">ξ</text>
+<rect class="key" x="325.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="376.0" y="229.0" text-anchor="end">V</text>
+<text class="out" x="332.0" y="240.0" text-anchor="start">φ</text>
+<text class="out" x="332.0" y="262.0" text-anchor="start">ε</text>
+<rect class="key" x="385.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="436.0" y="229.0" text-anchor="end">B</text>
+<text class="out" x="392.0" y="240.0" text-anchor="start">Β</text>
+<text class="out" x="392.0" y="262.0" text-anchor="start">β</text>
+<rect class="key" x="445.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="496.0" y="229.0" text-anchor="end">N</text>
+<text class="out" x="452.0" y="240.0" text-anchor="start">Ν</text>
+<text class="out" x="452.0" y="262.0" text-anchor="start">ν</text>
+<rect class="key" x="505.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="556.0" y="229.0" text-anchor="end">M</text>
+<text class="out" x="512.0" y="240.0" text-anchor="start">Μ</text>
+<text class="out" x="512.0" y="262.0" text-anchor="start">μ</text>
+<rect class="key unused" x="565.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="616.0" y="229.0" text-anchor="end">&lt; ,</text>
+<rect class="key unused" x="625.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="676.0" y="229.0" text-anchor="end">&gt; .</text>
+<rect class="key unused" x="685.0" y="216.0" width="56.0" height="56" rx="6"/>
+<text class="label" x="736.0" y="229.0" text-anchor="end">? /</text>
+<rect class="key" x="235.0" y="276.0" width="371.0" height="56" rx="6"/>
+<text class="label" x="601.0" y="289.0" text-anchor="end"></text>
+<text class="out" x="242.0" y="322.0" text-anchor="start">α</text>
+</svg>
