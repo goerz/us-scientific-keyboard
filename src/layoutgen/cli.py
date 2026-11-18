@@ -4,7 +4,7 @@ import argparse
 import sys
 from pathlib import Path
 
-from . import cheatsheet, docs, keyman, macos, model, svg, windows
+from . import cheatsheet, docs, keyman, linux, macos, model, svg, windows
 
 
 def main(argv=None) -> None:
@@ -26,6 +26,9 @@ def main(argv=None) -> None:
     p.add_argument("--license", default="LICENSE", help="license file, relative to the .kps")
 
     p = sub.add_parser("windows", help="native Windows layout source in a directory")
+    p.add_argument("output", type=Path)
+
+    p = sub.add_parser("linux", help="native Linux layout (XKB, Compose) in a directory")
     p.add_argument("output", type=Path)
 
     p = sub.add_parser("docs", help="update the generated parts of README.md and the diagrams")
@@ -55,6 +58,8 @@ def main(argv=None) -> None:
     elif args.target == "windows":
         for line in windows.write_source(layout, args.output):
             print(f"{layout.windows_dll}: {line}", file=sys.stderr)
+    elif args.target == "linux":
+        linux.write(layout, args.output)
     elif args.target == "docs":
         args.readme.write_text(docs.update_readme(args.readme.read_text(encoding="utf-8"), layout), encoding="utf-8")
         args.diagrams.mkdir(parents=True, exist_ok=True)

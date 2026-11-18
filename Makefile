@@ -11,14 +11,14 @@ JULIAMONO = v0.63.2
 JULIAMONO_SHA256 = be6517295198ec5c92bdbaad42f4f6f8d83f921d80512b79f54fe036add95c0c
 FONT = fonts/JuliaMono-Regular.ttf
 
-.PHONY: help all macos keyman windows cheatsheet docs fonts test install uninstall clean
+.PHONY: help all macos keyman windows linux cheatsheet docs fonts test install uninstall clean
 
 .DEFAULT_GOAL := help
 
 help:  ## Show this help
 	@grep -E '^([a-zA-Z_-]+):.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "%-12s %s\n", $$1, $$2}'
 
-all: macos keyman windows cheatsheet  ## Build everything into build/
+all: macos keyman windows linux cheatsheet  ## Build everything into build/
 
 test: $(FONT)  ## Run the tests (generated layouts against layout.toml, README up to date)
 	uv run --quiet pytest
@@ -70,6 +70,17 @@ build/$(DLL)-src.zip: build/windows/$(DLL).c LICENSE
 	cp LICENSE build/windows/LICENSE.txt
 	rm -f $@
 	cd build/windows && zip -q ../$(notdir $@) *
+
+linux: build/$(ID)-linux.zip  ## Build the native Linux layout (XKB and Compose), zipped for download
+
+build/$(ID)-linux/$(ID): $(SOURCES) LICENSE
+	rm -rf $(@D)
+	$(LAYOUTGEN) linux $(@D)
+	cp LICENSE $(@D)/LICENSE.txt
+
+build/$(ID)-linux.zip: build/$(ID)-linux/$(ID)
+	rm -f $@
+	cd build && zip -q -r $(notdir $@) $(ID)-linux
 
 # Diagrams as PDF, assembled with LuaLaTeX
 cheatsheet: build/us-scientific.pdf  ## Build the PDF cheat sheet

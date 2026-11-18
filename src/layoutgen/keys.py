@@ -17,6 +17,7 @@ class PhysicalKey:
     pc_base: str | None = None  # Windows/Linux, no modifiers
     pc_shift: str | None = None  # Windows/Linux, Shift
     mac_alternative: tuple = (None, None)  # macOS Option, Shift+Option defaults
+    xkb: str = ""  # XKB key name (Linux), set below
 
 
 def _row(row: int, start: float, specs):
@@ -93,6 +94,18 @@ KEYS = [
 KEYS = [
     replace(k, pc_base="\\", pc_shift="|", mac_alternative=("§", "±")) if k.name == "iso" else k
     for k in KEYS
+]
+
+# XKB key names, in keyboard order within each row
+_XKB_ROWS = {
+    0: ["TLDE", *(f"AE{i:02}" for i in range(1, 13))],
+    1: [*(f"AD{i:02}" for i in range(1, 13)), "BKSL"],
+    2: [f"AC{i:02}" for i in range(1, 12)],
+    3: ["LSGT", *(f"AB{i:02}" for i in range(1, 11))],
+    4: ["SPCE"],
+}
+KEYS = [
+    replace(k, xkb=_XKB_ROWS[k.row][[j for j in KEYS if j.row == k.row].index(k)]) for k in KEYS
 ]
 
 KEYS_BY_NAME = {k.name: k for k in KEYS}

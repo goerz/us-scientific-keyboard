@@ -259,6 +259,27 @@ To remove it, run `install.ps1 -Uninstall` the same way.
 
 ### Linux
 
+The native Linux layout needs no extra software: an XKB layout defines the keys, and a Compose file defines what the dead keys do.
+
+1. Unzip `us_scientific-linux.zip`, and in the unzipped folder, run `python3 install.py`.
+2. Log out and back in.
+3. On GNOME, the script has added "English (U.S. Scientific)" to the input sources; switch to it with Super+Space. On KDE Plasma, add it in System Settings under Keyboard, Layouts. In Sway, use `input * xkb_layout us_scientific`.
+
+Use the **right** Alt key (AltGr) wherever this README shows `⌥`.
+
+The script installs the layout for the current user, as `~/.config/xkb/symbols/us_scientific` with an entry in `~/.config/xkb/rules/evdev.xml` for the keyboard settings, and the Compose file as `~/.config/us_scientific/Compose`. It includes the Compose file from `~/.XCompose` (which it creates if you have none) and from any other user Compose file of IBus or GTK. `python3 install.py --uninstall` removes all of it.
+
+The limits:
+
+* XKB layouts in `~/.config/xkb` work in Wayland sessions (GNOME, KDE Plasma, Sway, and others), which use libxkbcommon. The X server of an X11 session only reads its system folder; there, `install.py` prints a command that loads the layout until you log out.
+* The dead keys need a program that reads `~/.XCompose`: GTK, IBus (which GNOME uses), Qt and KDE, fcitx5, and most terminals do. In one that doesn't (some Snap packages, for example), a dead key types nothing.
+* After a dead key, `⌥i` (`𝕚`) and `⌥⇧i` (`𝟙`) cancel the dead key, because GTK and IBus can't use keys outside the Basic Multilingual Plane in Compose sequences.
+* Shift with Caps Lock on gives lowercase letters on most letter keys, as usual on Linux, but uppercase letters on keys whose alternative characters aren't a lowercase-uppercase pair, such as `q` (`α` and `⨁`).
+
+The layout has been checked with libxkbcommon 1.6 and 1.13 and IBus 1.5.34, but not yet on a Linux desktop.
+
+### Linux (Keyman)
+
 [Keyman for Linux](https://keyman.com/linux/) installs the same `us_scientific.kmp` package as Keyman for Windows. This hasn't been tested.
 
 
@@ -290,11 +311,11 @@ After changing it, run `make docs` to update this README and the diagrams, and `
 
 The `Makefile` drives the [`layoutgen`](src/layoutgen) package, which needs [uv](https://docs.astral.sh/uv/):
 
-* `make` lists the available targets. `make all` builds everything into `build/`: the macOS bundle (`make macos`), the Keyman package (`make keyman`, which also needs Node.js for Keyman's `kmc` compiler and ImageMagick for the icon), the native Windows source (`make windows`), and the PDF cheat sheet (`make cheatsheet`, which needs `rsvg-convert` and LuaLaTeX).
+* `make` lists the available targets. `make all` builds everything into `build/`: the macOS bundle (`make macos`), the Keyman package (`make keyman`, which also needs Node.js for Keyman's `kmc` compiler and ImageMagick for the icon), the native Windows source (`make windows`), the native Linux layout (`make linux`), and the PDF cheat sheet (`make cheatsheet`, which needs `rsvg-convert` and LuaLaTeX).
 * `make install` and `make uninstall` install or remove the layout for the current user, as appropriate for the operating system (see [Installation](#installation)).
 * `make docs` regenerates the tables and diagrams in this README.
 * The diagrams and the cheat sheet are set in [JuliaMono](https://github.com/cormullion/juliamono) (SIL Open Font License), which `make fonts` downloads into `fonts/`; the diagrams contain the glyph outlines, so viewing them doesn't need the font.
-* `make test` runs the tests. They check every generated layout against `layout.toml`, key by key, in every layer and dead key, and that the README is up to date.
+* `make test` runs the tests. They check every generated layout against `layout.toml`, key by key, in every layer and dead key, and that the README is up to date. Where libxkbcommon and xkeyboard-config are installed (on Linux), they also run the Linux layout in libxkbcommon itself.
 
 
 ## License

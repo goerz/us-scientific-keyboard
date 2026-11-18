@@ -1,0 +1,1299 @@
+# X11 keysyms up to 0xFFFF: value, canonical name, and the Unicode character
+# for one-to-one mappings. Extracted from xorgproto's keysymdef.h
+# (Copyright 1987, 1994, 1998 The Open Group; Copyright 1987 Digital Equipment
+# Corporation) by tools/update-keysyms.py. Do not edit.
+0xff08 BackSpace U+0008
+0xff09 Tab U+0009
+0xff0a Linefeed U+000A
+0xff0b Clear U+000B
+0xff0d Return U+000D
+0xff13 Pause
+0xff14 Scroll_Lock
+0xff15 Sys_Req
+0xff1b Escape U+001B
+0xffff Delete U+007F
+0xff20 Multi_key
+0xff37 Codeinput
+0xff3c SingleCandidate
+0xff3d MultipleCandidate
+0xff3e PreviousCandidate
+0xff21 Kanji
+0xff22 Muhenkan
+0xff23 Henkan_Mode
+0xff24 Romaji
+0xff25 Hiragana
+0xff26 Katakana
+0xff27 Hiragana_Katakana
+0xff28 Zenkaku
+0xff29 Hankaku
+0xff2a Zenkaku_Hankaku
+0xff2b Touroku
+0xff2c Massyo
+0xff2d Kana_Lock
+0xff2e Kana_Shift
+0xff2f Eisu_Shift
+0xff30 Eisu_toggle
+0xff50 Home
+0xff51 Left
+0xff52 Up
+0xff53 Right
+0xff54 Down
+0xff55 Prior
+0xff56 Next
+0xff57 End
+0xff58 Begin
+0xff60 Select
+0xff61 Print
+0xff62 Execute
+0xff63 Insert
+0xff65 Undo
+0xff66 Redo
+0xff67 Menu
+0xff68 Find
+0xff69 Cancel
+0xff6a Help
+0xff6b Break
+0xff7e Mode_switch
+0xff7f Num_Lock
+0xff80 KP_Space
+0xff89 KP_Tab
+0xff8d KP_Enter
+0xff91 KP_F1
+0xff92 KP_F2
+0xff93 KP_F3
+0xff94 KP_F4
+0xff95 KP_Home
+0xff96 KP_Left
+0xff97 KP_Up
+0xff98 KP_Right
+0xff99 KP_Down
+0xff9a KP_Prior
+0xff9b KP_Next
+0xff9c KP_End
+0xff9d KP_Begin
+0xff9e KP_Insert
+0xff9f KP_Delete
+0xffbd KP_Equal
+0xffaa KP_Multiply
+0xffab KP_Add
+0xffac KP_Separator
+0xffad KP_Subtract
+0xffae KP_Decimal
+0xffaf KP_Divide
+0xffb0 KP_0
+0xffb1 KP_1
+0xffb2 KP_2
+0xffb3 KP_3
+0xffb4 KP_4
+0xffb5 KP_5
+0xffb6 KP_6
+0xffb7 KP_7
+0xffb8 KP_8
+0xffb9 KP_9
+0xffbe F1
+0xffbf F2
+0xffc0 F3
+0xffc1 F4
+0xffc2 F5
+0xffc3 F6
+0xffc4 F7
+0xffc5 F8
+0xffc6 F9
+0xffc7 F10
+0xffc8 F11
+0xffc9 F12
+0xffca F13
+0xffcb F14
+0xffcc F15
+0xffcd F16
+0xffce F17
+0xffcf F18
+0xffd0 F19
+0xffd1 F20
+0xffd2 F21
+0xffd3 F22
+0xffd4 F23
+0xffd5 F24
+0xffd6 F25
+0xffd7 F26
+0xffd8 F27
+0xffd9 F28
+0xffda F29
+0xffdb F30
+0xffdc F31
+0xffdd F32
+0xffde F33
+0xffdf F34
+0xffe0 F35
+0xffe1 Shift_L
+0xffe2 Shift_R
+0xffe3 Control_L
+0xffe4 Control_R
+0xffe5 Caps_Lock
+0xffe6 Shift_Lock
+0xffe7 Meta_L
+0xffe8 Meta_R
+0xffe9 Alt_L
+0xffea Alt_R
+0xffeb Super_L
+0xffec Super_R
+0xffed Hyper_L
+0xffee Hyper_R
+0xfe01 ISO_Lock
+0xfe02 ISO_Level2_Latch
+0xfe03 ISO_Level3_Shift
+0xfe04 ISO_Level3_Latch
+0xfe05 ISO_Level3_Lock
+0xfe11 ISO_Level5_Shift
+0xfe12 ISO_Level5_Latch
+0xfe13 ISO_Level5_Lock
+0xfe06 ISO_Group_Latch
+0xfe07 ISO_Group_Lock
+0xfe08 ISO_Next_Group
+0xfe09 ISO_Next_Group_Lock
+0xfe0a ISO_Prev_Group
+0xfe0b ISO_Prev_Group_Lock
+0xfe0c ISO_First_Group
+0xfe0d ISO_First_Group_Lock
+0xfe0e ISO_Last_Group
+0xfe0f ISO_Last_Group_Lock
+0xfe20 ISO_Left_Tab
+0xfe21 ISO_Move_Line_Up
+0xfe22 ISO_Move_Line_Down
+0xfe23 ISO_Partial_Line_Up
+0xfe24 ISO_Partial_Line_Down
+0xfe25 ISO_Partial_Space_Left
+0xfe26 ISO_Partial_Space_Right
+0xfe27 ISO_Set_Margin_Left
+0xfe28 ISO_Set_Margin_Right
+0xfe29 ISO_Release_Margin_Left
+0xfe2a ISO_Release_Margin_Right
+0xfe2b ISO_Release_Both_Margins
+0xfe2c ISO_Fast_Cursor_Left
+0xfe2d ISO_Fast_Cursor_Right
+0xfe2e ISO_Fast_Cursor_Up
+0xfe2f ISO_Fast_Cursor_Down
+0xfe30 ISO_Continuous_Underline
+0xfe31 ISO_Discontinuous_Underline
+0xfe32 ISO_Emphasize
+0xfe33 ISO_Center_Object
+0xfe34 ISO_Enter
+0xfe50 dead_grave
+0xfe51 dead_acute
+0xfe52 dead_circumflex
+0xfe53 dead_tilde
+0xfe54 dead_macron
+0xfe55 dead_breve
+0xfe56 dead_abovedot
+0xfe57 dead_diaeresis
+0xfe58 dead_abovering
+0xfe59 dead_doubleacute
+0xfe5a dead_caron
+0xfe5b dead_cedilla
+0xfe5c dead_ogonek
+0xfe5d dead_iota
+0xfe5e dead_voiced_sound
+0xfe5f dead_semivoiced_sound
+0xfe60 dead_belowdot
+0xfe61 dead_hook
+0xfe62 dead_horn
+0xfe63 dead_stroke
+0xfe64 dead_abovecomma
+0xfe65 dead_abovereversedcomma
+0xfe66 dead_doublegrave
+0xfe67 dead_belowring
+0xfe68 dead_belowmacron
+0xfe69 dead_belowcircumflex
+0xfe6a dead_belowtilde
+0xfe6b dead_belowbreve
+0xfe6c dead_belowdiaeresis
+0xfe6d dead_invertedbreve
+0xfe6e dead_belowcomma
+0xfe6f dead_currency
+0xfe90 dead_lowline
+0xfe91 dead_aboveverticalline
+0xfe92 dead_belowverticalline
+0xfe93 dead_longsolidusoverlay
+0xfe80 dead_a
+0xfe81 dead_A
+0xfe82 dead_e
+0xfe83 dead_E
+0xfe84 dead_i
+0xfe85 dead_I
+0xfe86 dead_o
+0xfe87 dead_O
+0xfe88 dead_u
+0xfe89 dead_U
+0xfe8a dead_schwa
+0xfe8b dead_SCHWA
+0xfe8c dead_greek
+0xfe8d dead_hamza
+0xfed0 First_Virtual_Screen
+0xfed1 Prev_Virtual_Screen
+0xfed2 Next_Virtual_Screen
+0xfed4 Last_Virtual_Screen
+0xfed5 Terminate_Server
+0xfe70 AccessX_Enable
+0xfe71 AccessX_Feedback_Enable
+0xfe72 RepeatKeys_Enable
+0xfe73 SlowKeys_Enable
+0xfe74 BounceKeys_Enable
+0xfe75 StickyKeys_Enable
+0xfe76 MouseKeys_Enable
+0xfe77 MouseKeys_Accel_Enable
+0xfe78 Overlay1_Enable
+0xfe79 Overlay2_Enable
+0xfe7a AudibleBell_Enable
+0xfee0 Pointer_Left
+0xfee1 Pointer_Right
+0xfee2 Pointer_Up
+0xfee3 Pointer_Down
+0xfee4 Pointer_UpLeft
+0xfee5 Pointer_UpRight
+0xfee6 Pointer_DownLeft
+0xfee7 Pointer_DownRight
+0xfee8 Pointer_Button_Dflt
+0xfee9 Pointer_Button1
+0xfeea Pointer_Button2
+0xfeeb Pointer_Button3
+0xfeec Pointer_Button4
+0xfeed Pointer_Button5
+0xfeee Pointer_DblClick_Dflt
+0xfeef Pointer_DblClick1
+0xfef0 Pointer_DblClick2
+0xfef1 Pointer_DblClick3
+0xfef2 Pointer_DblClick4
+0xfef3 Pointer_DblClick5
+0xfef4 Pointer_Drag_Dflt
+0xfef5 Pointer_Drag1
+0xfef6 Pointer_Drag2
+0xfef7 Pointer_Drag3
+0xfef8 Pointer_Drag4
+0xfefd Pointer_Drag5
+0xfef9 Pointer_EnableKeys
+0xfefa Pointer_Accelerate
+0xfefb Pointer_DfltBtnNext
+0xfefc Pointer_DfltBtnPrev
+0xfea0 ch
+0xfea1 Ch
+0xfea2 CH
+0xfea3 c_h
+0xfea4 C_h
+0xfea5 C_H
+0xfd01 3270_Duplicate
+0xfd02 3270_FieldMark
+0xfd03 3270_Right2
+0xfd04 3270_Left2
+0xfd05 3270_BackTab
+0xfd06 3270_EraseEOF
+0xfd07 3270_EraseInput
+0xfd08 3270_Reset
+0xfd09 3270_Quit
+0xfd0a 3270_PA1
+0xfd0b 3270_PA2
+0xfd0c 3270_PA3
+0xfd0d 3270_Test
+0xfd0e 3270_Attn
+0xfd0f 3270_CursorBlink
+0xfd10 3270_AltCursor
+0xfd11 3270_KeyClick
+0xfd12 3270_Jump
+0xfd13 3270_Ident
+0xfd14 3270_Rule
+0xfd15 3270_Copy
+0xfd16 3270_Play
+0xfd17 3270_Setup
+0xfd18 3270_Record
+0xfd19 3270_ChangeScreen
+0xfd1a 3270_DeleteWord
+0xfd1b 3270_ExSelect
+0xfd1c 3270_CursorSelect
+0xfd1d 3270_PrintScreen
+0xfd1e 3270_Enter
+0x0020 space U+0020
+0x0021 exclam U+0021
+0x0022 quotedbl U+0022
+0x0023 numbersign U+0023
+0x0024 dollar U+0024
+0x0025 percent U+0025
+0x0026 ampersand U+0026
+0x0027 apostrophe U+0027
+0x0028 parenleft U+0028
+0x0029 parenright U+0029
+0x002a asterisk U+002A
+0x002b plus U+002B
+0x002c comma U+002C
+0x002d minus U+002D
+0x002e period U+002E
+0x002f slash U+002F
+0x0030 0 U+0030
+0x0031 1 U+0031
+0x0032 2 U+0032
+0x0033 3 U+0033
+0x0034 4 U+0034
+0x0035 5 U+0035
+0x0036 6 U+0036
+0x0037 7 U+0037
+0x0038 8 U+0038
+0x0039 9 U+0039
+0x003a colon U+003A
+0x003b semicolon U+003B
+0x003c less U+003C
+0x003d equal U+003D
+0x003e greater U+003E
+0x003f question U+003F
+0x0040 at U+0040
+0x0041 A U+0041
+0x0042 B U+0042
+0x0043 C U+0043
+0x0044 D U+0044
+0x0045 E U+0045
+0x0046 F U+0046
+0x0047 G U+0047
+0x0048 H U+0048
+0x0049 I U+0049
+0x004a J U+004A
+0x004b K U+004B
+0x004c L U+004C
+0x004d M U+004D
+0x004e N U+004E
+0x004f O U+004F
+0x0050 P U+0050
+0x0051 Q U+0051
+0x0052 R U+0052
+0x0053 S U+0053
+0x0054 T U+0054
+0x0055 U U+0055
+0x0056 V U+0056
+0x0057 W U+0057
+0x0058 X U+0058
+0x0059 Y U+0059
+0x005a Z U+005A
+0x005b bracketleft U+005B
+0x005c backslash U+005C
+0x005d bracketright U+005D
+0x005e asciicircum U+005E
+0x005f underscore U+005F
+0x0060 grave U+0060
+0x0061 a U+0061
+0x0062 b U+0062
+0x0063 c U+0063
+0x0064 d U+0064
+0x0065 e U+0065
+0x0066 f U+0066
+0x0067 g U+0067
+0x0068 h U+0068
+0x0069 i U+0069
+0x006a j U+006A
+0x006b k U+006B
+0x006c l U+006C
+0x006d m U+006D
+0x006e n U+006E
+0x006f o U+006F
+0x0070 p U+0070
+0x0071 q U+0071
+0x0072 r U+0072
+0x0073 s U+0073
+0x0074 t U+0074
+0x0075 u U+0075
+0x0076 v U+0076
+0x0077 w U+0077
+0x0078 x U+0078
+0x0079 y U+0079
+0x007a z U+007A
+0x007b braceleft U+007B
+0x007c bar U+007C
+0x007d braceright U+007D
+0x007e asciitilde U+007E
+0x00a0 nobreakspace U+00A0
+0x00a1 exclamdown U+00A1
+0x00a2 cent U+00A2
+0x00a3 sterling U+00A3
+0x00a4 currency U+00A4
+0x00a5 yen U+00A5
+0x00a6 brokenbar U+00A6
+0x00a7 section U+00A7
+0x00a8 diaeresis U+00A8
+0x00a9 copyright U+00A9
+0x00aa ordfeminine U+00AA
+0x00ab guillemetleft U+00AB
+0x00ac notsign U+00AC
+0x00ad hyphen U+00AD
+0x00ae registered U+00AE
+0x00af macron U+00AF
+0x00b0 degree U+00B0
+0x00b1 plusminus U+00B1
+0x00b2 twosuperior U+00B2
+0x00b3 threesuperior U+00B3
+0x00b4 acute U+00B4
+0x00b5 mu U+00B5
+0x00b6 paragraph U+00B6
+0x00b7 periodcentered U+00B7
+0x00b8 cedilla U+00B8
+0x00b9 onesuperior U+00B9
+0x00ba ordmasculine U+00BA
+0x00bb guillemetright U+00BB
+0x00bc onequarter U+00BC
+0x00bd onehalf U+00BD
+0x00be threequarters U+00BE
+0x00bf questiondown U+00BF
+0x00c0 Agrave U+00C0
+0x00c1 Aacute U+00C1
+0x00c2 Acircumflex U+00C2
+0x00c3 Atilde U+00C3
+0x00c4 Adiaeresis U+00C4
+0x00c5 Aring U+00C5
+0x00c6 AE U+00C6
+0x00c7 Ccedilla U+00C7
+0x00c8 Egrave U+00C8
+0x00c9 Eacute U+00C9
+0x00ca Ecircumflex U+00CA
+0x00cb Ediaeresis U+00CB
+0x00cc Igrave U+00CC
+0x00cd Iacute U+00CD
+0x00ce Icircumflex U+00CE
+0x00cf Idiaeresis U+00CF
+0x00d0 ETH U+00D0
+0x00d1 Ntilde U+00D1
+0x00d2 Ograve U+00D2
+0x00d3 Oacute U+00D3
+0x00d4 Ocircumflex U+00D4
+0x00d5 Otilde U+00D5
+0x00d6 Odiaeresis U+00D6
+0x00d7 multiply U+00D7
+0x00d8 Oslash U+00D8
+0x00d9 Ugrave U+00D9
+0x00da Uacute U+00DA
+0x00db Ucircumflex U+00DB
+0x00dc Udiaeresis U+00DC
+0x00dd Yacute U+00DD
+0x00de THORN U+00DE
+0x00df ssharp U+00DF
+0x00e0 agrave U+00E0
+0x00e1 aacute U+00E1
+0x00e2 acircumflex U+00E2
+0x00e3 atilde U+00E3
+0x00e4 adiaeresis U+00E4
+0x00e5 aring U+00E5
+0x00e6 ae U+00E6
+0x00e7 ccedilla U+00E7
+0x00e8 egrave U+00E8
+0x00e9 eacute U+00E9
+0x00ea ecircumflex U+00EA
+0x00eb ediaeresis U+00EB
+0x00ec igrave U+00EC
+0x00ed iacute U+00ED
+0x00ee icircumflex U+00EE
+0x00ef idiaeresis U+00EF
+0x00f0 eth U+00F0
+0x00f1 ntilde U+00F1
+0x00f2 ograve U+00F2
+0x00f3 oacute U+00F3
+0x00f4 ocircumflex U+00F4
+0x00f5 otilde U+00F5
+0x00f6 odiaeresis U+00F6
+0x00f7 division U+00F7
+0x00f8 oslash U+00F8
+0x00f9 ugrave U+00F9
+0x00fa uacute U+00FA
+0x00fb ucircumflex U+00FB
+0x00fc udiaeresis U+00FC
+0x00fd yacute U+00FD
+0x00fe thorn U+00FE
+0x00ff ydiaeresis U+00FF
+0x01a1 Aogonek U+0104
+0x01a2 breve U+02D8
+0x01a3 Lstroke U+0141
+0x01a5 Lcaron U+013D
+0x01a6 Sacute U+015A
+0x01a9 Scaron U+0160
+0x01aa Scedilla U+015E
+0x01ab Tcaron U+0164
+0x01ac Zacute U+0179
+0x01ae Zcaron U+017D
+0x01af Zabovedot U+017B
+0x01b1 aogonek U+0105
+0x01b2 ogonek U+02DB
+0x01b3 lstroke U+0142
+0x01b5 lcaron U+013E
+0x01b6 sacute U+015B
+0x01b7 caron U+02C7
+0x01b9 scaron U+0161
+0x01ba scedilla U+015F
+0x01bb tcaron U+0165
+0x01bc zacute U+017A
+0x01bd doubleacute U+02DD
+0x01be zcaron U+017E
+0x01bf zabovedot U+017C
+0x01c0 Racute U+0154
+0x01c3 Abreve U+0102
+0x01c5 Lacute U+0139
+0x01c6 Cacute U+0106
+0x01c8 Ccaron U+010C
+0x01ca Eogonek U+0118
+0x01cc Ecaron U+011A
+0x01cf Dcaron U+010E
+0x01d0 Dstroke U+0110
+0x01d1 Nacute U+0143
+0x01d2 Ncaron U+0147
+0x01d5 Odoubleacute U+0150
+0x01d8 Rcaron U+0158
+0x01d9 Uring U+016E
+0x01db Udoubleacute U+0170
+0x01de Tcedilla U+0162
+0x01e0 racute U+0155
+0x01e3 abreve U+0103
+0x01e5 lacute U+013A
+0x01e6 cacute U+0107
+0x01e8 ccaron U+010D
+0x01ea eogonek U+0119
+0x01ec ecaron U+011B
+0x01ef dcaron U+010F
+0x01f0 dstroke U+0111
+0x01f1 nacute U+0144
+0x01f2 ncaron U+0148
+0x01f5 odoubleacute U+0151
+0x01f8 rcaron U+0159
+0x01f9 uring U+016F
+0x01fb udoubleacute U+0171
+0x01fe tcedilla U+0163
+0x01ff abovedot U+02D9
+0x02a1 Hstroke U+0126
+0x02a6 Hcircumflex U+0124
+0x02a9 Iabovedot U+0130
+0x02ab Gbreve U+011E
+0x02ac Jcircumflex U+0134
+0x02b1 hstroke U+0127
+0x02b6 hcircumflex U+0125
+0x02b9 idotless U+0131
+0x02bb gbreve U+011F
+0x02bc jcircumflex U+0135
+0x02c5 Cabovedot U+010A
+0x02c6 Ccircumflex U+0108
+0x02d5 Gabovedot U+0120
+0x02d8 Gcircumflex U+011C
+0x02dd Ubreve U+016C
+0x02de Scircumflex U+015C
+0x02e5 cabovedot U+010B
+0x02e6 ccircumflex U+0109
+0x02f5 gabovedot U+0121
+0x02f8 gcircumflex U+011D
+0x02fd ubreve U+016D
+0x02fe scircumflex U+015D
+0x03a2 kra U+0138
+0x03a3 Rcedilla U+0156
+0x03a5 Itilde U+0128
+0x03a6 Lcedilla U+013B
+0x03aa Emacron U+0112
+0x03ab Gcedilla U+0122
+0x03ac Tslash U+0166
+0x03b3 rcedilla U+0157
+0x03b5 itilde U+0129
+0x03b6 lcedilla U+013C
+0x03ba emacron U+0113
+0x03bb gcedilla U+0123
+0x03bc tslash U+0167
+0x03bd ENG U+014A
+0x03bf eng U+014B
+0x03c0 Amacron U+0100
+0x03c7 Iogonek U+012E
+0x03cc Eabovedot U+0116
+0x03cf Imacron U+012A
+0x03d1 Ncedilla U+0145
+0x03d2 Omacron U+014C
+0x03d3 Kcedilla U+0136
+0x03d9 Uogonek U+0172
+0x03dd Utilde U+0168
+0x03de Umacron U+016A
+0x03e0 amacron U+0101
+0x03e7 iogonek U+012F
+0x03ec eabovedot U+0117
+0x03ef imacron U+012B
+0x03f1 ncedilla U+0146
+0x03f2 omacron U+014D
+0x03f3 kcedilla U+0137
+0x03f9 uogonek U+0173
+0x03fd utilde U+0169
+0x03fe umacron U+016B
+0x13bc OE U+0152
+0x13bd oe U+0153
+0x13be Ydiaeresis U+0178
+0x047e overline U+203E
+0x04a1 kana_fullstop U+3002
+0x04a2 kana_openingbracket U+300C
+0x04a3 kana_closingbracket U+300D
+0x04a4 kana_comma U+3001
+0x04a5 kana_conjunctive U+30FB
+0x04a6 kana_WO U+30F2
+0x04a7 kana_a U+30A1
+0x04a8 kana_i U+30A3
+0x04a9 kana_u U+30A5
+0x04aa kana_e U+30A7
+0x04ab kana_o U+30A9
+0x04ac kana_ya U+30E3
+0x04ad kana_yu U+30E5
+0x04ae kana_yo U+30E7
+0x04af kana_tsu U+30C3
+0x04b0 prolongedsound U+30FC
+0x04b1 kana_A U+30A2
+0x04b2 kana_I U+30A4
+0x04b3 kana_U U+30A6
+0x04b4 kana_E U+30A8
+0x04b5 kana_O U+30AA
+0x04b6 kana_KA U+30AB
+0x04b7 kana_KI U+30AD
+0x04b8 kana_KU U+30AF
+0x04b9 kana_KE U+30B1
+0x04ba kana_KO U+30B3
+0x04bb kana_SA U+30B5
+0x04bc kana_SHI U+30B7
+0x04bd kana_SU U+30B9
+0x04be kana_SE U+30BB
+0x04bf kana_SO U+30BD
+0x04c0 kana_TA U+30BF
+0x04c1 kana_CHI U+30C1
+0x04c2 kana_TSU U+30C4
+0x04c3 kana_TE U+30C6
+0x04c4 kana_TO U+30C8
+0x04c5 kana_NA U+30CA
+0x04c6 kana_NI U+30CB
+0x04c7 kana_NU U+30CC
+0x04c8 kana_NE U+30CD
+0x04c9 kana_NO U+30CE
+0x04ca kana_HA U+30CF
+0x04cb kana_HI U+30D2
+0x04cc kana_FU U+30D5
+0x04cd kana_HE U+30D8
+0x04ce kana_HO U+30DB
+0x04cf kana_MA U+30DE
+0x04d0 kana_MI U+30DF
+0x04d1 kana_MU U+30E0
+0x04d2 kana_ME U+30E1
+0x04d3 kana_MO U+30E2
+0x04d4 kana_YA U+30E4
+0x04d5 kana_YU U+30E6
+0x04d6 kana_YO U+30E8
+0x04d7 kana_RA U+30E9
+0x04d8 kana_RI U+30EA
+0x04d9 kana_RU U+30EB
+0x04da kana_RE U+30EC
+0x04db kana_RO U+30ED
+0x04dc kana_WA U+30EF
+0x04dd kana_N U+30F3
+0x04de voicedsound U+309B
+0x04df semivoicedsound U+309C
+0x05ac Arabic_comma U+060C
+0x05bb Arabic_semicolon U+061B
+0x05bf Arabic_question_mark U+061F
+0x05c1 Arabic_hamza U+0621
+0x05c2 Arabic_maddaonalef U+0622
+0x05c3 Arabic_hamzaonalef U+0623
+0x05c4 Arabic_hamzaonwaw U+0624
+0x05c5 Arabic_hamzaunderalef U+0625
+0x05c6 Arabic_hamzaonyeh U+0626
+0x05c7 Arabic_alef U+0627
+0x05c8 Arabic_beh U+0628
+0x05c9 Arabic_tehmarbuta U+0629
+0x05ca Arabic_teh U+062A
+0x05cb Arabic_theh U+062B
+0x05cc Arabic_jeem U+062C
+0x05cd Arabic_hah U+062D
+0x05ce Arabic_khah U+062E
+0x05cf Arabic_dal U+062F
+0x05d0 Arabic_thal U+0630
+0x05d1 Arabic_ra U+0631
+0x05d2 Arabic_zain U+0632
+0x05d3 Arabic_seen U+0633
+0x05d4 Arabic_sheen U+0634
+0x05d5 Arabic_sad U+0635
+0x05d6 Arabic_dad U+0636
+0x05d7 Arabic_tah U+0637
+0x05d8 Arabic_zah U+0638
+0x05d9 Arabic_ain U+0639
+0x05da Arabic_ghain U+063A
+0x05e0 Arabic_tatweel U+0640
+0x05e1 Arabic_feh U+0641
+0x05e2 Arabic_qaf U+0642
+0x05e3 Arabic_kaf U+0643
+0x05e4 Arabic_lam U+0644
+0x05e5 Arabic_meem U+0645
+0x05e6 Arabic_noon U+0646
+0x05e7 Arabic_ha U+0647
+0x05e8 Arabic_waw U+0648
+0x05e9 Arabic_alefmaksura U+0649
+0x05ea Arabic_yeh U+064A
+0x05eb Arabic_fathatan U+064B
+0x05ec Arabic_dammatan U+064C
+0x05ed Arabic_kasratan U+064D
+0x05ee Arabic_fatha U+064E
+0x05ef Arabic_damma U+064F
+0x05f0 Arabic_kasra U+0650
+0x05f1 Arabic_shadda U+0651
+0x05f2 Arabic_sukun U+0652
+0x06a1 Serbian_dje U+0452
+0x06a2 Macedonia_gje U+0453
+0x06a3 Cyrillic_io U+0451
+0x06a4 Ukrainian_ie U+0454
+0x06a5 Macedonia_dse U+0455
+0x06a6 Ukrainian_i U+0456
+0x06a7 Ukrainian_yi U+0457
+0x06a8 Cyrillic_je U+0458
+0x06a9 Cyrillic_lje U+0459
+0x06aa Cyrillic_nje U+045A
+0x06ab Serbian_tshe U+045B
+0x06ac Macedonia_kje U+045C
+0x06ad Ukrainian_ghe_with_upturn U+0491
+0x06ae Byelorussian_shortu U+045E
+0x06af Cyrillic_dzhe U+045F
+0x06b0 numerosign U+2116
+0x06b1 Serbian_DJE U+0402
+0x06b2 Macedonia_GJE U+0403
+0x06b3 Cyrillic_IO U+0401
+0x06b4 Ukrainian_IE U+0404
+0x06b5 Macedonia_DSE U+0405
+0x06b6 Ukrainian_I U+0406
+0x06b7 Ukrainian_YI U+0407
+0x06b8 Cyrillic_JE U+0408
+0x06b9 Cyrillic_LJE U+0409
+0x06ba Cyrillic_NJE U+040A
+0x06bb Serbian_TSHE U+040B
+0x06bc Macedonia_KJE U+040C
+0x06bd Ukrainian_GHE_WITH_UPTURN U+0490
+0x06be Byelorussian_SHORTU U+040E
+0x06bf Cyrillic_DZHE U+040F
+0x06c0 Cyrillic_yu U+044E
+0x06c1 Cyrillic_a U+0430
+0x06c2 Cyrillic_be U+0431
+0x06c3 Cyrillic_tse U+0446
+0x06c4 Cyrillic_de U+0434
+0x06c5 Cyrillic_ie U+0435
+0x06c6 Cyrillic_ef U+0444
+0x06c7 Cyrillic_ghe U+0433
+0x06c8 Cyrillic_ha U+0445
+0x06c9 Cyrillic_i U+0438
+0x06ca Cyrillic_shorti U+0439
+0x06cb Cyrillic_ka U+043A
+0x06cc Cyrillic_el U+043B
+0x06cd Cyrillic_em U+043C
+0x06ce Cyrillic_en U+043D
+0x06cf Cyrillic_o U+043E
+0x06d0 Cyrillic_pe U+043F
+0x06d1 Cyrillic_ya U+044F
+0x06d2 Cyrillic_er U+0440
+0x06d3 Cyrillic_es U+0441
+0x06d4 Cyrillic_te U+0442
+0x06d5 Cyrillic_u U+0443
+0x06d6 Cyrillic_zhe U+0436
+0x06d7 Cyrillic_ve U+0432
+0x06d8 Cyrillic_softsign U+044C
+0x06d9 Cyrillic_yeru U+044B
+0x06da Cyrillic_ze U+0437
+0x06db Cyrillic_sha U+0448
+0x06dc Cyrillic_e U+044D
+0x06dd Cyrillic_shcha U+0449
+0x06de Cyrillic_che U+0447
+0x06df Cyrillic_hardsign U+044A
+0x06e0 Cyrillic_YU U+042E
+0x06e1 Cyrillic_A U+0410
+0x06e2 Cyrillic_BE U+0411
+0x06e3 Cyrillic_TSE U+0426
+0x06e4 Cyrillic_DE U+0414
+0x06e5 Cyrillic_IE U+0415
+0x06e6 Cyrillic_EF U+0424
+0x06e7 Cyrillic_GHE U+0413
+0x06e8 Cyrillic_HA U+0425
+0x06e9 Cyrillic_I U+0418
+0x06ea Cyrillic_SHORTI U+0419
+0x06eb Cyrillic_KA U+041A
+0x06ec Cyrillic_EL U+041B
+0x06ed Cyrillic_EM U+041C
+0x06ee Cyrillic_EN U+041D
+0x06ef Cyrillic_O U+041E
+0x06f0 Cyrillic_PE U+041F
+0x06f1 Cyrillic_YA U+042F
+0x06f2 Cyrillic_ER U+0420
+0x06f3 Cyrillic_ES U+0421
+0x06f4 Cyrillic_TE U+0422
+0x06f5 Cyrillic_U U+0423
+0x06f6 Cyrillic_ZHE U+0416
+0x06f7 Cyrillic_VE U+0412
+0x06f8 Cyrillic_SOFTSIGN U+042C
+0x06f9 Cyrillic_YERU U+042B
+0x06fa Cyrillic_ZE U+0417
+0x06fb Cyrillic_SHA U+0428
+0x06fc Cyrillic_E U+042D
+0x06fd Cyrillic_SHCHA U+0429
+0x06fe Cyrillic_CHE U+0427
+0x06ff Cyrillic_HARDSIGN U+042A
+0x07a1 Greek_ALPHAaccent U+0386
+0x07a2 Greek_EPSILONaccent U+0388
+0x07a3 Greek_ETAaccent U+0389
+0x07a4 Greek_IOTAaccent U+038A
+0x07a5 Greek_IOTAdieresis U+03AA
+0x07a7 Greek_OMICRONaccent U+038C
+0x07a8 Greek_UPSILONaccent U+038E
+0x07a9 Greek_UPSILONdieresis U+03AB
+0x07ab Greek_OMEGAaccent U+038F
+0x07ae Greek_accentdieresis U+0385
+0x07af Greek_horizbar U+2015
+0x07b1 Greek_alphaaccent U+03AC
+0x07b2 Greek_epsilonaccent U+03AD
+0x07b3 Greek_etaaccent U+03AE
+0x07b4 Greek_iotaaccent U+03AF
+0x07b5 Greek_iotadieresis U+03CA
+0x07b6 Greek_iotaaccentdieresis U+0390
+0x07b7 Greek_omicronaccent U+03CC
+0x07b8 Greek_upsilonaccent U+03CD
+0x07b9 Greek_upsilondieresis U+03CB
+0x07ba Greek_upsilonaccentdieresis U+03B0
+0x07bb Greek_omegaaccent U+03CE
+0x07c1 Greek_ALPHA U+0391
+0x07c2 Greek_BETA U+0392
+0x07c3 Greek_GAMMA U+0393
+0x07c4 Greek_DELTA U+0394
+0x07c5 Greek_EPSILON U+0395
+0x07c6 Greek_ZETA U+0396
+0x07c7 Greek_ETA U+0397
+0x07c8 Greek_THETA U+0398
+0x07c9 Greek_IOTA U+0399
+0x07ca Greek_KAPPA U+039A
+0x07cb Greek_LAMDA U+039B
+0x07cc Greek_MU U+039C
+0x07cd Greek_NU U+039D
+0x07ce Greek_XI U+039E
+0x07cf Greek_OMICRON U+039F
+0x07d0 Greek_PI U+03A0
+0x07d1 Greek_RHO U+03A1
+0x07d2 Greek_SIGMA U+03A3
+0x07d4 Greek_TAU U+03A4
+0x07d5 Greek_UPSILON U+03A5
+0x07d6 Greek_PHI U+03A6
+0x07d7 Greek_CHI U+03A7
+0x07d8 Greek_PSI U+03A8
+0x07d9 Greek_OMEGA U+03A9
+0x07e1 Greek_alpha U+03B1
+0x07e2 Greek_beta U+03B2
+0x07e3 Greek_gamma U+03B3
+0x07e4 Greek_delta U+03B4
+0x07e5 Greek_epsilon U+03B5
+0x07e6 Greek_zeta U+03B6
+0x07e7 Greek_eta U+03B7
+0x07e8 Greek_theta U+03B8
+0x07e9 Greek_iota U+03B9
+0x07ea Greek_kappa U+03BA
+0x07eb Greek_lamda U+03BB
+0x07ec Greek_mu U+03BC
+0x07ed Greek_nu U+03BD
+0x07ee Greek_xi U+03BE
+0x07ef Greek_omicron U+03BF
+0x07f0 Greek_pi U+03C0
+0x07f1 Greek_rho U+03C1
+0x07f2 Greek_sigma U+03C3
+0x07f3 Greek_finalsmallsigma U+03C2
+0x07f4 Greek_tau U+03C4
+0x07f5 Greek_upsilon U+03C5
+0x07f6 Greek_phi U+03C6
+0x07f7 Greek_chi U+03C7
+0x07f8 Greek_psi U+03C8
+0x07f9 Greek_omega U+03C9
+0x08a1 leftradical U+23B7
+0x08a2 topleftradical
+0x08a3 horizconnector
+0x08a4 topintegral U+2320
+0x08a5 botintegral U+2321
+0x08a6 vertconnector
+0x08a7 topleftsqbracket U+23A1
+0x08a8 botleftsqbracket U+23A3
+0x08a9 toprightsqbracket U+23A4
+0x08aa botrightsqbracket U+23A6
+0x08ab topleftparens U+239B
+0x08ac botleftparens U+239D
+0x08ad toprightparens U+239E
+0x08ae botrightparens U+23A0
+0x08af leftmiddlecurlybrace U+23A8
+0x08b0 rightmiddlecurlybrace U+23AC
+0x08b1 topleftsummation
+0x08b2 botleftsummation
+0x08b3 topvertsummationconnector
+0x08b4 botvertsummationconnector
+0x08b5 toprightsummation
+0x08b6 botrightsummation
+0x08b7 rightmiddlesummation
+0x08bc lessthanequal U+2264
+0x08bd notequal U+2260
+0x08be greaterthanequal U+2265
+0x08bf integral U+222B
+0x08c0 therefore U+2234
+0x08c1 variation U+221D
+0x08c2 infinity U+221E
+0x08c5 nabla U+2207
+0x08c8 approximate U+223C
+0x08c9 similarequal U+2243
+0x08cd ifonlyif U+21D4
+0x08ce implies U+21D2
+0x08cf identical U+2261
+0x08d6 radical U+221A
+0x08da includedin U+2282
+0x08db includes U+2283
+0x08dc intersection U+2229
+0x08dd union U+222A
+0x08de logicaland U+2227
+0x08df logicalor U+2228
+0x08ef partialderivative U+2202
+0x08f6 function U+0192
+0x08fb leftarrow U+2190
+0x08fc uparrow U+2191
+0x08fd rightarrow U+2192
+0x08fe downarrow U+2193
+0x09df blank
+0x09e0 soliddiamond U+25C6
+0x09e1 checkerboard U+2592
+0x09e2 ht U+2409
+0x09e3 ff U+240C
+0x09e4 cr U+240D
+0x09e5 lf U+240A
+0x09e8 nl U+2424
+0x09e9 vt U+240B
+0x09ea lowrightcorner U+2518
+0x09eb uprightcorner U+2510
+0x09ec upleftcorner U+250C
+0x09ed lowleftcorner U+2514
+0x09ee crossinglines U+253C
+0x09ef horizlinescan1 U+23BA
+0x09f0 horizlinescan3 U+23BB
+0x09f1 horizlinescan5 U+2500
+0x09f2 horizlinescan7 U+23BC
+0x09f3 horizlinescan9 U+23BD
+0x09f4 leftt U+251C
+0x09f5 rightt U+2524
+0x09f6 bott U+2534
+0x09f7 topt U+252C
+0x09f8 vertbar U+2502
+0x0aa1 emspace U+2003
+0x0aa2 enspace U+2002
+0x0aa3 em3space U+2004
+0x0aa4 em4space U+2005
+0x0aa5 digitspace U+2007
+0x0aa6 punctspace U+2008
+0x0aa7 thinspace U+2009
+0x0aa8 hairspace U+200A
+0x0aa9 emdash U+2014
+0x0aaa endash U+2013
+0x0aac signifblank
+0x0aae ellipsis U+2026
+0x0aaf doubbaselinedot U+2025
+0x0ab0 onethird U+2153
+0x0ab1 twothirds U+2154
+0x0ab2 onefifth U+2155
+0x0ab3 twofifths U+2156
+0x0ab4 threefifths U+2157
+0x0ab5 fourfifths U+2158
+0x0ab6 onesixth U+2159
+0x0ab7 fivesixths U+215A
+0x0ab8 careof U+2105
+0x0abb figdash U+2012
+0x0abc leftanglebracket
+0x0abd decimalpoint
+0x0abe rightanglebracket
+0x0abf marker
+0x0ac3 oneeighth U+215B
+0x0ac4 threeeighths U+215C
+0x0ac5 fiveeighths U+215D
+0x0ac6 seveneighths U+215E
+0x0ac9 trademark U+2122
+0x0aca signaturemark
+0x0acb trademarkincircle
+0x0acc leftopentriangle
+0x0acd rightopentriangle
+0x0ace emopencircle
+0x0acf emopenrectangle
+0x0ad0 leftsinglequotemark U+2018
+0x0ad1 rightsinglequotemark U+2019
+0x0ad2 leftdoublequotemark U+201C
+0x0ad3 rightdoublequotemark U+201D
+0x0ad4 prescription U+211E
+0x0ad5 permille U+2030
+0x0ad6 minutes U+2032
+0x0ad7 seconds U+2033
+0x0ad9 latincross U+271D
+0x0ada hexagram
+0x0adb filledrectbullet
+0x0adc filledlefttribullet
+0x0add filledrighttribullet
+0x0ade emfilledcircle
+0x0adf emfilledrect
+0x0ae0 enopencircbullet
+0x0ae1 enopensquarebullet
+0x0ae2 openrectbullet
+0x0ae3 opentribulletup
+0x0ae4 opentribulletdown
+0x0ae5 openstar
+0x0ae6 enfilledcircbullet
+0x0ae7 enfilledsqbullet
+0x0ae8 filledtribulletup
+0x0ae9 filledtribulletdown
+0x0aea leftpointer
+0x0aeb rightpointer
+0x0aec club U+2663
+0x0aed diamond U+2666
+0x0aee heart U+2665
+0x0af0 maltesecross U+2720
+0x0af1 dagger U+2020
+0x0af2 doubledagger U+2021
+0x0af3 checkmark U+2713
+0x0af4 ballotcross U+2717
+0x0af5 musicalsharp U+266F
+0x0af6 musicalflat U+266D
+0x0af7 malesymbol U+2642
+0x0af8 femalesymbol U+2640
+0x0af9 telephone U+260E
+0x0afa telephonerecorder U+2315
+0x0afb phonographcopyright U+2117
+0x0afc caret U+2038
+0x0afd singlelowquotemark U+201A
+0x0afe doublelowquotemark U+201E
+0x0aff cursor
+0x0ba3 leftcaret
+0x0ba6 rightcaret
+0x0ba8 downcaret
+0x0ba9 upcaret
+0x0bc0 overbar
+0x0bc2 downtack U+22A4
+0x0bc3 upshoe
+0x0bc4 downstile U+230A
+0x0bc6 underbar
+0x0bca jot U+2218
+0x0bcc quad U+2395
+0x0bce uptack U+22A5
+0x0bcf circle U+25CB
+0x0bd3 upstile U+2308
+0x0bd6 downshoe
+0x0bd8 rightshoe
+0x0bda leftshoe
+0x0bdc lefttack U+22A3
+0x0bfc righttack U+22A2
+0x0cdf hebrew_doublelowline U+2017
+0x0ce0 hebrew_aleph U+05D0
+0x0ce1 hebrew_bet U+05D1
+0x0ce2 hebrew_gimel U+05D2
+0x0ce3 hebrew_dalet U+05D3
+0x0ce4 hebrew_he U+05D4
+0x0ce5 hebrew_waw U+05D5
+0x0ce6 hebrew_zain U+05D6
+0x0ce7 hebrew_chet U+05D7
+0x0ce8 hebrew_tet U+05D8
+0x0ce9 hebrew_yod U+05D9
+0x0cea hebrew_finalkaph U+05DA
+0x0ceb hebrew_kaph U+05DB
+0x0cec hebrew_lamed U+05DC
+0x0ced hebrew_finalmem U+05DD
+0x0cee hebrew_mem U+05DE
+0x0cef hebrew_finalnun U+05DF
+0x0cf0 hebrew_nun U+05E0
+0x0cf1 hebrew_samech U+05E1
+0x0cf2 hebrew_ayin U+05E2
+0x0cf3 hebrew_finalpe U+05E3
+0x0cf4 hebrew_pe U+05E4
+0x0cf5 hebrew_finalzade U+05E5
+0x0cf6 hebrew_zade U+05E6
+0x0cf7 hebrew_qoph U+05E7
+0x0cf8 hebrew_resh U+05E8
+0x0cf9 hebrew_shin U+05E9
+0x0cfa hebrew_taw U+05EA
+0x0da1 Thai_kokai U+0E01
+0x0da2 Thai_khokhai U+0E02
+0x0da3 Thai_khokhuat U+0E03
+0x0da4 Thai_khokhwai U+0E04
+0x0da5 Thai_khokhon U+0E05
+0x0da6 Thai_khorakhang U+0E06
+0x0da7 Thai_ngongu U+0E07
+0x0da8 Thai_chochan U+0E08
+0x0da9 Thai_choching U+0E09
+0x0daa Thai_chochang U+0E0A
+0x0dab Thai_soso U+0E0B
+0x0dac Thai_chochoe U+0E0C
+0x0dad Thai_yoying U+0E0D
+0x0dae Thai_dochada U+0E0E
+0x0daf Thai_topatak U+0E0F
+0x0db0 Thai_thothan U+0E10
+0x0db1 Thai_thonangmontho U+0E11
+0x0db2 Thai_thophuthao U+0E12
+0x0db3 Thai_nonen U+0E13
+0x0db4 Thai_dodek U+0E14
+0x0db5 Thai_totao U+0E15
+0x0db6 Thai_thothung U+0E16
+0x0db7 Thai_thothahan U+0E17
+0x0db8 Thai_thothong U+0E18
+0x0db9 Thai_nonu U+0E19
+0x0dba Thai_bobaimai U+0E1A
+0x0dbb Thai_popla U+0E1B
+0x0dbc Thai_phophung U+0E1C
+0x0dbd Thai_fofa U+0E1D
+0x0dbe Thai_phophan U+0E1E
+0x0dbf Thai_fofan U+0E1F
+0x0dc0 Thai_phosamphao U+0E20
+0x0dc1 Thai_moma U+0E21
+0x0dc2 Thai_yoyak U+0E22
+0x0dc3 Thai_rorua U+0E23
+0x0dc4 Thai_ru U+0E24
+0x0dc5 Thai_loling U+0E25
+0x0dc6 Thai_lu U+0E26
+0x0dc7 Thai_wowaen U+0E27
+0x0dc8 Thai_sosala U+0E28
+0x0dc9 Thai_sorusi U+0E29
+0x0dca Thai_sosua U+0E2A
+0x0dcb Thai_hohip U+0E2B
+0x0dcc Thai_lochula U+0E2C
+0x0dcd Thai_oang U+0E2D
+0x0dce Thai_honokhuk U+0E2E
+0x0dcf Thai_paiyannoi U+0E2F
+0x0dd0 Thai_saraa U+0E30
+0x0dd1 Thai_maihanakat U+0E31
+0x0dd2 Thai_saraaa U+0E32
+0x0dd3 Thai_saraam U+0E33
+0x0dd4 Thai_sarai U+0E34
+0x0dd5 Thai_saraii U+0E35
+0x0dd6 Thai_saraue U+0E36
+0x0dd7 Thai_sarauee U+0E37
+0x0dd8 Thai_sarau U+0E38
+0x0dd9 Thai_sarauu U+0E39
+0x0dda Thai_phinthu U+0E3A
+0x0dde Thai_maihanakat_maitho
+0x0ddf Thai_baht U+0E3F
+0x0de0 Thai_sarae U+0E40
+0x0de1 Thai_saraae U+0E41
+0x0de2 Thai_sarao U+0E42
+0x0de3 Thai_saraaimaimuan U+0E43
+0x0de4 Thai_saraaimaimalai U+0E44
+0x0de5 Thai_lakkhangyao U+0E45
+0x0de6 Thai_maiyamok U+0E46
+0x0de7 Thai_maitaikhu U+0E47
+0x0de8 Thai_maiek U+0E48
+0x0de9 Thai_maitho U+0E49
+0x0dea Thai_maitri U+0E4A
+0x0deb Thai_maichattawa U+0E4B
+0x0dec Thai_thanthakhat U+0E4C
+0x0ded Thai_nikhahit U+0E4D
+0x0df0 Thai_leksun U+0E50
+0x0df1 Thai_leknung U+0E51
+0x0df2 Thai_leksong U+0E52
+0x0df3 Thai_leksam U+0E53
+0x0df4 Thai_leksi U+0E54
+0x0df5 Thai_lekha U+0E55
+0x0df6 Thai_lekhok U+0E56
+0x0df7 Thai_lekchet U+0E57
+0x0df8 Thai_lekpaet U+0E58
+0x0df9 Thai_lekkao U+0E59
+0xff31 Hangul
+0xff32 Hangul_Start
+0xff33 Hangul_End
+0xff34 Hangul_Hanja
+0xff35 Hangul_Jamo
+0xff36 Hangul_Romaja
+0xff38 Hangul_Jeonja
+0xff39 Hangul_Banja
+0xff3a Hangul_PreHanja
+0xff3b Hangul_PostHanja
+0xff3f Hangul_Special
+0x0ea1 Hangul_Kiyeog U+3131
+0x0ea2 Hangul_SsangKiyeog U+3132
+0x0ea3 Hangul_KiyeogSios U+3133
+0x0ea4 Hangul_Nieun U+3134
+0x0ea5 Hangul_NieunJieuj U+3135
+0x0ea6 Hangul_NieunHieuh U+3136
+0x0ea7 Hangul_Dikeud U+3137
+0x0ea8 Hangul_SsangDikeud U+3138
+0x0ea9 Hangul_Rieul U+3139
+0x0eaa Hangul_RieulKiyeog U+313A
+0x0eab Hangul_RieulMieum U+313B
+0x0eac Hangul_RieulPieub U+313C
+0x0ead Hangul_RieulSios U+313D
+0x0eae Hangul_RieulTieut U+313E
+0x0eaf Hangul_RieulPhieuf U+313F
+0x0eb0 Hangul_RieulHieuh U+3140
+0x0eb1 Hangul_Mieum U+3141
+0x0eb2 Hangul_Pieub U+3142
+0x0eb3 Hangul_SsangPieub U+3143
+0x0eb4 Hangul_PieubSios U+3144
+0x0eb5 Hangul_Sios U+3145
+0x0eb6 Hangul_SsangSios U+3146
+0x0eb7 Hangul_Ieung U+3147
+0x0eb8 Hangul_Jieuj U+3148
+0x0eb9 Hangul_SsangJieuj U+3149
+0x0eba Hangul_Cieuc U+314A
+0x0ebb Hangul_Khieuq U+314B
+0x0ebc Hangul_Tieut U+314C
+0x0ebd Hangul_Phieuf U+314D
+0x0ebe Hangul_Hieuh U+314E
+0x0ebf Hangul_A U+314F
+0x0ec0 Hangul_AE U+3150
+0x0ec1 Hangul_YA U+3151
+0x0ec2 Hangul_YAE U+3152
+0x0ec3 Hangul_EO U+3153
+0x0ec4 Hangul_E U+3154
+0x0ec5 Hangul_YEO U+3155
+0x0ec6 Hangul_YE U+3156
+0x0ec7 Hangul_O U+3157
+0x0ec8 Hangul_WA U+3158
+0x0ec9 Hangul_WAE U+3159
+0x0eca Hangul_OE U+315A
+0x0ecb Hangul_YO U+315B
+0x0ecc Hangul_U U+315C
+0x0ecd Hangul_WEO U+315D
+0x0ece Hangul_WE U+315E
+0x0ecf Hangul_WI U+315F
+0x0ed0 Hangul_YU U+3160
+0x0ed1 Hangul_EU U+3161
+0x0ed2 Hangul_YI U+3162
+0x0ed3 Hangul_I U+3163
+0x0ed4 Hangul_J_Kiyeog U+11A8
+0x0ed5 Hangul_J_SsangKiyeog U+11A9
+0x0ed6 Hangul_J_KiyeogSios U+11AA
+0x0ed7 Hangul_J_Nieun U+11AB
+0x0ed8 Hangul_J_NieunJieuj U+11AC
+0x0ed9 Hangul_J_NieunHieuh U+11AD
+0x0eda Hangul_J_Dikeud U+11AE
+0x0edb Hangul_J_Rieul U+11AF
+0x0edc Hangul_J_RieulKiyeog U+11B0
+0x0edd Hangul_J_RieulMieum U+11B1
+0x0ede Hangul_J_RieulPieub U+11B2
+0x0edf Hangul_J_RieulSios U+11B3
+0x0ee0 Hangul_J_RieulTieut U+11B4
+0x0ee1 Hangul_J_RieulPhieuf U+11B5
+0x0ee2 Hangul_J_RieulHieuh U+11B6
+0x0ee3 Hangul_J_Mieum U+11B7
+0x0ee4 Hangul_J_Pieub U+11B8
+0x0ee5 Hangul_J_PieubSios U+11B9
+0x0ee6 Hangul_J_Sios U+11BA
+0x0ee7 Hangul_J_SsangSios U+11BB
+0x0ee8 Hangul_J_Ieung U+11BC
+0x0ee9 Hangul_J_Jieuj U+11BD
+0x0eea Hangul_J_Cieuc U+11BE
+0x0eeb Hangul_J_Khieuq U+11BF
+0x0eec Hangul_J_Tieut U+11C0
+0x0eed Hangul_J_Phieuf U+11C1
+0x0eee Hangul_J_Hieuh U+11C2
+0x0eef Hangul_RieulYeorinHieuh U+316D
+0x0ef0 Hangul_SunkyeongeumMieum U+3171
+0x0ef1 Hangul_SunkyeongeumPieub U+3178
+0x0ef2 Hangul_PanSios U+317F
+0x0ef3 Hangul_KkogjiDalrinIeung U+3181
+0x0ef4 Hangul_SunkyeongeumPhieuf U+3184
+0x0ef5 Hangul_YeorinHieuh U+3186
+0x0ef6 Hangul_AraeA U+318D
+0x0ef7 Hangul_AraeAE U+318E
+0x0ef8 Hangul_J_PanSios U+11EB
+0x0ef9 Hangul_J_KkogjiDalrinIeung U+11F0
+0x0efa Hangul_J_YeorinHieuh U+11F9
+0x0eff Korean_Won
+0x20ac EuroSign U+20AC
+0xfff1 braille_dot_1
+0xfff2 braille_dot_2
+0xfff3 braille_dot_3
+0xfff4 braille_dot_4
+0xfff5 braille_dot_5
+0xfff6 braille_dot_6
+0xfff7 braille_dot_7
+0xfff8 braille_dot_8
+0xfff9 braille_dot_9
+0xfffa braille_dot_10
