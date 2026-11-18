@@ -44,7 +44,8 @@ class DeadKey:
 @dataclass
 class Key:
     physical: PhysicalKey
-    layers: dict  # layer -> Char | Dead | None
+    layers: dict  # layer -> Char | Dead | None, on macOS
+    pc_layers: dict  # the same on Windows and Linux
 
     @property
     def name(self) -> str:
@@ -66,15 +67,17 @@ class Layout:
     keys: list = field(default_factory=list)  # Key, in keyboard order
     dead: dict = field(default_factory=dict)  # id -> DeadKey, in file order
 
-    def binding(self, key: Key, layer: str):
-        """What `key` does in `layer`, including the derived Caps Lock layers."""
+    def binding(self, key: Key, layer: str, platform: str = "mac"):
+        """What `key` does in `layer` on `platform` ("mac" or "pc"),
+        including the derived Caps Lock layers."""
+        layers = key.layers if platform == "mac" else key.pc_layers
         if layer == "caps":
-            return key.layers["shift"] if _caps_shifts(key, "base", "shift") else key.layers["base"]
+            return layers["shift"] if _caps_shifts(layers, "base", "shift") else layers["base"]
         if layer == "caps-option":
-            if _caps_shifts(key, "option", "shift-option"):
-                return key.layers["shift-option"]
-            return key.layers["option"]
-        return key.layers[layer]
+            if _caps_shifts(layers, "option", "shift-option"):
+                return layers["shift-option"]
+            return layers["option"]
+        return layers[layer]
 
     def dead_result(self, dead: DeadKey, binding):
         """Result of `binding` after the dead key: Char, or None (no entry)."""
@@ -87,8 +90,8 @@ class Layout:
         return f"© {self.copyright} {self.author}"
 
 
-def _caps_shifts(key: Key, lower: str, upper: str) -> bool:
-    lo, up = key.layers[lower], key.layers[upper]
+def _caps_shifts(layers: dict, lower: str, upper: str) -> bool:
+    lo, up = layers[lower], layers[upper]
     return (
         isinstance(lo, Char)
         and isinstance(up, Char)
@@ -166,8 +169,14 @@ def load(path: Path) -> Layout:
         assign(spec["key"], Dead(dead_id), f"{where} key")
 
     for physical in KEYS:
+        pc_layers = {
+            "base": Char(physical.pc_base or physical.base),
+            "shift": Char(physical.pc_shift or physical.shift),
+        }
         layers = {"base": Char(physical.base), "shift": Char(physical.shift)}
-        for layer in ("option", "shift-option"):
-            layers[layer] = bindings.get((physical.name, layer))
-        layout.keys.append(Key(physical, layers))
+        for layer, default in zip(("option", "shift-option"), physical.mac_alternative):
+            binding = bindings.get((physical.name, layer))
+            pc_layers[layer] = binding
+            layers[layer] = binding if binding is not None or default is None else Char(default)
+        layout.keys.append(Key(physical, layers, pc_layers))
     return layout

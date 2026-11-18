@@ -1,6 +1,6 @@
 """Physical keys of a US keyboard and their codes on each platform."""
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 
 
 @dataclass(frozen=True)
@@ -13,6 +13,10 @@ class PhysicalKey:
     shift: str  # US layout, Shift
     row: int  # keyboard row for diagrams (0 = number row)
     col: float  # horizontal position in key widths, from the left edge
+    # Platform conventions that differ from the above (macOS):
+    pc_base: str | None = None  # Windows/Linux, no modifiers
+    pc_shift: str | None = None  # Windows/Linux, Shift
+    mac_alternative: tuple = (None, None)  # macOS Option, Shift+Option defaults
 
 
 def _row(row: int, start: float, specs):
@@ -82,6 +86,13 @@ KEYS = [
         ("/", 44, "K_SLASH", "VK_OEM_2", "/", "?"),
     ]),
     PhysicalKey("space", 49, "K_SPACE", "VK_SPACE", " ", " ", 4, 4.0),
+]
+
+# The ISO key types § ± on macOS (also with Option, as in Apple's US layout)
+# and \ | on Windows and Linux.
+KEYS = [
+    replace(k, pc_base="\\", pc_shift="|", mac_alternative=("§", "±")) if k.name == "iso" else k
+    for k in KEYS
 ]
 
 KEYS_BY_NAME = {k.name: k for k in KEYS}

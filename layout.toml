@@ -99,8 +99,6 @@ L = "⇔"
 ":" = "̈"  # combining diaeresis
 "\"" = "″"
 # bottom row
-"§" = "§"
-"±" = "±"
 x = "×"
 X = "⊗"
 c = "ç"
