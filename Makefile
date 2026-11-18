@@ -11,12 +11,12 @@ JULIAMONO = v0.63.2
 JULIAMONO_SHA256 = be6517295198ec5c92bdbaad42f4f6f8d83f921d80512b79f54fe036add95c0c
 FONT = fonts/JuliaMono-Regular.ttf
 
-.PHONY: help all macos keyman windows linux cheatsheet docs fonts test install uninstall clean
+.PHONY: help all macos keyman windows linux cheatsheet docs fonts test install uninstall install-keyman uninstall-keyman clean
 
 .DEFAULT_GOAL := help
 
 help:  ## Show this help
-	@grep -E '^([a-zA-Z_-]+):.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "%-12s %s\n", $$1, $$2}'
+	@grep -E '^([a-zA-Z_-]+):.*## ' $(MAKEFILE_LIST) | awk -F ':.*## ' '{printf "%-17s %s\n", $$1, $$2}'
 
 all: macos keyman windows linux cheatsheet  ## Build everything into build/
 
@@ -114,6 +114,14 @@ endif
 install:  ## Install the layout for this OS (SYSTEM=1 on macOS: for all users)
 uninstall:  ## Remove the installed layout (SYSTEM=1 on macOS: for all users)
 
+install-keyman: build/$(ID).kmp  ## Install the Keyman package instead (Linux, with Keyman for Linux)
+	@command -v km-package-install > /dev/null || \
+	    { echo "Install Keyman for Linux first: https://keyman.com/linux/"; exit 1; }
+	km-package-install -f build/$(ID).kmp
+
+uninstall-keyman:  ## Remove the Keyman package (Linux)
+	km-package-uninstall $(ID)
+
 ifeq ($(UNAME),Darwin)
 install: build/$(ID).bundle
 	$(SUDO) rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
@@ -136,13 +144,11 @@ uninstall:
 	$(SUDO) rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
 	@echo "Removed $(ID).bundle from $(MACOS_LAYOUTS); log out and back in to finish."
 else ifeq ($(UNAME),Linux)
-install: build/$(ID).kmp
-	@command -v km-package-install > /dev/null || \
-	    { echo "Install Keyman for Linux first: https://keyman.com/linux/"; exit 1; }
-	km-package-install -f build/$(ID).kmp
+install: build/$(ID)-linux/$(ID)
+	python3 build/$(ID)-linux/install.py
 
-uninstall:
-	km-package-uninstall $(ID)
+uninstall: build/$(ID)-linux/$(ID)
+	python3 build/$(ID)-linux/install.py --uninstall
 else
 install uninstall:
 	@echo "On Windows, either install Keyman (https://keyman.com/windows/) and"
