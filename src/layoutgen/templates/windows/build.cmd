@@ -48,6 +48,8 @@ exit /b 0
 
 :build
 rem %1 output directory, %2 vcvarsall argument, %3 linker machine, %4 extra cl flags
+rem Windows loads layout DLLs with file offsets equal to memory offsets
+rem (/FILEALIGN:0x1000) and the tables in .data, as in its own layout DLLs.
 setlocal
 echo.
 echo === %1 ===
@@ -55,7 +57,7 @@ call "%VCVARS%" %2 > nul || exit /b 1
 if not exist %1 mkdir %1
 cl /nologo /c /O1 /GS- /Zl /W3 /utf-8 %~4 /Fo%1\%NAME%.obj %NAME%.c || exit /b 1
 rc /nologo /fo %1\%NAME%.res %NAME%.rc || exit /b 1
-link /nologo /DLL /NOENTRY /NODEFAULTLIB /SUBSYSTEM:NATIVE /MACHINE:%3 /DEF:%NAME%.def /OUT:%1\%NAME%.dll %1\%NAME%.obj %1\%NAME%.res || exit /b 1
+link /nologo /DLL /NOENTRY /NODEFAULTLIB /SUBSYSTEM:NATIVE /FILEALIGN:0x1000 /MERGE:.rdata=.data /MACHINE:%3 /DEF:%NAME%.def /OUT:%1\%NAME%.dll %1\%NAME%.obj %1\%NAME%.res || exit /b 1
 del %1\%NAME%.obj %1\%NAME%.res %1\%NAME%.lib %1\%NAME%.exp 2> nul
 endlocal
 exit /b 0

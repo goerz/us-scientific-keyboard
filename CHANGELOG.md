@@ -17,6 +17,10 @@ All notable changes to this project are documented in this file. The format is b
 - The native Windows layout comes compiled, as `us_scientific-windows.zip` (replacing `kbdussci-src.zip`): unzip it and run `install.ps1`, without installing Visual Studio first.
 - The cheat sheet fits on two pages, so it prints on one sheet double-sided.
 
+### Fixed
+
+- Windows can load the native Windows layout: it rejected the DLL that `build.cmd` from 4.0.0 compiled.
+
 ## [4.0.0] - 2026-11-18
 
 First release of U.S. Scientific, the successor of the macOS-only "U.S. International - Scientific" layout ([USScientific.bundle](https://github.com/goerz/USScientific.bundle)). The whole layout is now defined in `layout.toml` and generated for every platform. The changes are relative to "U.S. International - Scientific" 3.0.
