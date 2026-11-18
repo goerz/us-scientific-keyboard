@@ -95,12 +95,13 @@ install: build/$(ID).bundle
 	mkdir -p "$(MACOS_LAYOUTS)"
 	cp -R build/$(ID).bundle "$(MACOS_LAYOUTS)/"
 	@echo "Installed $(ID).bundle in $(MACOS_LAYOUTS)."
-	@echo "Log out and back in, then add \"US Scientific\" in System Settings,"
-	@echo "Keyboard, Text Input, Input Sources (in the English group)."
-	@if [ -e "$(MACOS_LAYOUTS)/USScientific.bundle" ]; then \
-	    echo "The predecessor is still installed; to remove it, run:"; \
-	    echo "    rm -rf \"$(MACOS_LAYOUTS)/USScientific.bundle\""; \
-	fi
+	@swift tools/macos-activate.swift "$(MACOS_LAYOUTS)/$(ID).bundle" 2>&1 | grep -v '^Keyboard Layouts:' || true
+	@for dir in "$(HOME)/Library/Keyboard Layouts" "/Library/Keyboard Layouts"; do \
+	    if [ -e "$$dir/USScientific.bundle" ]; then \
+	        echo "The predecessor is still installed; to remove it, run:"; \
+	        echo "    $$( [ "$$dir" = "/Library/Keyboard Layouts" ] && echo 'sudo ' )rm -rf \"$$dir/USScientific.bundle\""; \
+	    fi; \
+	done
 
 uninstall:
 	rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"

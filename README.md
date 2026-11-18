@@ -223,7 +223,7 @@ Unicode doesn't have a complete alphabet of subscripts and superscripts, so some
 
 Download the files from the [releases page](https://github.com/goerz/us-scientific-keyboard/releases).
 
-From a clone of this repository, `make install` builds and installs the layout for the current user (on macOS, the bundle; on Linux, the Keyman package, which requires Keyman for Linux). `make uninstall` removes it.
+From a clone of this repository, `make install` builds and installs the layout for the current user. On macOS, it installs the bundle and enables the layout right away, without logging out; select it in the input menu. On Linux, it installs the Keyman package, which requires Keyman for Linux. `make uninstall` removes it.
 
 ### macOS
 
