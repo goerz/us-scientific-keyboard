@@ -3,7 +3,7 @@
 tests/data/reference.keylayout is the last Ukelele-made version (3.0, with
 the Caps Lock fix). Every key in every key map, in every dead-key state, and
 every terminator must match. This proves layout.toml describes the layout
-completely; when the layout changes on purpose, update the reference.
+completely. Deliberate changes since then are listed in CHANGES.
 """
 
 from pathlib import Path
@@ -14,6 +14,27 @@ from layoutgen import macos, model
 from layoutgen.keylayout_reader import KeyLayout, Next
 
 ROOT = Path(__file__).resolve().parent.parent
+
+# Deliberate changes to dead keys since the reference:
+# (dead key, typed character) -> (old result, new result), where None means
+# "no entry" (the dead key's symbol, followed by the character).
+CHANGES = {
+    # Grave: no-op entry for c, and a cedilla on C
+    ("grave", "c"): ("c", None),
+    ("grave", "C"): ("Ç", None),
+    # Slash: uppercase partner of ȼ
+    ("slash", "C"): (None, "Ȼ"),
+    # Space after a dead key types its symbol
+    ("acute", " "): ("\u0301", "'"),
+    ("grave", " "): ("ˋ", "`"),
+    ("slash", " "): (None, "/"),
+    ("greek", " "): (None, "α"),
+    ("subscript", " "): (None, "₀"),
+    ("superscript", " "): (None, "⁰"),
+    ("script", " "): (None, "ℒ"),
+    ("bold", " "): (None, "𝐅"),
+    ("doublestruck", " "): (None, "𝕄"),
+}
 
 
 @pytest.fixture(scope="module")
@@ -62,15 +83,17 @@ def test_same_dead_keys(layouts):
     ref, gen = layouts
     mapping = state_mapping(ref, gen)
     assert len(mapping) == 9
-    mismatches = []
+    changes = {}
     for ref_state, gen_state in mapping.items():
         for index in range(6):
             for code in all_codes(ref, gen):
                 r = normalize(ref.press(index, code, ref_state), mapping)
                 g = gen.press(index, code, gen_state)
                 if r != g:
-                    mismatches.append((ref_state, index, code, r, g))
-    assert mismatches == []
+                    typed = gen.press(index, code).text
+                    change = (r.text if r else None, g.text if g else None)
+                    assert changes.setdefault((gen_state, typed), change) == change
+    assert changes == CHANGES
 
 
 def test_same_terminators(layouts):

@@ -160,7 +160,8 @@ def load(path: Path) -> Layout:
             desc=spec.get("desc", ""),
             symbol=spec["symbol"],
             windows_symbol=spec.get("windows-symbol", spec["symbol"]),
-            map=dict(spec["map"]),
+            # Space after a dead key types its symbol, unless defined otherwise
+            map={" ": spec["symbol"], **spec["map"]},
         )
         assign(spec["key"], Dead(dead_id), f"{where} key")
 

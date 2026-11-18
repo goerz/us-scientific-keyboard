@@ -8,7 +8,7 @@
 # key and `"!"` is Shift+1. In [option], lowercase/unshifted names mean
 # Option and uppercase/shifted names mean Shift+Option. Caps Lock acts like
 # Shift for letters, also for Option+letter when Shift+Option gives its
-# uppercase form.
+# uppercase form. A dead key followed by Space types the dead key's symbol.
 #
 # [notes] explains characters (keyed by the character) for the README;
 # characters without a note are described by their Unicode name.
@@ -124,7 +124,7 @@ m = "µ"
 key = "'"
 name = "Acute"
 desc = "letters with acute accent"
-symbol = "'"  # typed alone, or before a key without an entry
+symbol = "'"  # after Space, or before a key without an entry
 
 [dead.acute.map]
 a = "á"
@@ -151,44 +151,41 @@ R = "Ŕ"
 U = "Ú"
 Y = "Ý"
 Z = "Ź"
-" " = "\u0301"
 "'" = "´"
 
 [dead.grave]
 key = "`"
 name = "Grave"
 desc = "letters with grave accent"
-symbol = "`"  # typed alone, or before a key without an entry
+symbol = "`"  # after Space, or before a key without an entry
 
 [dead.grave.map]
 a = "à"
-c = "c"
 e = "è"
 i = "ì"
 o = "ò"
 u = "ù"
 y = "ỳ"
 A = "À"
-C = "Ç"
 E = "È"
 I = "Ì"
 O = "Ò"
 U = "Ù"
 Y = "Ỳ"
-" " = "ˋ"
 "`" = "`"
 
 [dead.slash]
 key = "/"
 name = "Slash"
 desc = "letters with a slash through them"
-symbol = "/"  # typed alone, or before a key without an entry
+symbol = "/"  # after Space, or before a key without an entry
 
 [dead.slash.map]
 c = "ȼ"
 l = "ł"
 o = "ø"
 t = "ⱦ"
+C = "Ȼ"
 L = "Ł"
 O = "Ø"
 T = "Ⱦ"
@@ -199,7 +196,7 @@ T = "Ⱦ"
 key = "f"
 name = "Greek"
 desc = "Greek letters, plus the first few Hebrew letters used in mathematics"
-symbol = "α"  # typed alone, or before a key without an entry
+symbol = "α"  # after Space, or before a key without an entry
 
 [dead.greek.map]
 a = "α"
@@ -262,7 +259,7 @@ Z = "Ζ"
 key = "z"
 name = "Subscript"
 desc = "subscripts"
-symbol = "₀"  # typed alone, or before a key without an entry
+symbol = "₀"  # after Space, or before a key without an entry
 
 [dead.subscript.map]
 a = "ₐ"
@@ -297,7 +294,7 @@ x = "ₓ"
 key = "Z"
 name = "Superscript"
 desc = "superscripts"
-symbol = "⁰"  # typed alone, or before a key without an entry
+symbol = "⁰"  # after Space, or before a key without an entry
 
 [dead.superscript.map]
 i = "ⁱ"
@@ -322,7 +319,7 @@ n = "ⁿ"
 key = "R"
 name = "Math Script"
 desc = "letters from the math script alphabet, e.g., for superoperators"
-symbol = "ℒ"  # typed alone, or before a key without an entry
+symbol = "ℒ"  # after Space, or before a key without an entry
 
 [dead.script.map]
 a = "𝒶"
@@ -382,7 +379,7 @@ Z = "𝒵"
 key = "F"
 name = "Math Bold"
 desc = "letters from the math bold alphabet, e.g., for vectors"
-symbol = "𝐅"  # typed alone, or before a key without an entry
+symbol = "𝐅"  # after Space, or before a key without an entry
 
 [dead.bold.map]
 a = "𝐚"
@@ -452,7 +449,7 @@ Z = "𝐙"
 key = "M"
 name = "Double-Struck"
 desc = "letters from the double-struck alphabet, e.g., for number sets"
-symbol = "𝕄"  # typed alone, or before a key without an entry
+symbol = "𝕄"  # after Space, or before a key without an entry
 windows-symbol = "ℍ"  # Windows needs a BMP character
 
 [dead.doublestruck.map]
