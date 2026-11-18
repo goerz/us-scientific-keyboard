@@ -6,7 +6,7 @@
 
 Usage:
 
-    uv run tools/import_skeleton.py ../USScientific > src/layoutgen/macos_skeleton.keylayout
+    uv run tools/import_skeleton.py ../USScientific > src/layoutgen/templates/macos.keylayout
 
 Keeps everything layout.toml doesn't describe (non-character keys, keypad,
 Command and Control layers, JIS keyboards) and replaces the character keys of

@@ -73,7 +73,7 @@ def keylayout(layout: Layout) -> str:
     outputs.extend(dead.symbol for dead in layout.dead.values())
     maxout = max(len(text.encode("utf-16-le")) // 2 for text in outputs)
 
-    text = files("layoutgen").joinpath("macos_skeleton.keylayout").read_text(encoding="utf-8")
+    text = files("layoutgen").joinpath("templates", "macos.keylayout").read_text(encoding="utf-8")
     replacements = {
         "@@ID@@": str(layout.macos_id),
         "@@NAME@@": xml_escape(layout.name),
