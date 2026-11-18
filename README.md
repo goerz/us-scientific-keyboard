@@ -223,6 +223,8 @@ Unicode doesn't have a complete alphabet of subscripts and superscripts, so some
 
 Download the files from the [releases page](https://github.com/goerz/us-scientific-keyboard/releases).
 
+From a clone of this repository, `make install` builds and installs the layout for the current user (on macOS, the bundle; on Linux, the Keyman package, which requires Keyman for Linux). `make uninstall` removes it.
+
 ### macOS
 
 Unzip `us_scientific.bundle.zip` and copy `us_scientific.bundle` to `~/Library/Keyboard Layouts/` (for the current user) or `/Library/Keyboard Layouts/` (for all users). Log out and back in. Then add the layout in System Settings, under Keyboard, Text Input, Input Sources, as "US Scientific" (in the English group).
@@ -289,6 +291,7 @@ After changing it, run `make docs` to update this README and the diagrams, and `
 The `Makefile` drives the [`layoutgen`](src/layoutgen) package, which needs [uv](https://docs.astral.sh/uv/):
 
 * `make` builds everything into `build/`: the macOS bundle (`make macos`), the Keyman package (`make keyman`, which also needs Node.js for Keyman's `kmc` compiler and ImageMagick for the icon), the native Windows source (`make windows`), and the PDF cheat sheet (`make cheatsheet`, which needs `rsvg-convert` and LuaLaTeX).
+* `make install` and `make uninstall` install or remove the layout for the current user, as appropriate for the operating system (see [Installation](#installation)).
 * `make docs` regenerates the tables and diagrams in this README.
 * The diagrams and the cheat sheet are set in [JuliaMono](https://github.com/cormullion/juliamono) (SIL Open Font License), which `make fonts` downloads into `fonts/`; the diagrams contain the glyph outlines, so viewing them doesn't need the font.
 * `make test` runs the tests. They check every generated layout against `layout.toml`, key by key, in every layer and dead key, and that the README is up to date.

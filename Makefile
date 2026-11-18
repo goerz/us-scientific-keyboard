@@ -1,4 +1,4 @@
-.PHONY: all macos keyman windows cheatsheet docs fonts test clean
+.PHONY: all macos keyman windows cheatsheet docs fonts test install uninstall clean
 
 # Everything is generated from layout.toml by the layoutgen package.
 SOURCES = layout.toml $(shell find src/layoutgen -type f -not -name '*.pyc')
@@ -84,6 +84,42 @@ build/us-scientific.pdf: build/cheatsheet/cheatsheet.tex
 # README tables and diagrams (committed, so that GitHub shows them)
 docs: $(SOURCES) $(FONT)
 	$(LAYOUTGEN) docs
+
+# Install for the current user, as appropriate for the operating system
+UNAME := $(shell uname -s)
+MACOS_LAYOUTS ?= $(HOME)/Library/Keyboard Layouts
+
+ifeq ($(UNAME),Darwin)
+install: build/$(ID).bundle
+	rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
+	mkdir -p "$(MACOS_LAYOUTS)"
+	cp -R build/$(ID).bundle "$(MACOS_LAYOUTS)/"
+	@echo "Installed $(ID).bundle in $(MACOS_LAYOUTS)."
+	@echo "Log out and back in, then add \"US Scientific\" in System Settings,"
+	@echo "Keyboard, Text Input, Input Sources (in the English group)."
+	@if [ -e "$(MACOS_LAYOUTS)/USScientific.bundle" ]; then \
+	    echo "The predecessor is still installed; to remove it, run:"; \
+	    echo "    rm -rf \"$(MACOS_LAYOUTS)/USScientific.bundle\""; \
+	fi
+
+uninstall:
+	rm -rf "$(MACOS_LAYOUTS)/$(ID).bundle"
+	@echo "Removed $(ID).bundle; log out and back in to finish."
+else ifeq ($(UNAME),Linux)
+install: build/$(ID).kmp
+	@command -v km-package-install > /dev/null || \
+	    { echo "Install Keyman for Linux first: https://keyman.com/linux/"; exit 1; }
+	km-package-install -f build/$(ID).kmp
+
+uninstall:
+	km-package-uninstall $(ID)
+else
+install uninstall:
+	@echo "On Windows, either install Keyman (https://keyman.com/windows/) and"
+	@echo "double-click build/$(ID).kmp (from 'make keyman'), or build and install the"
+	@echo "native layout from build/$(DLL)-src.zip (from 'make windows') as described"
+	@echo "in its README.txt."
+endif
 
 clean:
 	rm -rf build

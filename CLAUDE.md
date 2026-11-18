@@ -21,6 +21,7 @@ Derived, not written in the TOML: the plain and Shift layers (US), Caps Lock (Sh
 ## Make
 
 - `make` builds into `build/`: `make macos` (bundle + zip), `make keyman` (needs `npx @keymanapp/kmc` and ImageMagick), `make windows` (zipped source; compiling needs Windows/MSVC), `make cheatsheet` (rsvg-convert + LuaLaTeX).
+- `make install`/`make uninstall` branch on `uname`: macOS copies the bundle to `MACOS_LAYOUTS` (default `~/Library/Keyboard Layouts`), Linux uses Keyman for Linux's `km-package-install`, anything else prints the Windows steps.
 - `make docs` regenerates the README sections and `docs/*.svg`, which are committed so GitHub shows them.
 - `make test`: the tests read the generated `.keylayout` back and simulate the Keyman rules and the Windows tables, checking every key, layer, and dead key against `layout.toml`; they also fail if the README or diagrams are stale (fix with `make docs`).
 
