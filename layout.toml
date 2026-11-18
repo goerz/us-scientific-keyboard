@@ -2,13 +2,13 @@
 #
 # This file is the single source of the layout for all platforms.
 #
-# Without Option, every key types what it types on a US keyboard. The
-# [option] table and the dead-key maps are keyed by the character a key
-# types without Option: `q` is the Q key, `Q` is Shift+Q, `"1"` is the 1
-# key and `"!"` is Shift+1. In [option], lowercase/unshifted names mean
-# Option and uppercase/shifted names mean Shift+Option. Caps Lock acts like
-# Shift for letters, also for Option+letter when Shift+Option gives its
-# uppercase form. A dead key followed by Space types the dead key's symbol.
+# Without modifiers and with Shift, every key types what it types on a US
+# keyboard. [alternative] lists what keys type with the Option key on macOS,
+# or AltGr (right Alt) on Windows and Linux. It and the dead-key maps are
+# keyed by the character a key types without that modifier: `q` is the Q
+# key, `Q` is Shift+Q, `"1"` is the 1 key and `"!"` is Shift+1. Caps Lock
+# acts like Shift for letters, also for alternative letters whose shifted
+# alternative is their uppercase form. A dead key followed by Space types the dead key's symbol.
 #
 # [notes] explains characters (keyed by the character) for the README;
 # characters without a note are described by their Unicode name.
@@ -25,9 +25,9 @@ macos-bundle-id = "net.michaelgoerz.keyboardlayout.us-scientific"
 macos-id = -18113  # unique negative id of a custom macOS layout
 windows-dll = "kbdussci"
 
-[option]
+[alternative]
 # number row
-"~" = "\u0303"
+"~" = "̃"  # combining tilde
 1 = "′"
 "!" = "¡"
 2 = "²"
@@ -36,10 +36,10 @@ windows-dll = "kbdussci"
 "#" = "∫"
 4 = "∀"
 "$" = "€"
-5 = "\u0305"
+5 = "̅"  # combining overline
 "%" = "÷"
 6 = "⋅"
-"^" = "\u0302"
+"^" = "̂"  # combining circumflex accent
 7 = "≠"
 "&" = "≢"
 8 = "∞"
@@ -93,10 +93,10 @@ j = "←"
 J = "⇐"
 k = "→"
 K = "⇒"
-l = "\u20D7"
+l = "⃗"  # combining right arrow above
 L = "⇔"
-";" = "\u0307"
-":" = "\u0308"
+";" = "̇"  # combining dot above
+":" = "̈"  # combining diaeresis
 "\"" = "″"
 # bottom row
 "§" = "§"
@@ -118,7 +118,7 @@ m = "µ"
 ">" = "≥"
 "?" = "¿"
 # space bar
-" " = "\u00A0"
+" " = " "  # no-break space
 
 [dead.acute]
 key = "'"
@@ -517,7 +517,7 @@ Z = "ℤ"
 9 = "𝟡"
 
 [notes]
-"\u0303" = "combining over-tilde for the previous character, e.g., ``S⌥⇧` `` gives `S̃` (Fourier transform)"
+"̃" = "combining over-tilde for the previous character, e.g., ``S⌥⇧` `` gives `S̃` (Fourier transform)"  # combining tilde
 "′" = "prime"
 "¡" = "inverted exclamation mark"
 "²" = "square"
@@ -526,10 +526,10 @@ Z = "ℤ"
 "∫" = "integral"
 "∀" = "for all"
 "€" = "euro"
-"\u0305" = "combining over-bar for the previous character, e.g., `z⌥5` gives `z̅` (complex conjugate)"
+"̅" = "combining over-bar for the previous character, e.g., `z⌥5` gives `z̅` (complex conjugate)"  # combining overline
 "÷" = "division sign (integer division in Julia)"
 "⋅" = "dot operator (inner product)"
-"\u0302" = "combining hat for the previous character, e.g., `H⌥⇧6` gives `Ĥ` (operator)"
+"̂" = "combining hat for the previous character, e.g., `H⌥⇧6` gives `Ĥ` (operator)"  # combining circumflex accent
 "≠" = "not equal"
 "≢" = "not identical to"
 "∞" = "infinity"
@@ -580,10 +580,10 @@ Z = "ℤ"
 "⇐" = "double left arrow"
 "→" = "right arrow"
 "⇒" = "double right arrow (implies)"
-"\u20D7" = "combining over-arrow (vector) for the previous character, e.g., `v⌥l` gives `v⃗`"
+"⃗" = "combining over-arrow (vector) for the previous character, e.g., `v⌥l` gives `v⃗`"  # combining right arrow above
 "⇔" = "double left-right arrow (logically equivalent)"
-"\u0307" = "combining over-dot for the previous character, e.g., `x⌥;` gives `ẋ` (time derivative)"
-"\u0308" = "combining double dot for the previous character, e.g., `x⌥⇧;` gives `ẍ` (second time derivative)"
+"̇" = "combining over-dot for the previous character, e.g., `x⌥;` gives `ẋ` (time derivative)"  # combining dot above
+"̈" = "combining double dot for the previous character, e.g., `x⌥⇧;` gives `ẍ` (second time derivative)"  # combining diaeresis
 "″" = "double prime"
 "×" = "multiplication sign, e.g., `3×10⁻³`"
 "⊗" = "tensor (Kronecker) product"

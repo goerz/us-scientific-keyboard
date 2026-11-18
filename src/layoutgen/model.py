@@ -101,7 +101,7 @@ def _caps_shifts(key: Key, lower: str, upper: str) -> bool:
 def load(path: Path) -> Layout:
     with open(path, "rb") as fh:
         data = tomllib.load(fh)
-    unknown = set(data) - {"layout", "option", "dead", "notes"}
+    unknown = set(data) - {"layout", "alternative", "dead", "notes"}
     if unknown:
         raise LayoutError(f"unknown tables {sorted(unknown)}")
     meta = data.get("layout", {})
@@ -138,10 +138,10 @@ def load(path: Path) -> Layout:
                 raise LayoutError(f"{where}: Option+{typed!r} is defined twice")
             bindings[(physical.name, layer)] = binding
 
-    for typed, text in data.get("option", {}).items():
+    for typed, text in data.get("alternative", {}).items():
         if not isinstance(text, str) or not text:
-            raise LayoutError(f"[option] {typed!r}: expected a non-empty string")
-        assign(typed, Char(text, notes.get(text, "")), f"[option] {typed!r}")
+            raise LayoutError(f"[alternative] {typed!r}: expected a non-empty string")
+        assign(typed, Char(text, notes.get(text, "")), f"[alternative] {typed!r}")
 
     for dead_id, spec in data.get("dead", {}).items():
         where = f"[dead.{dead_id}]"
@@ -152,7 +152,7 @@ def load(path: Path) -> Layout:
             if required not in spec:
                 raise LayoutError(f"{where}: missing {required!r}")
         for typed in spec["map"]:
-            if typed not in positions and not any(typed == v for v in data.get("option", {}).values()):
+            if typed not in positions and not any(typed == v for v in data.get("alternative", {}).values()):
                 raise LayoutError(f"{where}.map: no key types {typed!r}")
         layout.dead[dead_id] = DeadKey(
             id=dead_id,
