@@ -98,14 +98,15 @@ def bundle(layout: Layout, path: Path, icon: Path) -> None:
     (resources / "en.lproj").mkdir(parents=True)
     (resources / f"{layout.id}.keylayout").write_text(keylayout(layout), encoding="utf-8")
     shutil.copyfile(icon, resources / f"{layout.id}.icns")
-    strings = f'"{layout.id}" = "{layout.name}";\n'
+    strings = f'"{layout.name}" = "{layout.name}";\n'
     (resources / "en.lproj" / "InfoPlist.strings").write_bytes(strings.encode("utf-16"))
     info = {
         "CFBundleIdentifier": layout.macos_bundle_id,
         "CFBundleName": layout.name,
         "CFBundleVersion": layout.version,
         "CFBundleShortVersionString": layout.version,
-        f"KLInfo_{layout.id}": {
+        # Keyed by the layout's name (the name attribute of the .keylayout)
+        f"KLInfo_{layout.name}": {
             "TICapsLockLanguageSwitchCapable": False,
             "TISInputSourceID": f"{layout.macos_bundle_id}.{layout.id}",
             "TISIntendedLanguage": layout.language,
