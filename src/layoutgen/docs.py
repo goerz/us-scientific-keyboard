@@ -180,6 +180,28 @@ def dead_entries_table(layout: Layout, dead, drawn: list, typed_on_keys: set) ->
     return "\n".join(out)
 
 
+def character_count(layout: Layout) -> str:
+    """How many characters beyond ASCII the layout types, on every platform
+    (the ISO key aside)."""
+    direct, combining = set(), set()
+    for key in layout.keys:
+        if key.physical.name == "iso":
+            continue
+        for layer in ("option", "shift-option"):
+            binding = layout.binding(key, layer, "pc")
+            if isinstance(binding, Char):
+                direct.add(binding.text)
+    results = {r for dead in layout.dead.values() for r in dead.map.values()}
+    total = {c for c in direct | results if not (len(c) == 1 and ord(c) < 128)}
+    combining = {c for c in total if len(c) == 1 and unicodedata.combining(c)}
+    direct -= {c for c in direct if len(c) == 1 and ord(c) < 128}
+    return (
+        f"It types **{len(total)} characters beyond ASCII**: {len(direct)} directly with Option or AltGr, "
+        f"the others through dead keys. {len(combining)} of them are combining accents, which go on any letter "
+        "(`ǖ`, `ṩ`, `x̲`), so the number of accented letters you can type is much larger."
+    )
+
+
 def dead_key_table(layout: Layout) -> str:
     out = ["| Keys | Symbol | Dead key for |", "|------|--------|--------------|"]
     for dead in layout.dead.values():
@@ -195,6 +217,7 @@ def dead_key_table(layout: Layout) -> str:
 
 
 SECTIONS = {
+    "count": character_count,
     "alternative": alternative_tables,
     "dead-key-table": dead_key_table,
     "dead-keys": dead_key_sections,

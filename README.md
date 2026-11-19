@@ -6,6 +6,12 @@
 
 A keyboard layout for typing Unicode math and European accented characters directly, on a standard US keyboard, on macOS, Windows, and Linux.
 
+<!-- BEGIN generated: count -->
+
+It types **536 characters beyond ASCII**: 84 directly with Option or AltGr, the others through dead keys. 23 of them are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so the number of accented letters you can type is much larger.
+
+<!-- END generated: count -->
+
 Without modifiers, it is the standard US layout. The alternative layer (Option on macOS, AltGr, that is, the right Alt key, on Windows and Linux) adds:
 
 * Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
