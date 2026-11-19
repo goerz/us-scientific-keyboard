@@ -6,6 +6,7 @@ number pad by itself on a third page.
 Makefile converts the SVGs to PDF (rsvg-convert) and runs LuaLaTeX.
 """
 
+import re
 from pathlib import Path
 
 from . import svg
@@ -15,16 +16,15 @@ PER_PAGE = 6
 # Glyphs that JuliaMono squeezes into one cell, so that they look like
 # their narrow counterparts (⟶ like →, ⨁ like ⊕): set in Latin Modern Math.
 WIDE = set("⟵⟶⟷⟸⟹⟺⟻⟼⨀⨁⨂⨃⨄∑∏∐⋂⋃⋀⋁")
-DIAGRAM_WIDTH = "4.6in"  # six diagrams fit in the height of a letter page
-NUMPAD_WIDTH = "4in"  # alone on its page
+DIAGRAM_WIDTH = 4.6  # inches; six diagrams fit in the height of a letter page
 
 TEX = r"""\documentclass[10pt]{{article}}
 \usepackage[letterpaper,margin=0.5in]{{geometry}}
 \usepackage{{graphicx}}
 \usepackage{{xcolor}}
 \usepackage{{tikz}}
-% a key in the fine print, drawn as a key cap, followed by what it gives
-\newcommand{{\keycap}}[1]{{\tikz[baseline=(k.base)]\node[draw=black!45,fill=black!6,rounded corners=1.5pt,inner xsep=1.2pt,inner ysep=0.5pt,text height=5.3pt,text depth=1.5pt,font=\scriptsize](k){{#1}};}}
+% a key in the fine print: its keystroke (small, top) and what it types without the dead key
+\newcommand{{\keycap}}[2]{{\tikz[baseline={{([yshift=2.9pt]k.south)}}]\node[draw=black!45,fill=white,rounded corners=1.5pt,inner xsep=1.2pt,inner ysep=1.3pt,align=center,minimum width=12pt](k){{{{\fontsize{{5pt}}{{5.5pt}}\selectfont\color{{black!55}}\rule{{0pt}}{{5pt}}#1}}\\[-0.5pt]{{\footnotesize\rule[-1.6pt]{{0pt}}{{6.4pt}}#2}}}};}}
 \usepackage{{fontspec}}
 \setmainfont{{{font_file}}}[Path={font_dir}/,Ligatures=TeXOff]
 \newfontfamily\widefont{{latinmodern-math.otf}}
@@ -33,9 +33,13 @@ TEX = r"""\documentclass[10pt]{{article}}
 \newcommand{{\row}}[2]{{%
   \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
   \begin{{minipage}}[c]{{{width}}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
-\newcommand{{\numpadrow}}[2]{{%
-  \begin{{minipage}}[c]{{\dimexpr\linewidth-{numpad_width}-1em}}\raggedright #1\end{{minipage}}\hfill
-  \begin{{minipage}}[c]{{{numpad_width}}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
+% the number pad: description, then its two layers side by side, each with a caption
+\newcommand{{\numpadrow}}[5]{{%
+  \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
+  \begin{{minipage}}[c]{{{width}}}\hfill
+    \begin{{tabular}}[c]{{@{{}}c@{{}}}}\includegraphics[width={numpad_width}]{{#2}}\\[2pt]\footnotesize #3\end{{tabular}}\hspace{{1.5em}}%
+    \begin{{tabular}}[c]{{@{{}}c@{{}}}}\includegraphics[width={numpad_width}]{{#4}}\\[2pt]\footnotesize #5\end{{tabular}}%
+  \end{{minipage}}\par}}
 \begin{{document}}
 {{\large {name}}} keyboard layout\hfill version {version}\par
 \vfill
@@ -55,7 +59,8 @@ ALTERNATIVE = (
 NUMPAD = (
     r"{\large Number pad}\par\smallskip"
     r" Option (macOS) or AltGr (right Alt; Linux, Keyman), on keyboards with a number pad.\par\smallskip"
-    r"\footnotesize Box drawing. Left: single lines. Right: with Shift, double lines."
+    r"\footnotesize Box drawing in the shape of the keys: single lines, and with Shift, double lines"
+    r" and the tees that join a single and a double line."
     r" Num Lock doesn't matter. Not in the native Windows layout."
     r" After a dead key, the number pad works like the main keys."
 )
@@ -79,8 +84,8 @@ def trigger(layout: Layout, dead_id: str) -> str:
 
 
 def hidden_entries(layout: Layout, dead_id: str) -> list:
-    """(keys, result) of the dead key's entries that follow an Option key,
-    which the diagram can't show, e.g. ("⌥⇧e", "∌")."""
+    """(keys, typed, result) of the dead key's entries that follow an Option
+    key, which the diagram can't show, e.g. ("⌥⇧e", "∉", "∌")."""
     option_keys = {}
     for key in layout.keys:
         for layer, prefix in (("option", "⌥"), ("shift-option", "⌥⇧")):
@@ -91,7 +96,7 @@ def hidden_entries(layout: Layout, dead_id: str) -> list:
     for typed, result in layout.dead[dead_id].map.items():
         if typed in option_keys:
             text = result.text if isinstance(result, Char) else str(result)
-            entries.append((option_keys[typed], text))
+            entries.append((option_keys[typed], typed, text))
     return entries
 
 
@@ -105,13 +110,17 @@ def description(layout: Layout, dead_id: str) -> str:
     )
     hidden = hidden_entries(layout, dead_id)
     if hidden:
-        def entry(keys, result):
+        def entry(keys, typed, result):
             font = r"\widefont" if result in WIDE else ""
-            return rf"\mbox{{\keycap{{{tex_escape(keys)}}}\,{{\small{font} {tex_escape(result)}}}}}"
+            return rf"\mbox{{\keycap{{{tex_escape(keys)}}}{{{tex_escape(typed)}}}\,{{\small{font} {tex_escape(result)}}}}}"
 
-        entries = r"\quad ".join(entry(keys, result) for keys, result in hidden)
-        text += rf"\par\smallskip After Option keys:\par\setlength{{\lineskiplimit}}{{1.5pt}}\setlength{{\lineskip}}{{2.5pt}}{entries}"
+        entries = r"\hspace{0.8em plus 0.4em minus 0.2em}".join(entry(*e) for e in hidden)
+        text += rf"\par\smallskip Then a key with Option:\par\setlength{{\lineskiplimit}}{{1.5pt}}\setlength{{\lineskip}}{{2pt}}{entries}"
     return text
+
+
+def svg_width(content: str) -> float:
+    return float(re.search(r'<svg [^>]*width="([\d.]+)"', content).group(1))
 
 
 def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
@@ -120,6 +129,14 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     for name, content in diagrams.items():
         (outdir / name).write_text(content, encoding="utf-8")
     numpad = diagrams.pop("numpad.svg", None)
+    if numpad is not None:  # on the cheat sheet, each layer by itself
+        (outdir / "numpad.svg").unlink()
+        for layer in ("option", "shift-option"):
+            content = svg.numpad(layout, svg.Font(font), compact=True, layer=layer)
+            (outdir / f"numpad-{layer}.svg").write_text(content, encoding="utf-8")
+    # the number pad at the scale of the other diagrams, so its keys have the same size
+    scale = DIAGRAM_WIDTH / svg_width(next(iter(diagrams.values())))
+    numpad_width = svg_width(numpad) * scale if numpad is not None else 0
     texts = [ALTERNATIVE] + [description(layout, dead_id) for dead_id in layout.dead]
     rows = []
     for i, (name, text) in enumerate(zip(diagrams, texts, strict=True)):
@@ -128,13 +145,14 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     if numpad is not None:
         if rows[-1].startswith(r"\newpage"):
             rows.pop()
-        # \null: TeX drops glue (\vfill) at the top of a page
-        rows += [r"\newpage\null\vfill", rf"\numpadrow{{{NUMPAD}}}{{numpad.pdf}}", r"\vfill"]
+        # at the top of its page, in the columns of the other pages
+        layers = r"{numpad-option.pdf}{Option}{numpad-shift-option.pdf}{Shift+Option}"
+        rows += [r"\newpage", rf"\numpadrow{{{NUMPAD}}}{layers}", r"\vfill\null"]
     (outdir / "cheatsheet.tex").write_text(
         TEX.format(
             name=layout.name,
-            width=DIAGRAM_WIDTH,
-            numpad_width=NUMPAD_WIDTH,
+            width=f"{DIAGRAM_WIDTH}in",
+            numpad_width=f"{numpad_width:.3f}in",
             version=layout.version,
             rows="\n".join(rows),
             font_file=Path(font).name,

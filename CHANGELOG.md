@@ -18,8 +18,8 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 - The README has a section for the number pad, and the cheat sheet a third page.
 - The README has a table of contents.
 - The cheat sheet lists the dead-key entries that follow an Option key (e.g., `⌥6⌥⇧k` for `⟹`), which the diagrams can't show.
-- Math dead key: the Unicode operators of Julia's Base that the layout didn't have, `⊻` (`x`, `xor`), `⊼` and `⊽` (after `⌥⇧v` and `⌥v`, `nand` and `nor`), `∋` and `∌` (after `⌥e` and `⌥⇧e`), `⊊` and `⊋` (`(` and `)`), and `∛` and `∜` (`#` and `$`).
-- Math dead key: operators that registered Julia packages use, `≅` (`=`), `⊙` (after `⌥⇧8`), `⊖` (after `⌥-`), `⊠` (after `⌥x`), `⊡` (`[`), `⋆` (`*`), `⨟` (after `⌥⇧w`), `¬` (`!`), `≺` and `≻` (`{` and `}`), and `⪯` and `⪰` (after `⌥⇧,` and `⌥⇧.`).
+- Math dead key (`⌥6`, then the key): the Unicode operators of Julia's Base that the layout didn't have, `⊻` (`x`, `xor`), `⊼` and `⊽` (`⌥⇧v` and `⌥v`, the keys of `∧` and `∨`; `nand` and `nor`), `∋` and `∌` (`⌥e` and `⌥⇧e`, the keys of `∈` and `∉`), `⊊` and `⊋` (`(` and `)`), and `∛` and `∜` (`#` and `$`).
+- Math dead key: operators that registered Julia packages use, `≅` (`=`), `⊙` (`⌥⇧8`, the key of `⋅`), `⊖` (`⌥-`, `–`), `⊠` (`⌥x`, `×`), `⊡` (`[`), `⋆` (`*`), `⨟` (`⌥⇧w`, `∘`), `¬` (`!`), `≺` and `≻` (`{` and `}`), and `⪯` and `⪰` (`⌥⇧,` and `⌥⇧.`, `≤` and `≥`).
 
 ### Fixed
 

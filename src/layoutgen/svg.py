@@ -267,13 +267,18 @@ KEYPAD_SIZES = {"kp+": (1, 2), "kp0": (2, 1)}
 KEYPAD_FRAME = [(0, 0, 1, 1, "num lock"), (3, 3, 1, 2, "enter")]
 
 
-def numpad(layout: Layout, font: Font, compact=False) -> str:
+def numpad(layout: Layout, font: Font, compact=False, layer=None) -> str:
     """SVG of the number pad with Option (left) and Shift+Option (right).
     Box drawing characters are as tall as the font's whole line, to connect
-    from line to line, so they go side by side instead of one above the other."""
+    from line to line, so they go side by side instead of one above the other.
+    With `layer` ("option" or "shift-option"), only that layer, centered."""
     drawing = Drawing(font)
     _text = drawing.text
-    title = "Option or AltGr; right: with Shift"
+    title = {
+        None: "Option or AltGr; right: with Shift",
+        "option": "Option or AltGr",
+        "shift-option": "Shift+Option or Shift+AltGr",
+    }[layer]
     title_height = 0 if compact else 26
     width, height = 4 * U + 2 * PAD, 5 * U + 2 * PAD + title_height
     parts = [
@@ -305,6 +310,11 @@ def numpad(layout: Layout, font: Font, compact=False) -> str:
         x, y = box(physical.row, physical.col, w, h, "key" if left or right else "key unused")
         parts.append(_text(x + w * U - 7, y + 15, physical.base, "label", "end"))
         baseline = y + h * U / 2 + 12  # below the label
+        if layer is not None:
+            binding = key.layers[layer]
+            if binding is not None:
+                parts.append(_text(x + w * U / 2, baseline, display(binding.text), "box out", "middle"))
+            continue
         for binding, lx in ((left, x + 9), (right, x + 31)):
             if binding is not None:
                 parts.append(_text(lx, baseline, display(binding.text), "box out"))
