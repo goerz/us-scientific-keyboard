@@ -17,6 +17,10 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 - Slash dead key: `©` (`g`), `™` (`G`), and `®` (`r`). Apple's US layout has `©` and `®` on `⌥g` and `⌥r`.
 - Subscript dead key: `ᵧ ᵩ ᵪ` (`G`, `F`, `X`, the keys of `γ ϕ χ` in the Greek dead key).
 
+### Changed
+
+- The README's dead-key tables say when an entry is also on its own `⌥` key, e.g., `ß` on the Slash dead key is also on `⌥s`.
+
 ### Fixed
 
 - Math `|` types the double vertical line `‖` (the norm, `\|` in Julia) instead of `∥` (parallel), which moved to Math `P`, next to `⟂` on Math `p`.

@@ -194,7 +194,7 @@ The Accent dead key goes *after* the letter, because it types a combining mark, 
 | `:` | `◌̈` | diaeresis (umlaut), e.g., `x⌥;:` gives `ẍ`, `e⌥;:` gives `ë` |
 | `'` | `◌́` | acute, e.g., `s⌥;'` gives `ś`, `α⌥;'` gives `ά` (Greek tonos or oxia) |
 | `` ` `` | `◌̀` | grave, e.g., ``α⌥;` `` gives `ὰ` (Greek varia) |
-| `^` | `◌̂` | circumflex (the same as the hat on `⌥⇧6`), e.g., `w⌥;^` gives `ŵ` |
+| `^` | `◌̂` | circumflex, e.g., `w⌥;^` gives `ŵ`; also on `⌥⇧6` |
 | `v`, `V` | `◌̌` | caron (háček), e.g., `c⌥;v` gives `č` |
 | `-` | `◌̄` | macron (not the overline on `⌥5`), e.g., `a⌥;-` gives `ā` |
 | `o`, `O` | `◌̊` | ring above, e.g., `a⌥;o` gives `å`, `u⌥;o` gives `ů` |
@@ -205,7 +205,7 @@ The Accent dead key goes *after* the letter, because it types a combining mark, 
 | `"` | `◌̋` | double acute, e.g., `o⌥;"` gives `ő` (Hungarian) |
 | `(` | `◌̔` | rough breathing (dasia), e.g., `α⌥;(` gives `ἁ` |
 | `)` | `◌̓` | smooth breathing (psili), e.g., `α⌥;)` gives `ἀ` |
-| `~` | `◌̃` | tilde (the same as on `` ⌥⇧` ``), e.g., `a⌥;~` gives `ã`; the Greek circumflex (perispomeni) is on `⌥f~` |
+| `~` | `◌̃` | tilde, e.g., `a⌥;~` gives `ã`; the Greek circumflex (perispomeni) is on `⌥f~`; also on `` ⌥⇧` `` |
 | `i`, `I` | `◌ͅ` | iota subscript (ypogegrammeni), e.g., `α⌥;i` gives `ᾳ` |
 | `/` | `◌̸` | long solidus overlay (negation), e.g., `⊂⌥;/` gives `⊄` |
 | `_` | `◌̲` | low line (underline), e.g., `v⌥;_` gives `v̲` |
@@ -234,7 +234,7 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 | `o` / `O` | `ø` `Ø` | o with stroke |
 | `p` / `P` | `þ` `Þ` | thorn (Icelandic) |
 | `r` | `®` | registered sign (on `⌥r` in Apple's US layout) |
-| `s` | `ß` | German sharp s (not to be confused with Greek `β`) |
+| `s` | `ß` | German sharp s (not to be confused with Greek `β`); also on `⌥s` |
 | `S` | `ẞ` | capital sharp s |
 | `t` / `T` | `ⱦ` `Ⱦ` | t with diagonal stroke |
 | `y` / `Y` | `ð` `Ð` | eth (Icelandic) |
@@ -305,13 +305,13 @@ The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and 
 
 | Key | Symbol | Description |
 |-----|--------|-------------|
-| `a` / `A` | `α` `Α` | Greek alpha |
-| `b` / `B` | `β` `Β` | Greek beta |
+| `a` / `A` | `α` `Α` | Greek alpha; `α` also on `⌥q` |
+| `b` / `B` | `β` `Β` | Greek beta; `β` also on `⌥b` |
 | `c` / `C` | `ξ` `Ξ` | Greek xi |
-| `d` / `D` | `δ` `Δ` | Greek delta |
+| `d` / `D` | `δ` `Δ` | Greek delta; `Δ` also on `⌥⇧d` |
 | `e` / `E` | `ϵ` `Ε` | Greek lunate epsilon, `\epsilon` in LaTeX and Julia: the math symbol, not the letter `ε` of Greek text (on `v`), and not `∈` |
-| `f` / `F` | `ϕ` `Φ` | Greek phi, `\phi` in LaTeX and Julia: the math symbol, not the letter `φ` of Greek text (on `V`) |
-| `g` / `G` | `γ` `Γ` | Greek gamma |
+| `f` / `F` | `ϕ` `Φ` | Greek phi, `\phi` in LaTeX and Julia: the math symbol, not the letter `φ` of Greek text (on `V`); `Φ` also on `⌥⇧y` |
+| `g` / `G` | `γ` `Γ` | Greek gamma; `Γ` also on `⌥⇧g` |
 | `h` / `H` | `θ` `Θ` | Greek theta |
 | `i` / `I` | `ι` `Ι` | Greek iota |
 | `j` | `ς` | Greek final sigma, `\varsigma` in LaTeX |
@@ -321,15 +321,15 @@ The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and 
 | `m` / `M` | `μ` `Μ` | Greek mu |
 | `n` / `N` | `ν` `Ν` | Greek nu |
 | `o` / `O` | `ο` `Ο` | Greek omicron |
-| `p` / `P` | `π` `Π` | Greek pi |
-| `q` / `Q` | `ψ` `Ψ` | Greek psi |
-| `r` / `R` | `ρ` `Ρ` | Greek rho (density matrix) |
+| `p` / `P` | `π` `Π` | Greek pi; `π` also on `⌥p` |
+| `q` / `Q` | `ψ` `Ψ` | Greek psi; `Ψ` also on `⌥y` |
+| `r` / `R` | `ρ` `Ρ` | Greek rho (density matrix); `ρ` also on `⌥r` |
 | `s` / `S` | `σ` `Σ` | Greek sigma |
 | `t` / `T` | `τ` `Τ` | Greek tau |
 | `u` / `U` | `υ` `Υ` | Greek upsilon |
 | `v` | `ε` | Greek epsilon, `\varepsilon` in LaTeX and Julia: the letter of Greek text |
 | `V` | `φ` | Greek phi, `\varphi` in LaTeX and Julia: the letter of Greek text |
-| `w` / `W` | `ω` `Ω` | Greek omega (angular frequency) |
+| `w` / `W` | `ω` `Ω` | Greek omega (angular frequency); `ω` also on `⌥w` |
 | `x` / `X` | `χ` `Χ` | Greek chi |
 | `y` / `Y` | `η` `Η` | Greek eta |
 | `z` / `Z` | `ζ` `Ζ` | Greek zeta |

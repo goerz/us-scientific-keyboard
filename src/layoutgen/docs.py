@@ -153,6 +153,22 @@ def dead_entries_table(layout: Layout, dead, drawn: list, typed_on_keys: set) ->
                     return f"{code(keys(key.physical, layer == 'shift-option'))} ({code(typed)})"
         raise ValueError(f"{dead.id}: no key types {typed!r}")
 
+    # Results the alternative layer also types directly, with the key
+    direct = {}
+    for key in drawn:
+        for layer in ("option", "shift-option"):
+            b = key.layers[layer]
+            if isinstance(b, Char):
+                direct.setdefault(b.text, code(keys(key.physical, layer == "shift-option")))
+
+    def also(results: list) -> str:
+        on = [r for r in results if r in direct]
+        if not on:
+            return ""
+        if len(results) == 1:
+            return f"; also on {direct[on[0]]}"
+        return "; " + ", ".join(f"{code(display(r))} also on {direct[r]}" for r in on)
+
     position = {typed: i for i, typed in enumerate(dead.map)}
 
     def rank(typed: str):
@@ -178,7 +194,7 @@ def dead_entries_table(layout: Layout, dead, drawn: list, typed_on_keys: set) ->
         cells = [", ".join(typed_cell(t) for t in by_result[r]) for r in results]
         out.append(
             f"| {' / '.join(cells)} | {' '.join(code(display(r)) for r in results)} | "
-            f"{describe(layout, result, dead, pair)} |"
+            f"{describe(layout, result, dead, pair)}{also(results)} |"
         )
     return "\n".join(out)
 
