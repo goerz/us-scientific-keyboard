@@ -245,9 +245,12 @@ _ = "\u0332"  # combining low line
 [dead.slash]
 key = "/"
 name = "Slash"
-desc = "letters with a stroke, other European letters, and negated symbols"
+desc = "letters with a stroke, other European letters, fractions, and negated symbols"
 symbol = "/"  # after Space, or before a key without an entry
 table = true  # list the entries in the README
+readme = '''
+The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, n/(n+1) (`⅔ ¾ ⅘ ⅚`).
+'''
 
 [dead.slash.map]
 a = "æ"
@@ -278,6 +281,14 @@ Y = "Ð"
 "<" = "«"
 ">" = "»"
 0 = "∅"
+2 = "½"
+"@" = "⅔"
+3 = "⅓"
+"#" = "¾"
+4 = "¼"
+"$" = "⅘"
+5 = "⅕"
+"%" = "⅚"
 6 = "§"
 7 = "¶"
 "=" = "≠"

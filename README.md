@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **about 540 characters beyond ASCII**, 80 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,100 in all**.
+It types **about 550 characters beyond ASCII**, 80 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,100 in all**.
 
 <!-- END generated: count -->
 
@@ -17,7 +17,7 @@ Without modifiers, it is the standard US layout. The alternative layer (Option o
 * Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
 * Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≡, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
 * Combining accents that apply to the preceding character (v⃗, Ĥ, S̃, z̅)
-* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ‖, ℓ, ↦, ≲, ⨁), and the bold, script, and double-struck math alphabets
+* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), fractions (½, ⅓, ¾), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ‖, ℓ, ↦, ≲, ⨁), and the bold, script, and double-struck math alphabets
 
 The idea is to type everyday "Unicode math" (in chat, email, or web forms) without round-tripping through an editor with [digraphs](https://vimdoc.sourceforge.net/htmldoc/digraph.html) or [julia-vim](https://github.com/JuliaEditorSupport/julia-vim). The selection of symbols skews toward quantum physics.
 
@@ -82,7 +82,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥m` | `µ` | micro sign, e.g., `µm` |
 | `⌥,` | `∝` | proportional to |
 | `⌥.` | `…` | ellipsis |
-| `⌥/` | | dead key for letters with a stroke, other European letters, and negated symbols (see [Slash](#slash-dead-key)) |
+| `⌥/` | | dead key for letters with a stroke, other European letters, fractions, and negated symbols (see [Slash](#slash-dead-key)) |
 | `⌥Space` |  | no-break space |
 
 #### Shift with Option or AltGr
@@ -155,7 +155,7 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `⌥'` | `'` | [letters with acute accent](#acute-dead-key) |
 | `` ⌥` `` | `` ` `` | [letters with grave accent](#grave-dead-key) |
 | `⌥;` | `◌̇` | [combining accents for the character typed before it](#accent-dead-key) |
-| `⌥/` | `/` | [letters with a stroke, other European letters, and negated symbols](#slash-dead-key) |
+| `⌥/` | `/` | [letters with a stroke, other European letters, fractions, and negated symbols](#slash-dead-key) |
 | `⌥6` | `⋅` | [set operations, relations, and other math symbols](#math-dead-key) |
 | `⌥f` | `α` | [Greek letters, polytonic accents (typed after the letter), and the first few Hebrew letters used in mathematics](#greek-dead-key) |
 | `⌥z` | `₀` | [subscripts](#subscript-dead-key) |
@@ -213,9 +213,11 @@ The Accent dead key goes *after* the letter, because it types a combining mark, 
 
 ### Slash dead key
 
-`⌥/`, then a key: letters with a stroke, other European letters, and negated symbols. Space types `/`.
+`⌥/`, then a key: letters with a stroke, other European letters, fractions, and negated symbols. Space types `/`.
 
 ![Slash dead key](docs/dead-slash.svg)
+
+The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, n/(n+1) (`⅔ ¾ ⅘ ⅚`).
 
 | Key | Symbol | Description |
 |-----|--------|-------------|
@@ -237,6 +239,14 @@ The Accent dead key goes *after* the letter, because it types a combining mark, 
 | `<` | `«` | left guillemet (not `≪`, much less than, on `⌥\`) |
 | `>` | `»` | right guillemet (not `≫`, much greater than, on `⌥⇧\`) |
 | `0` | `∅` | empty set |
+| `2` | `½` | vulgar fraction one half |
+| `@` | `⅔` | vulgar fraction two thirds |
+| `3` | `⅓` | vulgar fraction one third |
+| `#` | `¾` | vulgar fraction three quarters |
+| `4` | `¼` | vulgar fraction one quarter |
+| `$` | `⅘` | vulgar fraction four fifths |
+| `5` | `⅕` | vulgar fraction one fifth |
+| `%` | `⅚` | vulgar fraction five sixths |
 | `6` | `§` | section sign (on `⌥6` in Apple's US layout) |
 | `7` | `¶` | pilcrow, paragraph sign (on `⌥7` in Apple's US layout) |
 | `=` | `≠` | not equal to |
