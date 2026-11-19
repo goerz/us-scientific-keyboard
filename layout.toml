@@ -381,7 +381,25 @@ table = true  # list the entries in the README
 readme = '''
 The digits give arrows in the directions they have on the number pad (`8` up, `3` down and right, `5` and `0` left-right and up-down), so the arrows also work with the number pad after `⌥6`.
 
-After a symbol on an Option key, the Math dead key gives a related one: the long arrows after the short ones (`⌥6⌥⇧k` gives `⟹`, `\implies`), the n-ary `⨁ ⨂` after `⊕ ⊗`, `≊` after `≈`, the curly `⪯ ⪰` after `≤ ≥`, the reversed `∋ ∌` after `∈ ∉`, the barred `⊼ ⊽` (`nand`, `nor`) after `∧ ∨`, the circled `⊙ ⊖` after `⋅ –`, the squared `⊠` after `×` (the circled `⊗` is on `⌥⇧x`), and `⨟`, composition in the other order, after `∘`. Brackets go by shape: `( )` give `⊊ ⊋`, `{ }` the curly `≺ ≻`, and `[` the squared `⊡`. Shift+3 and Shift+4 give the roots `∛` and `∜`, `x` gives `⊻` (`xor`), `!` gives `¬`, and `=` gives `≅`.
+After a symbol on an Option key, the Math dead key gives a related one:
+
+- the long arrows after the short ones (`⌥6⌥⇧k` gives `⟹`, `\implies`)
+- the n-ary `⨁ ⨂` after `⊕ ⊗`
+- `≊` after `≈`
+- the curly `⪯ ⪰` after `≤ ≥`
+- the reversed `∋ ∌` after `∈ ∉`
+- the barred `⊼ ⊽` (`nand`, `nor`) after `∧ ∨`
+- the circled `⊙ ⊖` after `⋅ –`
+- the squared `⊠` after `×` (the circled `⊗` is on `⌥⇧x`)
+- `⨟`, composition in the other order, after `∘`
+
+Other keys go by their shape or name:
+
+- the brackets `( )` give `⊊ ⊋`, the curly `{ }` give `≺ ≻`, and the square `[` gives the squared `⊡`
+- Shift+3 and Shift+4 (`#`, `$`) give the roots `∛` and `∜`
+- `x` gives `⊻` (`xor`)
+- `!` gives `¬` (not)
+- `=` gives `≅`
 
 With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
 '''
@@ -646,7 +664,7 @@ name = "Superscript"
 desc = "superscripts"
 symbol = "⁰"  # after Space, or before a key without an entry
 readme = '''
-Unicode doesn't have a complete alphabet of superscripts, so some letters are missing. A few of them (`ꟲ`, `ꟳ`, `ꟴ`, `𐞥`) were only added in Unicode 14 and are missing from many fonts.
+Unicode doesn't have a complete alphabet of superscripts, so some letters are missing. A few of them, the superscript capital C, F, and Q and small q (on `C`, `F`, `Q`, and `q`), were only added in Unicode 14 and are missing from many fonts.
 '''
 
 [dead.superscript.map]
