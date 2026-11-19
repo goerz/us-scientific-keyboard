@@ -10,7 +10,7 @@ All notable changes to this project are documented in this file. The format is b
 
 ### Added
 
-- Accent dead key on `⌥;`, pressed *after* the letter: a combining mark for the preceding character. Dot above (`.` or Space), diaeresis (`:`), acute (`'`), grave (`` ` ``), circumflex (`^`), caron (`v`), macron (`-`), ring above (`o`), breve (`u`), cedilla (`,`), comma below (`<`), ogonek (`;`), double acute (`"`), dot below (`!`), low line (`_`), long solidus overlay (`/`, strikes through any symbol, e.g., `⊂⌥;/` gives `⊄`), and for polytonic Greek, rough and smooth breathing (`(`, `)`), perispomeni (`~`), and iota subscript (`i`).
+- Accent dead key on `⌥;`, pressed *after* the letter: a combining mark for the preceding character. Dot above (`.` or Space), diaeresis (`:`), acute (`'`), grave (`` ` ``), circumflex (`^`), caron (`v`), macron (`-`), ring above (`o`), breve (`u`), cedilla (`,`), comma below (`<`), ogonek (`;`), double acute (`"`), tilde (`~`), dot below (`!`), low line (`_`), long solidus overlay (`/`, strikes through any symbol, e.g., `⊂⌥;/` gives `⊄`), and for polytonic Greek, rough and smooth breathing (`(`, `)`) and iota subscript (`i`).
 - Math dead key on `⌥6`: `∪` (`u`), `∩` (`n`), `⊂ ⊃` (`c`, `C`), `⊆ ⊇` (`s`, `S`), `∖` (`\`), `ℓ` (`l`), `⊥` (`p`), `∥` (`|`), `↦` (`m`), `↔` (`-`), `≲ ≳` (`<`, `>`), `≃` (`~`), `⊕` (`+`). Space gives `⋅`.
 - Slash dead key: `æ Æ` (`a`), `đ Đ` (`d`), `œ Œ` (`e`), `ħ Ħ` (`h`), `ı İ` (`i`), `þ Þ` (`p`), `ß ẞ` (`s`), `ð Ð` (`y`), `„` (`,`), `« »` (`<`, `>`), `∓` (`+` or `⌥⇧=`), and the negations `≢ ∄ ≉ ≁ ≰ ≱ ↛ ⇏ ⇎` (after `⌥7`, `⌥⇧;`, `⌥=`, `⌥⇧7`, `⌥⇧,`, `⌥⇧.`, `⌥k`, `⌥⇧k`, `⌥⇧l`).
 - Acute dead key: `ń Ń`, `ś Ś`, `ẃ Ẃ`. Grave dead key: `ǹ Ǹ`, `ẁ Ẁ`.

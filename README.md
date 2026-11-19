@@ -197,7 +197,7 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `"` | `◌̋` | double acute, e.g., `o⌥;"` gives `ő` (Hungarian) |
 | `(` | `◌̔` | rough breathing (dasia), e.g., `α⌥;(` gives `ἁ` |
 | `)` | `◌̓` | smooth breathing (psili), e.g., `α⌥;)` gives `ἀ` |
-| `~` | `◌͂` | Greek circumflex (perispomeni; not the tilde on `` ⌥⇧` ``), e.g., `α⌥;~` gives `ᾶ` |
+| `~` | `◌̃` | tilde (the same as on `` ⌥⇧` ``), e.g., `a⌥;~` gives `ã`; the Greek circumflex (perispomeni) is on `⌥f~` |
 | `i`, `I` | `◌ͅ` | iota subscript (ypogegrammeni), e.g., `α⌥;i` gives `ᾳ` |
 | `/` | `◌̸` | long solidus overlay (negation), e.g., `⊂⌥;/` gives `⊄` |
 | `_` | `◌̲` | low line (underline), e.g., `v⌥;_` gives `v̲` |
