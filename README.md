@@ -8,10 +8,10 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 Without modifiers, it is the standard US layout. The alternative layer (Option on macOS, AltGr, that is, the right Alt key, on Windows and Linux) adds:
 
-* Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ, ğ)
-* Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≠, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
-* Combining accents that apply to the preceding character (v⃗, ẋ, ẍ, Ĥ, S̃, z̅)
-* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, slash-through letters, and the bold, script, and double-struck math alphabets
+* Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
+* Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≡, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
+* Combining accents that apply to the preceding character (v⃗, Ĥ, S̃, z̅)
+* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), and the bold, script, and double-struck math alphabets
 
 The idea is to type everyday "Unicode math" (in chat, email, or web forms) without round-tripping through an editor with [digraphs](https://vimdoc.sourceforge.net/htmldoc/digraph.html) or [julia-vim](https://github.com/JuliaEditorSupport/julia-vim). The selection of symbols skews toward quantum physics.
 
@@ -37,7 +37,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥4` | `∀` | for all |
 | `⌥5` | `◌̅` | combining over-bar for the previous character, e.g., `z⌥5` gives `z̅` (complex conjugate) |
 | `⌥6` | `⋅` | dot operator (inner product) |
-| `⌥7` | `≠` | not equal |
+| `⌥7` | `≡` | identical to |
 | `⌥8` | `∞` | infinity |
 | `⌥9` | `Å` | Ångström |
 | `⌥0` | `°` | degree |
@@ -47,7 +47,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥w` | `ω` | Greek omega (angular frequency) |
 | `⌥e` | `∈` | element of (not to be confused with Greek `ϵ` or `ε`) |
 | `⌥r` | `ρ` | Greek rho (density matrix) |
-| `⌥t` | `†` | dagger (Hermitian conjugate) |
+| `⌥t` | `↑` | up arrow |
 | `⌥y` | `Ψ` | Greek capital Psi (state vector) |
 | `⌥u` | `ü` | umlaut |
 | `⌥i` | `𝕚` | double-struck i (imaginary unit) |
@@ -60,12 +60,12 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥s` | `ß` | German sharp s (not to be confused with Greek `β`) |
 | `⌥d` | `∂` | partial derivative |
 | `⌥f` | | dead key for Greek letters, plus the first few Hebrew letters used in mathematics (see [Greek](#greek-dead-key)) |
-| `⌥g` | `ğ` | g with breve (Turkish) |
+| `⌥g` | `↓` | down arrow |
 | `⌥h` | `ℏ` | reduced Planck constant |
 | `⌥j` | `←` | left arrow |
 | `⌥k` | `→` | right arrow |
 | `⌥l` | `◌⃗` | combining over-arrow (vector) for the previous character, e.g., `v⌥l` gives `v⃗` |
-| `⌥;` | `◌̇` | combining over-dot for the previous character, e.g., `x⌥;` gives `ẋ` (time derivative) |
+| `⌥;` | | dead key for combining accents for the character typed before it (see [Accent](#accent-dead-key)) |
 | `⌥'` | | dead key for letters with acute accent (see [Acute](#acute-dead-key)) |
 | `⌥z` | | dead key for subscripts (see [Subscript](#subscript-dead-key)) |
 | `⌥x` | `×` | multiplication sign, e.g., `3×10⁻³` |
@@ -76,7 +76,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥m` | `µ` | micro sign, e.g., `µm` |
 | `⌥,` | `∝` | proportional to |
 | `⌥.` | `…` | ellipsis |
-| `⌥/` | | dead key for letters with a slash through them (see [Slash](#slash-dead-key)) |
+| `⌥/` | | dead key for letters with a stroke, other European letters, and negated symbols (see [Slash](#slash-dead-key)) |
 | `⌥Space` |  | no-break space |
 
 #### Shift with Option or AltGr
@@ -90,7 +90,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧4` | `€` | euro |
 | `⌥⇧5` | `÷` | division sign (integer division in Julia) |
 | `⌥⇧6` | `◌̂` | combining hat for the previous character, e.g., `H⌥⇧6` gives `Ĥ` (operator) |
-| `⌥⇧7` | `≢` | not identical to |
+| `⌥⇧7` | `∼` | tilde operator (of the order of, scales as; not the ASCII `~`) |
 | `⌥⇧8` | `⋅` | dot operator (inner product) |
 | `⌥⇧9` | `‘` | left single quotation mark |
 | `⌥⇧0` | `’` | right single quotation mark |
@@ -100,7 +100,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧w` | `∘` | ring operator (function composition in Julia) |
 | `⌥⇧e` | `∉` | not an element of |
 | `⌥⇧r` | | dead key for letters from the math script alphabet, e.g., for superoperators (see [Math Script](#math-script-dead-key)) |
-| `⌥⇧t` | `≡` | identical to |
+| `⌥⇧t` | `†` | dagger (Hermitian conjugate) |
 | `⌥⇧y` | `Φ` | Greek capital Phi |
 | `⌥⇧u` | `Ü` | umlaut |
 | `⌥⇧i` | `𝟙` | double-struck 1 (identity operator) |
@@ -118,7 +118,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧j` | `⇐` | double left arrow |
 | `⌥⇧k` | `⇒` | double right arrow (implies) |
 | `⌥⇧l` | `⇔` | double left-right arrow (logically equivalent) |
-| `⌥⇧;` | `◌̈` | combining double dot for the previous character, e.g., `x⌥⇧;` gives `ẍ` (second time derivative) |
+| `⌥⇧;` | `∃` | there exists |
 | `⌥⇧'` | `″` | double prime |
 | `⌥⇧z` | | dead key for superscripts (see [Superscript](#superscript-dead-key)) |
 | `⌥⇧x` | `⊗` | tensor (Kronecker) product |
@@ -148,7 +148,8 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 |------|--------|--------------|
 | `⌥'` | `'` | [letters with acute accent](#acute-dead-key) |
 | `` ⌥` `` | `` ` `` | [letters with grave accent](#grave-dead-key) |
-| `⌥/` | `/` | [letters with a slash through them](#slash-dead-key) |
+| `⌥;` | `◌̇` | [combining accents for the character typed before it](#accent-dead-key) |
+| `⌥/` | `/` | [letters with a stroke, other European letters, and negated symbols](#slash-dead-key) |
 | `⌥f` | `α` | [Greek letters, plus the first few Hebrew letters used in mathematics](#greek-dead-key) |
 | `⌥z` | `₀` | [subscripts](#subscript-dead-key) |
 | `⌥⇧z` | `⁰` | [superscripts](#superscript-dead-key) |
@@ -172,11 +173,19 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 ![Grave dead key](docs/dead-grave.svg)
 
+### Accent dead key
+
+`⌥;`, then a key: combining accents for the character typed before it. Space types `◌̇`.
+
+![Accent dead key](docs/dead-accent.svg)
+
 ### Slash dead key
 
-`⌥/`, then a key: letters with a slash through them. Space types `/`.
+`⌥/`, then a key: letters with a stroke, other European letters, and negated symbols. Space types `/`.
 
 ![Slash dead key](docs/dead-slash.svg)
+
+With an alternative character after the dead key: `⌥7` (`≡`) gives `≢`, `⌥⇧=` (`±`) gives `∓`.
 
 ### Greek dead key
 
@@ -219,6 +228,8 @@ With an alternative character after the dead key: `⌥b` (`β`) gives `ᵝ`.
 ![Double-Struck dead key](docs/dead-doublestruck.svg)
 
 <!-- END generated: dead-keys -->
+
+The Accent dead key goes *after* the letter, because it types a combining mark, which attaches to the character before it: `c⌥;v` gives `č`, `x⌥;` followed by Space gives `ẋ`, and `x⌥;:` gives `ẍ`. Marks stack, so `α⌥;(⌥;'` gives `ἅ` (rough breathing, then acute). The result is the letter followed by the mark (`c` + U+030C), which is canonically equivalent to the precomposed `č`: it looks the same, but software that doesn't normalize Unicode, such as `grep`, treats the two as different.
 
 Unicode doesn't have a complete alphabet of subscripts and superscripts, so some letters are missing. A few of the superscripts (`ꟲ`, `ꟳ`, `ꟴ`, `𐞥`) were only added in Unicode 14 and are missing from many fonts.
 

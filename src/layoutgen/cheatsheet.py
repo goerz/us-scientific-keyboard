@@ -1,5 +1,5 @@
 """PDF cheat sheet: the keyboard diagrams on two pages (one sheet, printed
-double-sided), five per page, each with its description beside it.
+double-sided), six per page, each with its description beside it.
 
 `write` puts the compact SVG diagrams and a LaTeX file into a directory; the
 Makefile converts the SVGs to PDF (rsvg-convert) and runs LuaLaTeX.
@@ -10,7 +10,8 @@ from pathlib import Path
 from . import svg
 from .model import Dead, Layout
 
-PER_PAGE = 5
+PER_PAGE = 6
+DIAGRAM_WIDTH = "4.6in"  # six diagrams fit in the height of a letter page
 
 TEX = r"""\documentclass[10pt]{{article}}
 \usepackage[letterpaper,margin=0.5in]{{geometry}}
@@ -20,8 +21,8 @@ TEX = r"""\documentclass[10pt]{{article}}
 \pagestyle{{empty}}
 \setlength{{\parindent}}{{0pt}}
 \newcommand{{\row}}[2]{{%
-  \begin{{minipage}}[c]{{\dimexpr\linewidth-5.45in-1em}}\raggedright #1\end{{minipage}}\hfill
-  \begin{{minipage}}[c]{{5.45in}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
+  \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
+  \begin{{minipage}}[c]{{{width}}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
 \begin{{document}}
 {{\large {name}}} keyboard layout\hfill version {version}\par
 \vfill
@@ -78,6 +79,7 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     (outdir / "cheatsheet.tex").write_text(
         TEX.format(
             name=layout.name,
+            width=DIAGRAM_WIDTH,
             version=layout.version,
             rows="\n".join(rows),
             font_file=Path(font).name,

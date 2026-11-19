@@ -91,7 +91,9 @@ def alternative_tables(layout: Layout) -> str:
 
 def dead_key_sections(layout: Layout) -> str:
     out = []
-    typed_on_keys = {k.physical.base for k in layout.keys} | {k.physical.shift for k in layout.keys}
+    # The keys the diagrams show (not the ISO key)
+    drawn = [k for k in layout.keys if k.physical.name != "iso"]
+    typed_on_keys = {k.physical.base for k in drawn} | {k.physical.shift for k in drawn}
     for dead in layout.dead.values():
         trigger = next(
             (key, layer) for key in layout.keys for layer in ("option", "shift-option")
@@ -101,7 +103,7 @@ def dead_key_sections(layout: Layout) -> str:
         out += [
             f"### {dead_heading(dead)}",
             "",
-            f"{code(trigger_keys)}, then a key: {dead.desc}. Space types {code(dead.symbol)}.",
+            f"{code(trigger_keys)}, then a key: {dead.desc}. Space types {code(display(dead.symbol))}.",
             "",
             f"![{dead.name} dead key]({DIAGRAM_DIR}/dead-{dead.id}.svg)",
             "",
@@ -110,7 +112,7 @@ def dead_key_sections(layout: Layout) -> str:
         for typed, result in dead.map.items():
             if typed in typed_on_keys:
                 continue
-            for key in layout.keys:
+            for key in drawn:
                 for layer in ("option", "shift-option"):
                     b = key.layers[layer]
                     if isinstance(b, Char) and b.text == typed:
@@ -131,7 +133,7 @@ def dead_key_table(layout: Layout) -> str:
                 b = key.layers[layer]
                 if isinstance(b, Dead) and b.id == dead.id:
                     out.append(
-                        f"| {code(keys(key.physical, layer == 'shift-option'))} | {code(dead.symbol)} | "
+                        f"| {code(keys(key.physical, layer == 'shift-option'))} | {code(display(dead.symbol))} | "
                         f"[{dead.desc}](#{anchor(dead_heading(dead))}) |"
                     )
     return "\n".join(out) + "\n"

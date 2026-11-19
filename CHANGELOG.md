@@ -8,6 +8,19 @@ All notable changes to this project are documented in this file. The format is b
 
 ## [Unreleased]
 
+### Added
+
+- Accent dead key on `⌥;`, pressed *after* the letter: a combining mark for the preceding character. Dot above (`.` or Space), diaeresis (`:`), acute (`'`), grave (`` ` ``), circumflex (`^`), caron (`v`), macron (`-`), ring above (`o`), breve (`u`), cedilla (`,`), comma below (`<`), ogonek (`;`), double acute (`"`), and for polytonic Greek, rough and smooth breathing (`(`, `)`), perispomeni (`~`), and iota subscript (`i`).
+- Slash dead key: `æ Æ` (`a`), `đ Đ` (`d`), `œ Œ` (`e`), `ħ Ħ` (`h`), `ı İ` (`i`), `þ Þ` (`p`), `ß ẞ` (`s`), `ð Ð` (`y`), `„` (`,`), `« »` (`<`, `>`), `∓` (`+` or `⌥⇧=`), and `≢` (`⌥7`).
+- `⌥g` types `↓`, `⌥t` types `↑`, `⌥⇧7` types `∼`, `⌥⇧;` types `∃`.
+
+### Changed
+
+- `⌥;` is the Accent dead key instead of the combining dot above: `x⌥;` followed by Space (or `.`) gives `ẋ`. The combining diaeresis on `⌥⇧;` moved into the Accent dead key as well (`x⌥;:` gives `ẍ`).
+- `⌥t` (`†`) moved to `⌥⇧t`, `⌥⇧t` (`≡`) to `⌥7`, `⌥7` (`≠`) to the Slash dead key (`⌥/=`, where it already was), and `⌥⇧7` (`≢`) to the Slash dead key (`⌥/⌥7`).
+- `ğ` is no longer on `⌥g`; type `g⌥;u`.
+- The cheat sheet has six diagrams per page, slightly smaller, to fit the new dead key on one sheet.
+
 ## [4.1.0] - 2026-11-18
 
 ### Added
