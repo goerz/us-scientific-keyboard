@@ -225,6 +225,7 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 | `c` / `C` | `ȼ` `Ȼ` | c with stroke |
 | `d` / `D` | `đ` `Đ` | d with stroke (Croatian, Serbian, Vietnamese) |
 | `e` / `E` | `œ` `Œ` | oe ligature (French) |
+| `g` | `©` | copyright sign (on `⌥g` in Apple's US layout) |
 | `h` / `H` | `ħ` `Ħ` | h with stroke (Maltese; not `ℏ`) |
 | `i` | `ı` | dotless i (Turkish) |
 | `I` | `İ` | capital I with dot above (Turkish) |
