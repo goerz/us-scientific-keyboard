@@ -10,8 +10,12 @@ All notable changes to this project are documented in this file. The format is b
 
 ### Added
 
-- Accent dead key on `⌥;`, pressed *after* the letter: a combining mark for the preceding character. Dot above (`.` or Space), diaeresis (`:`), acute (`'`), grave (`` ` ``), circumflex (`^`), caron (`v`), macron (`-`), ring above (`o`), breve (`u`), cedilla (`,`), comma below (`<`), ogonek (`;`), double acute (`"`), and for polytonic Greek, rough and smooth breathing (`(`, `)`), perispomeni (`~`), and iota subscript (`i`).
-- Slash dead key: `æ Æ` (`a`), `đ Đ` (`d`), `œ Œ` (`e`), `ħ Ħ` (`h`), `ı İ` (`i`), `þ Þ` (`p`), `ß ẞ` (`s`), `ð Ð` (`y`), `„` (`,`), `« »` (`<`, `>`), `∓` (`+` or `⌥⇧=`), and `≢` (`⌥7`).
+- Accent dead key on `⌥;`, pressed *after* the letter: a combining mark for the preceding character. Dot above (`.` or Space), diaeresis (`:`), acute (`'`), grave (`` ` ``), circumflex (`^`), caron (`v`), macron (`-`), ring above (`o`), breve (`u`), cedilla (`,`), comma below (`<`), ogonek (`;`), double acute (`"`), dot below (`!`), low line (`_`), long solidus overlay (`/`, strikes through any symbol, e.g., `⊂⌥;/` gives `⊄`), and for polytonic Greek, rough and smooth breathing (`(`, `)`), perispomeni (`~`), and iota subscript (`i`).
+- Math dead key on `⌥6`: `∪` (`u`), `∩` (`n`), `⊂ ⊃` (`c`, `C`), `⊆ ⊇` (`s`, `S`), `∖` (`\`), `ℓ` (`l`), `⊥` (`p`), `∥` (`|`), `↦` (`m`), `↔` (`-`), `≲ ≳` (`<`, `>`), `≃` (`~`), `⊕` (`+`). Space gives `⋅`.
+- Slash dead key: `æ Æ` (`a`), `đ Đ` (`d`), `œ Œ` (`e`), `ħ Ħ` (`h`), `ı İ` (`i`), `þ Þ` (`p`), `ß ẞ` (`s`), `ð Ð` (`y`), `„` (`,`), `« »` (`<`, `>`), `∓` (`+` or `⌥⇧=`), and the negations `≢ ∄ ≉ ≁ ≰ ≱ ↛ ⇏ ⇎` (after `⌥7`, `⌥⇧;`, `⌥=`, `⌥⇧7`, `⌥⇧,`, `⌥⇧.`, `⌥k`, `⌥⇧k`, `⌥⇧l`).
+- Acute dead key: `ń Ń`, `ś Ś`, `ẃ Ẃ`. Grave dead key: `ǹ Ǹ`, `ẁ Ẁ`.
+- Greek dead key: `ϑ` (`J`), and the variant forms `ϐ ϖ ϱ` after `⌥b` (`β`), `⌥p` (`π`), `⌥r` (`ρ`).
+- Superscript dead key: `ᵅ` (after `⌥q`). Math Bold dead key: bold Greek `𝛂 𝛃 𝛑 𝛒 𝛚 𝚪 𝚫 𝚽 𝚿` and `𝛁` after the alternative-layer Greek letters and `∇` (not on native Windows, which can't produce characters outside the BMP from dead keys).
 - `⌥g` types `↓`, `⌥t` types `↑`, `⌥⇧7` types `∼`, `⌥⇧;` types `∃`.
 
 ### Changed
@@ -19,7 +23,8 @@ All notable changes to this project are documented in this file. The format is b
 - `⌥;` is the Accent dead key instead of the combining dot above: `x⌥;` followed by Space (or `.`) gives `ẋ`. The combining diaeresis on `⌥⇧;` moved into the Accent dead key as well (`x⌥;:` gives `ẍ`).
 - `⌥t` (`†`) moved to `⌥⇧t`, `⌥⇧t` (`≡`) to `⌥7`, `⌥7` (`≠`) to the Slash dead key (`⌥/=`, where it already was), and `⌥⇧7` (`≢`) to the Slash dead key (`⌥/⌥7`).
 - `ğ` is no longer on `⌥g`; type `g⌥;u`.
-- The cheat sheet has six diagrams per page, slightly smaller, to fit the new dead key on one sheet.
+- `⌥6` is the Math dead key instead of `⋅`, which is still on `⌥⇧8` (and on `⌥6` followed by Space).
+- The cheat sheet has six diagrams per page, slightly smaller, to fit the new dead keys on one sheet.
 
 ## [4.1.0] - 2026-11-18
 

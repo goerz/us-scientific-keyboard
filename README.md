@@ -11,7 +11,7 @@ Without modifiers, it is the standard US layout. The alternative layer (Option o
 * Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
 * Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≡, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
 * Combining accents that apply to the preceding character (v⃗, Ĥ, S̃, z̅)
-* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), and the bold, script, and double-struck math alphabets
+* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⊥, ∥, ℓ, ↦, ≲, ⊕), and the bold, script, and double-struck math alphabets
 
 The idea is to type everyday "Unicode math" (in chat, email, or web forms) without round-tripping through an editor with [digraphs](https://vimdoc.sourceforge.net/htmldoc/digraph.html) or [julia-vim](https://github.com/JuliaEditorSupport/julia-vim). The selection of symbols skews toward quantum physics.
 
@@ -36,7 +36,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥3` | `³` | cube |
 | `⌥4` | `∀` | for all |
 | `⌥5` | `◌̅` | combining over-bar for the previous character, e.g., `z⌥5` gives `z̅` (complex conjugate) |
-| `⌥6` | `⋅` | dot operator (inner product) |
+| `⌥6` | | dead key for set operations, relations, and other math symbols (see [Math](#math-dead-key)) |
 | `⌥7` | `≡` | identical to |
 | `⌥8` | `∞` | infinity |
 | `⌥9` | `Å` | Ångström |
@@ -150,6 +150,7 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `` ⌥` `` | `` ` `` | [letters with grave accent](#grave-dead-key) |
 | `⌥;` | `◌̇` | [combining accents for the character typed before it](#accent-dead-key) |
 | `⌥/` | `/` | [letters with a stroke, other European letters, and negated symbols](#slash-dead-key) |
+| `⌥6` | `⋅` | [set operations, relations, and other math symbols](#math-dead-key) |
 | `⌥f` | `α` | [Greek letters, plus the first few Hebrew letters used in mathematics](#greek-dead-key) |
 | `⌥z` | `₀` | [subscripts](#subscript-dead-key) |
 | `⌥⇧z` | `⁰` | [superscripts](#superscript-dead-key) |
@@ -185,13 +186,21 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 ![Slash dead key](docs/dead-slash.svg)
 
-With an alternative character after the dead key: `⌥7` (`≡`) gives `≢`, `⌥⇧=` (`±`) gives `∓`.
+With an alternative character after the dead key: `⌥7` (`≡`) gives `≢`, `⌥⇧=` (`±`) gives `∓`, `⌥⇧;` (`∃`) gives `∄`, `⌥=` (`≈`) gives `≉`, `⌥⇧7` (`∼`) gives `≁`, `⌥⇧,` (`≤`) gives `≰`, `⌥⇧.` (`≥`) gives `≱`, `⌥k` (`→`) gives `↛`, `⌥⇧k` (`⇒`) gives `⇏`, `⌥⇧l` (`⇔`) gives `⇎`.
+
+### Math dead key
+
+`⌥6`, then a key: set operations, relations, and other math symbols. Space types `⋅`.
+
+![Math dead key](docs/dead-math.svg)
 
 ### Greek dead key
 
 `⌥f`, then a key: Greek letters, plus the first few Hebrew letters used in mathematics. Space types `α`.
 
 ![Greek dead key](docs/dead-greek.svg)
+
+With an alternative character after the dead key: `⌥b` (`β`) gives `ϐ`, `⌥p` (`π`) gives `ϖ`, `⌥r` (`ρ`) gives `ϱ`.
 
 ### Subscript dead key
 
@@ -207,7 +216,7 @@ With an alternative character after the dead key: `⌥b` (`β`) gives `ᵦ`, `�
 
 ![Superscript dead key](docs/dead-superscript.svg)
 
-With an alternative character after the dead key: `⌥b` (`β`) gives `ᵝ`.
+With an alternative character after the dead key: `⌥q` (`α`) gives `ᵅ`, `⌥b` (`β`) gives `ᵝ`.
 
 ### Math Script dead key
 
@@ -220,6 +229,8 @@ With an alternative character after the dead key: `⌥b` (`β`) gives `ᵝ`.
 `⌥⇧f`, then a key: letters from the math bold alphabet, e.g., for vectors. Space types `𝐅`.
 
 ![Math Bold dead key](docs/dead-bold.svg)
+
+With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `⌥b` (`β`) gives `𝛃`, `⌥p` (`π`) gives `𝛑`, `⌥r` (`ρ`) gives `𝛒`, `⌥w` (`ω`) gives `𝛚`, `⌥⇧g` (`Γ`) gives `𝚪`, `⌥⇧d` (`Δ`) gives `𝚫`, `⌥⇧y` (`Φ`) gives `𝚽`, `⌥y` (`Ψ`) gives `𝚿`, `⌥⇧b` (`∇`) gives `𝛁`.
 
 ### Double-Struck dead key
 
