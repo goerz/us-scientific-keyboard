@@ -10,12 +10,14 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ## [Unreleased]
 
+## [5.2.0] - 2026-11-19
+
 ### Added
 
 - Box drawing on the number pad, in the shape of the keys: with Option (AltGr), `┌ ┬ ┐ ├ ┼ ┤ └ ┴ ┘` on the digits, `─` (`-`), `│` (`+`), and the rounded corners `╭ ╮ ╰ ╯` (`/ * 0 .`); with Shift+Option, the double lines `╔ ╦ ╗ ╠ ╬ ╣ ╚ ╩ ╝ ═ ║` and the tees `╟ ╢ ╞ ╡` that join a single and a double line. Not in the native Windows layout.
-- Math dead key: arrows on the digits, in the directions they have on the number pad: `↖ ↑ ↗ ← ↔ → ↙ ↓ ↘` (`7` to `1`) and `↕` (`0`); with the number pad after `⌥6`, too. After a short arrow, the long one: `⟵ ⟶ ⟸ ⟹ ⟺` (after `⌥j`, `⌥k`, `⌥⇧j`, `⌥⇧k`, `⌥⇧l`).
+- Math dead key: arrows on the digits, in the directions they have on the number pad: `↖ ↑ ↗ ← ↔ → ↙ ↓ ↘` (`7` to `1`) and `↕` (`0`); with the number pad after `⌥6`, too. After `⌥6`, the keys of the short arrows give the long ones: `⟵ ⟶ ⟸ ⟹ ⟺` (`⌥j` `←`, `⌥k` `→`, `⌥⇧j` `⇐`, `⌥⇧k` `⇒`, `⌥⇧l` `⇔`).
 - After a dead key, a number pad key works like the key of the main keyboard that types the same character (e.g., `⌥z` followed by number pad `2` gives `₂`). This was already the case in the native Windows layout.
-- The README has a section for the number pad, and the cheat sheet a third page.
+- The README has a section for the number pad, and the cheat sheet a third page, with the Math dead key on the number pad as an example.
 - The README has a table of contents.
 - The cheat sheet lists the dead-key entries that follow an Option key (e.g., `⌥6⌥⇧k` for `⟹`), which the diagrams can't show.
 - Math dead key (`⌥6`, then the key): the Unicode operators of Julia's Base that the layout didn't have, `⊻` (`x`, `xor`), `⊼` and `⊽` (`⌥⇧v` and `⌥v`, the keys of `∧` and `∨`; `nand` and `nor`), `∋` and `∌` (`⌥e` and `⌥⇧e`, the keys of `∈` and `∉`), `⊊` and `⊋` (`(` and `)`), and `∛` and `∜` (`#` and `$`).
@@ -100,7 +102,8 @@ First release of U.S. Scientific, the successor of the macOS-only "U.S. Internat
 - Caps Lock uppercases letters consistently, also after dead keys and on the alternative layer, and no longer turns `'` and `` ` `` into dead keys.
 - Grave dead key: removed the stray `c` and `C` entries.
 
-[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v5.1.0...HEAD
+[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v5.2.0...HEAD
+[5.2.0]: https://github.com/goerz/us-scientific-keyboard/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/goerz/us-scientific-keyboard/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.1.0...v5.0.0
 [4.1.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.0.0...v4.1.0
