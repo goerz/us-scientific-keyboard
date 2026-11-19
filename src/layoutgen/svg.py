@@ -93,7 +93,7 @@ def _box(x, y, w, cls):
 
 
 # Font sizes in pixels
-SIZES = {"out": 22, "label": 10, "note": 10}
+SIZES = {"out": 22, "label": 10, "note": 10, "box": 20}
 
 
 class Font:
@@ -261,10 +261,64 @@ def dead_key(layout: Layout, font: Font, dead_id: str, compact=False) -> str:
     )
 
 
+# Number pad keys bigger than 1x1: name -> (width, height); positions from keys.KEYPAD
+KEYPAD_SIZES = {"kp+": (1, 2), "kp0": (2, 1)}
+# Keys without characters: (row, col, width, height, label)
+KEYPAD_FRAME = [(0, 0, 1, 1, "num lock"), (3, 3, 1, 2, "enter")]
+
+
+def numpad(layout: Layout, font: Font, compact=False) -> str:
+    """SVG of the number pad with Option (left) and Shift+Option (right).
+    Box drawing characters are as tall as the font's whole line, to connect
+    from line to line, so they go side by side instead of one above the other."""
+    drawing = Drawing(font)
+    _text = drawing.text
+    title = "Option or AltGr; right: with Shift"
+    title_height = 0 if compact else 26
+    width, height = 4 * U + 2 * PAD, 5 * U + 2 * PAD + title_height
+    parts = [
+        f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" '
+        f'viewBox="0 0 {width} {height}" role="img">',
+        f"<title>{escape(title)}</title>",
+        f"<style>{STYLE}</style>",
+        f'<rect class="bg" x="0" y="0" width="{width}" height="{height}" rx="10"/>',
+    ]
+    top = PAD + title_height
+    if not compact:
+        parts.append(_text(PAD + 4, PAD + 16, title, "note"))
+
+    def box(row, col, w, h, cls):
+        x, y = PAD + col * U, top + row * U
+        parts.append(
+            f'<rect class="{cls}" x="{x + GAP / 2:.1f}" y="{y + GAP / 2:.1f}" '
+            f'width="{w * U - GAP:.1f}" height="{h * U - GAP:.1f}" rx="6"/>'
+        )
+        return x, y
+
+    for row, col, w, h, label in KEYPAD_FRAME:
+        x, y = box(row, col, w, h, "frame")
+        parts.append(_text(x + 8, y + h * U - 10, label, "label"))
+    for key in layout.keypad:
+        physical = key.physical
+        w, h = KEYPAD_SIZES.get(physical.name, (1, 1))
+        left, right = key.layers["option"], key.layers["shift-option"]
+        x, y = box(physical.row, physical.col, w, h, "key" if left or right else "key unused")
+        parts.append(_text(x + w * U - 7, y + 15, physical.base, "label", "end"))
+        baseline = y + h * U / 2 + 12  # below the label
+        for binding, lx in ((left, x + 9), (right, x + 31)):
+            if binding is not None:
+                parts.append(_text(lx, baseline, display(binding.text), "box out"))
+    parts.insert(3, drawing.defs())
+    parts.append("</svg>")
+    return "\n".join(parts) + "\n"
+
+
 def all_diagrams(layout: Layout, font_path: Path = DEFAULT_FONT, compact=False) -> dict:
     """{file name: SVG} for all diagrams."""
     font = Font(font_path)
     result = {"alternative.svg": alternative(layout, font, compact)}
     for dead_id in layout.dead:
         result[f"dead-{dead_id}.svg"] = dead_key(layout, font, dead_id, compact)
+    if layout.keypad:
+        result["numpad.svg"] = numpad(layout, font, compact)
     return result

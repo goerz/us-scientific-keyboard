@@ -23,7 +23,7 @@ DOWNLOADS = """\
 
 * `us_scientific.bundle.zip`: macOS keyboard layout
 * `us_scientific.kmp`: Keyman package, for Windows and Linux, with the complete layout
-* `us_scientific-windows.zip`: native Windows layout, to install with its `install.ps1` (no math bold dead key, and only some math script and double-struck letters)
+* `us_scientific-windows.zip`: native Windows layout, to install with its `install.ps1` (no math bold dead key, only some math script and double-struck letters, and no box drawing on the number pad)
 * `us_scientific-linux.zip`: native Linux layout (XKB and Compose), to install with its `install.py`
 * `us-scientific.pdf`: cheat sheet
 

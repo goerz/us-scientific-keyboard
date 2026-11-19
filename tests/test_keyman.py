@@ -62,11 +62,13 @@ def tokens(binding):
 @pytest.mark.parametrize("dead", [None, *LAYOUT.dead])
 def test_rules(rules, dead):
     mismatches = []
-    for key in LAYOUT.keys:
+    for key in LAYOUT.keys + LAYOUT.keypad:
         for layer in LAYER_STATE:
             binding = LAYOUT.binding(key, layer, "pc")
             if binding is None:
                 want = None
+            elif dead is None and key in LAYOUT.keypad and layer in ("base", "caps"):
+                want = None  # no rule: the number pad does what the system does
             elif dead is None:
                 want = tokens(binding)
             elif isinstance(binding, model.Char) and binding.text in LAYOUT.dead[dead].map:

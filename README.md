@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **about 560 characters beyond ASCII**, 80 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,100 in all**.
+It types **about 590 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
 
 <!-- END generated: count -->
 
@@ -17,6 +17,7 @@ Without modifiers, it is the standard US layout. The alternative layer (Option o
 * Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
 * Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≡, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
 * Combining accents that apply to the preceding character (v⃗, Ĥ, S̃, z̅)
+* Box drawing on the number pad (┌ ┬ ┐ ─ │, ╔ ╦ ╗ ═ ║, …)
 * Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), fractions (½, ⅓, ¾), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ‖, ℓ, ↦, ≲, ⨁), and the bold, script, and double-struck math alphabets
 
 The idea is to type everyday "Unicode math" (in chat, email, or web forms) without round-tripping through an editor with [digraphs](https://vimdoc.sourceforge.net/htmldoc/digraph.html) or [julia-vim](https://github.com/JuliaEditorSupport/julia-vim). The selection of symbols skews toward quantum physics.
@@ -390,6 +391,39 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `�
 
 <!-- END generated: dead-keys -->
 
+## Number pad
+
+On a keyboard with a number pad, Option (AltGr on Windows and Linux) turns it into a pad for box drawing, in the shape of the keys: the digits give the corners, the tees, and the cross, `-` and `+` the horizontal and vertical lines, and `/ * 0 .` the rounded corners. With Shift, the same keys give double lines, and `/ * 0 .` the tees that join a single and a double line (`╟ ╢ ╞ ╡`, as in the cell markers of [Pluto](https://plutojl.org) notebooks).
+
+Num Lock doesn't matter with Option or AltGr, and without them the number pad works as usual. After a dead key, a number pad key works like the key of the main keyboard that types the same character: `⌥z` followed by `2` on the number pad gives `₂`.
+
+The native Windows layout doesn't have the box drawing (Windows uses Alt with the number pad to type characters by their code); the Keyman package does. Shift with AltGr on the number pad hasn't been tried in Keyman for Windows, where Shift with the number pad can switch Num Lock off instead.
+
+<!-- BEGIN generated: numpad -->
+
+![The number pad](docs/numpad.svg)
+
+| Key | Option or AltGr | Shift with Option or AltGr |
+|-----|-----------------|----------------------------|
+| `/` | `╭` | `╟` |
+| `*` | `╮` | `╢` |
+| `-` | `─` | `═` |
+| `7` | `┌` | `╔` |
+| `8` | `┬` | `╦` |
+| `9` | `┐` | `╗` |
+| `+` | `│` | `║` |
+| `4` | `├` | `╠` |
+| `5` | `┼` | `╬` |
+| `6` | `┤` | `╣` |
+| `1` | `└` | `╚` |
+| `2` | `┴` | `╩` |
+| `3` | `┘` | `╝` |
+| `0` | `╰` | `╞` |
+| `.` | `╯` | `╡` |
+
+<!-- END generated: numpad -->
+
+
 ## Installation
 
 Download the files from the [releases page](https://github.com/goerz/us-scientific-keyboard/releases).
@@ -418,6 +452,7 @@ There is also a native Windows keyboard layout that doesn't need Keyman. It can'
 
 * Native Windows dead keys can only produce characters from the Unicode Basic Multilingual Plane. The math bold dead key is therefore missing, and the script and double-struck dead keys only have the letters from the "Letterlike Symbols" block (`ℂ ℕ ℍ ℙ ℚ ℝ ℤ`, `ℬ ℰ ℱ ℋ ℐ ℒ ℳ ℛ ℯ ℊ ℴ`). The double-struck dead key's symbol is `ℍ`.
 * `𝕚` and `𝟙` on AltGr+I and Shift+AltGr+I may not work in all programs.
+* The [number pad](#number-pad) has no box drawing.
 * Shift with Caps Lock on gives lowercase letters, as usual on Windows.
 
 1. Unzip `us_scientific-windows.zip`.

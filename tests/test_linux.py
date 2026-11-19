@@ -128,6 +128,31 @@ def plain(binding):
     return model.Char(binding.text) if isinstance(binding, model.Char) else binding
 
 
+def test_keypad(symbols):
+    """Num Lock and Shift choose between the keypad keysyms (levels 1 and 2)
+    as usual; AltGr gives levels 3 and 4 (see linux.py)."""
+    for key in LAYOUT.keypad:
+        type_name, syms = symbols[key.physical.xkb]
+        nav, char = key.physical.xkb_syms
+        assert type_name == ("FOUR_LEVEL_MIXED_KEYPAD" if nav != char else "FOUR_LEVEL"), key.name
+        assert syms[:2] == [nav, char], key.name
+        for sym, layer in zip(syms[2:], ("option", "shift-option"), strict=True):
+            assert binding_of(None if sym == "VoidSymbol" else sym) == plain(key.pc_layers[layer]), key.name
+
+
+def keypad_typed():
+    """(keysym, binding) for the number pad: its character with Num Lock on,
+    and the alternative layer."""
+    result = []
+    for key in LAYOUT.keypad:
+        result.append((key.physical.xkb_syms[1], key.pc_layers["base"]))
+        for layer in ("option", "shift-option"):
+            binding = key.pc_layers[layer]
+            if binding is not None:
+                result.append((linux.char_keysym(binding.text), binding))
+    return result
+
+
 def test_keys(symbols):
     mismatches = []
     for key in LAYOUT.keys:
@@ -159,11 +184,17 @@ def test_dead_keys(symbols, sequences, dead_id):
                 want = dead.map.get(binding.text, dead.symbol + binding.text)
             if want != got:
                 mismatches.append((key.name, layer, want, got))
+    for sym, binding in keypad_typed():
+        want = None if ord(binding.text) > 0xFFFF else dead.map.get(binding.text, dead.symbol + binding.text)
+        got = sequences.get((dead_sym, sym))
+        if want != got:
+            mismatches.append((sym, want, got))
     assert mismatches == []
 
 
 def test_no_extra_sequences(symbols, sequences):
     typed = {press(symbols, key.physical.xkb, layer) for key in LAYOUT.keys for layer in LAYER_MODS}
+    typed |= {sym for sym, _ in keypad_typed()}
     dead_syms = set(linux.dead_keysyms(LAYOUT).values())
     for first, second in sequences:
         assert first in dead_syms and second in typed, (first, second)

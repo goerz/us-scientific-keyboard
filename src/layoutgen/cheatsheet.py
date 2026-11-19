@@ -1,5 +1,6 @@
 """PDF cheat sheet: the keyboard diagrams on two pages (one sheet, printed
-double-sided), six per page, each with its description beside it.
+double-sided), six per page, each with its description beside it, and the
+number pad by itself on a third page.
 
 `write` puts the compact SVG diagrams and a LaTeX file into a directory; the
 Makefile converts the SVGs to PDF (rsvg-convert) and runs LuaLaTeX.
@@ -12,6 +13,7 @@ from .model import Dead, Layout
 
 PER_PAGE = 6
 DIAGRAM_WIDTH = "4.6in"  # six diagrams fit in the height of a letter page
+NUMPAD_WIDTH = "4in"  # alone on its page
 
 TEX = r"""\documentclass[10pt]{{article}}
 \usepackage[letterpaper,margin=0.5in]{{geometry}}
@@ -23,6 +25,9 @@ TEX = r"""\documentclass[10pt]{{article}}
 \newcommand{{\row}}[2]{{%
   \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
   \begin{{minipage}}[c]{{{width}}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
+\newcommand{{\numpadrow}}[2]{{%
+  \begin{{minipage}}[c]{{\dimexpr\linewidth-{numpad_width}-1em}}\raggedright #1\end{{minipage}}\hfill
+  \begin{{minipage}}[c]{{{numpad_width}}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
 \begin{{document}}
 {{\large {name}}} keyboard layout\hfill version {version}\par
 \vfill
@@ -36,6 +41,15 @@ ALTERNATIVE = (
     r"\footnotesize Top: with Shift. Bottom: without."
     r" Dark badge: dead key. Press and release it, then press another key."
     r" Space after a dead key types its symbol."
+)
+
+
+NUMPAD = (
+    r"{\large Number pad}\par\smallskip"
+    r" Option (macOS) or AltGr (right Alt; Linux, Keyman), on keyboards with a number pad.\par\smallskip"
+    r"\footnotesize Box drawing. Left: single lines. Right: with Shift, double lines."
+    r" Num Lock doesn't matter. Not in the native Windows layout."
+    r" After a dead key, the number pad works like the main keys."
 )
 
 
@@ -71,15 +85,22 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     diagrams = svg.all_diagrams(layout, font, compact=True)
     for name, content in diagrams.items():
         (outdir / name).write_text(content, encoding="utf-8")
+    numpad = diagrams.pop("numpad.svg", None)
     texts = [ALTERNATIVE] + [description(layout, dead_id) for dead_id in layout.dead]
     rows = []
     for i, (name, text) in enumerate(zip(diagrams, texts, strict=True)):
         rows.append(rf"\row{{{text}}}{{{Path(name).stem}.pdf}}")
         rows.append(r"\newpage\vfill" if (i + 1) % PER_PAGE == 0 else r"\vfill")
+    if numpad is not None:
+        if rows[-1].startswith(r"\newpage"):
+            rows.pop()
+        # \null: TeX drops glue (\vfill) at the top of a page
+        rows += [r"\newpage\null\vfill", rf"\numpadrow{{{NUMPAD}}}{{numpad.pdf}}", r"\vfill"]
     (outdir / "cheatsheet.tex").write_text(
         TEX.format(
             name=layout.name,
             width=DIAGRAM_WIDTH,
+            numpad_width=NUMPAD_WIDTH,
             version=layout.version,
             rows="\n".join(rows),
             font_file=Path(font).name,

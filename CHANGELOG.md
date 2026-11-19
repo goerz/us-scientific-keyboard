@@ -10,6 +10,12 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ## [Unreleased]
 
+### Added
+
+- Box drawing on the number pad, in the shape of the keys: with Option (AltGr), `┌ ┬ ┐ ├ ┼ ┤ └ ┴ ┘` on the digits, `─` (`-`), `│` (`+`), and the rounded corners `╭ ╮ ╰ ╯` (`/ * 0 .`); with Shift+Option, the double lines `╔ ╦ ╗ ╠ ╬ ╣ ╚ ╩ ╝ ═ ║` and the tees `╟ ╢ ╞ ╡` that join a single and a double line. Not in the native Windows layout.
+- After a dead key, a number pad key works like the key of the main keyboard that types the same character (e.g., `⌥z` followed by number pad `2` gives `₂`). This was already the case in the native Windows layout.
+- The README has a section for the number pad, and the cheat sheet a third page.
+
 ## [5.1.0] - 2026-11-19
 
 ### Added

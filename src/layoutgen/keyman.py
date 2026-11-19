@@ -2,6 +2,10 @@
 
 The alternative layer is on Right Alt (AltGr), so Left Alt keeps working for
 menu shortcuts. Keys follow Windows/Linux conventions (platform "pc").
+
+The number pad only has rules with AltGr and after a dead key: without
+them, its keys keep doing what the system does (digits or, with Num Lock
+off, navigation).
 """
 
 from xml.sax.saxutils import escape
@@ -57,6 +61,7 @@ def rhs(binding) -> tuple[str, str]:
 
 def kmn(layout: Layout, bitmap: str | None = None) -> str:
     specs = [spec for key in layout.keys for spec in key_specs(layout, key)]
+    keypad = [spec for key in layout.keypad for spec in key_specs(layout, key)]
     lines = [
         f"c {layout.name}",
         "c",
@@ -74,7 +79,7 @@ def kmn(layout: Layout, bitmap: str | None = None) -> str:
 
     for dead in layout.dead.values():
         lines.append(f"c ---- dead key {dead.id} ----")
-        for vkey, binding in specs:
+        for vkey, binding in specs + keypad:
             if isinstance(binding, Char) and binding.text in dead.map:
                 result = dead.map[binding.text]
                 out, note = kmn_string(result), shown(result)
@@ -86,7 +91,7 @@ def kmn(layout: Layout, bitmap: str | None = None) -> str:
         lines.append("")
 
     lines.append("c ---- keys ----")
-    for vkey, binding in specs:
+    for vkey, binding in specs + [(vkey, b) for vkey, b in keypad if "RALT" in vkey]:
         out, note = rhs(binding)
         lines.append(f"+ {vkey} > {out}  c {note}")
     return "\n".join(lines) + "\n"

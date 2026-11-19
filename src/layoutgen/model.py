@@ -6,7 +6,7 @@ import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 
-from .keys import KEYS, PhysicalKey
+from .keys import KEYPAD, KEYPAD_BY_CHAR, KEYS, PhysicalKey
 
 LAYERS = ("base", "shift", "option", "shift-option")
 # Caps Lock layers, derived from the others
@@ -69,6 +69,7 @@ class Layout:
     macos_id: int
     windows_dll: str
     keys: list = field(default_factory=list)  # Key, in keyboard order
+    keypad: list = field(default_factory=list)  # Key of the number pad (layer "shift": Shift+digit, macOS)
     dead: dict = field(default_factory=dict)  # id -> DeadKey, in file order
 
     @property
@@ -114,7 +115,7 @@ def _caps_shifts(layers: dict, lower: str, upper: str) -> bool:
 def load(path: Path) -> Layout:
     with open(path, "rb") as fh:
         data = tomllib.load(fh)
-    unknown = set(data) - {"layout", "alternative", "dead", "notes"}
+    unknown = set(data) - {"layout", "alternative", "dead", "notes", "numpad"}
     if unknown:
         raise LayoutError(f"unknown tables {sorted(unknown)}")
     meta = data.get("layout", {})
@@ -167,8 +168,10 @@ def load(path: Path) -> Layout:
         for required in ("key", "symbol", "map"):
             if required not in spec:
                 raise LayoutError(f"{where}: missing {required!r}")
+        alternatives = [*data.get("alternative", {}).values()]
+        alternatives += [v for layer in data.get("numpad", {}).values() for v in layer.values()]
         for typed in spec["map"]:
-            if typed not in positions and not any(typed == v for v in data.get("alternative", {}).values()):
+            if typed not in positions and typed not in alternatives:
                 raise LayoutError(f"{where}.map: no key types {typed!r}")
         layout.dead[dead_id] = DeadKey(
             id=dead_id,
@@ -198,4 +201,30 @@ def load(path: Path) -> Layout:
             pc_layers[layer] = binding
             layers[layer] = binding if binding is not None or default is None else Char(default)
         layout.keys.append(Key(physical, layers, pc_layers))
+
+    # The number pad: the plain layer types the key's character (digits with
+    # Num Lock on); Shift does too on macOS, but switches Num Lock on Windows
+    # and Linux, so it isn't a character layer there.
+    numpad = data.get("numpad", {})
+    unknown = set(numpad) - {"option", "shift-option"}
+    if unknown:
+        raise LayoutError(f"[numpad]: unknown layers {sorted(unknown)}")
+    for layer, table in numpad.items():
+        for typed, text in table.items():
+            if typed not in KEYPAD_BY_CHAR:
+                raise LayoutError(f"[numpad.{layer}]: no number pad key types {typed!r}")
+            if not isinstance(text, str) or not text:
+                raise LayoutError(f"[numpad.{layer}] {typed!r}: expected a non-empty string")
+    for physical in KEYPAD:
+        option = {
+            layer: Char(numpad[layer][physical.base], notes.get(numpad[layer][physical.base], ""))
+            if physical.base in numpad.get(layer, {}) else None
+            for layer in ("option", "shift-option")
+        }
+        char = Char(physical.base)
+        layout.keypad.append(Key(
+            physical,
+            {"base": char, "shift": char, **option},
+            {"base": char, "shift": None, **option},
+        ))
     return layout

@@ -16,11 +16,17 @@
 # by its own [dead.<id>.notes] (keyed by the result), [notes], or the
 # Unicode name. `readme` is a paragraph (Markdown) for the dead key's section
 # of the README, below its diagram.
+#
+# [numpad.option] and [numpad.shift-option] are the number pad with Option
+# (AltGr) and with Shift+Option (Shift+AltGr), keyed by what the key types
+# with Num Lock on (`"7"`, `"+"`). The native Windows layout leaves the number
+# pad alone. After a dead key, a number pad key acts like the key of the main
+# keyboard that types the same character.
 
 [layout]
 name = "U.S. Scientific"
 id = "us_scientific"
-version = "5.1.0+dev"  # X.Y.Z for a release; between releases, X.Y.Z+dev or X.Y.Z-dev (see CHANGELOG.md)
+version = "5.2.0-dev"  # X.Y.Z for a release; between releases, X.Y.Z+dev or X.Y.Z-dev (see CHANGELOG.md)
 author = "Michael Goerz"
 copyright = "2021-2026"
 license = "MIT"
@@ -119,6 +125,45 @@ m = "µ"
 "?" = "¿"
 # space bar
 " " = "\u00A0"  # no-break space
+
+# Box drawing on the number pad, in the shape of the keys: single lines with
+# Option (AltGr), double lines with Shift+Option. The 3x3 block of digits
+# gives the corners, tees, and the cross, `-` and `+` the horizontal and
+# vertical lines, and `/ *` (top) and `0 .` (bottom) the rounded corners and,
+# with Shift, the tees with a single and a double line.
+[numpad.option]
+7 = "┌"
+8 = "┬"
+9 = "┐"
+4 = "├"
+5 = "┼"
+6 = "┤"
+1 = "└"
+2 = "┴"
+3 = "┘"
+- = "─"
+"+" = "│"
+"/" = "╭"
+"*" = "╮"
+0 = "╰"
+"." = "╯"
+
+[numpad.shift-option]
+7 = "╔"
+8 = "╦"
+9 = "╗"
+4 = "╠"
+5 = "╬"
+6 = "╣"
+1 = "╚"
+2 = "╩"
+3 = "╝"
+- = "═"
+"+" = "║"
+"/" = "╟"
+"*" = "╢"
+0 = "╞"
+"." = "╡"
 
 [dead.acute]
 key = "'"
@@ -357,7 +402,6 @@ S = "⊇"
 "." = "⋯"
 ":" = "⋮"
 ";" = "⋱"
-
 [dead.math.notes]
 "ℓ" = "script l (angular momentum)"
 "⟂" = "perpendicular, `\\perp` in Julia (not the up tack `⊥`, `\\bot`)"

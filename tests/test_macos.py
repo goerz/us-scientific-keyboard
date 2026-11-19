@@ -38,7 +38,7 @@ def expected(binding, state):
 @pytest.mark.parametrize("state", ["none", *LAYOUT.dead])
 def test_keys(generated, state):
     mismatches = []
-    for key in LAYOUT.keys:
+    for key in LAYOUT.keys + LAYOUT.keypad:
         for index, layer in MAP_LAYERS.items():
             want = expected(LAYOUT.binding(key, layer), state)
             got = generated.press(index, key.physical.mac, state)

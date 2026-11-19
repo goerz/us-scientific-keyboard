@@ -18,6 +18,8 @@ class PhysicalKey:
     pc_shift: str | None = None  # Windows/Linux, Shift
     mac_alternative: tuple = (None, None)  # macOS Option, Shift+Option defaults
     xkb: str = ""  # XKB key name (Linux), set below
+    # Number pad keys: XKB keysyms with Num Lock off and on
+    xkb_syms: tuple = ()
 
 
 def _row(row: int, start: float, specs):
@@ -109,3 +111,31 @@ KEYS = [
 ]
 
 KEYS_BY_NAME = {k.name: k for k in KEYS}
+
+
+# The number pad (on full-size keyboards), as on a PC: name, macOS code,
+# Keyman key, Windows virtual key, the character it types (with Num Lock
+# on), XKB key name, XKB keysyms (Num Lock off, on), and diagram position
+# (row, col) on a grid of the number pad. Enter, Num Lock (Clear on a Mac),
+# and the Mac's = key are left alone.
+KEYPAD = [
+    PhysicalKey(name, mac, keyman, vk, char, char, row, col, xkb=xkb, xkb_syms=syms)
+    for name, mac, keyman, vk, char, xkb, syms, row, col in [
+        ("kp/", 75, "K_NPSLASH", "VK_DIVIDE", "/", "KPDV", ("KP_Divide", "KP_Divide"), 0, 1),
+        ("kp*", 67, "K_NPSTAR", "VK_MULTIPLY", "*", "KPMU", ("KP_Multiply", "KP_Multiply"), 0, 2),
+        ("kp-", 78, "K_NPMINUS", "VK_SUBTRACT", "-", "KPSU", ("KP_Subtract", "KP_Subtract"), 0, 3),
+        ("kp7", 89, "K_NP7", "VK_NUMPAD7", "7", "KP7", ("KP_Home", "KP_7"), 1, 0),
+        ("kp8", 91, "K_NP8", "VK_NUMPAD8", "8", "KP8", ("KP_Up", "KP_8"), 1, 1),
+        ("kp9", 92, "K_NP9", "VK_NUMPAD9", "9", "KP9", ("KP_Prior", "KP_9"), 1, 2),
+        ("kp+", 69, "K_NPPLUS", "VK_ADD", "+", "KPAD", ("KP_Add", "KP_Add"), 1, 3),
+        ("kp4", 86, "K_NP4", "VK_NUMPAD4", "4", "KP4", ("KP_Left", "KP_4"), 2, 0),
+        ("kp5", 87, "K_NP5", "VK_NUMPAD5", "5", "KP5", ("KP_Begin", "KP_5"), 2, 1),
+        ("kp6", 88, "K_NP6", "VK_NUMPAD6", "6", "KP6", ("KP_Right", "KP_6"), 2, 2),
+        ("kp1", 83, "K_NP1", "VK_NUMPAD1", "1", "KP1", ("KP_End", "KP_1"), 3, 0),
+        ("kp2", 84, "K_NP2", "VK_NUMPAD2", "2", "KP2", ("KP_Down", "KP_2"), 3, 1),
+        ("kp3", 85, "K_NP3", "VK_NUMPAD3", "3", "KP3", ("KP_Next", "KP_3"), 3, 2),
+        ("kp0", 82, "K_NP0", "VK_NUMPAD0", "0", "KP0", ("KP_Insert", "KP_0"), 4, 0),
+        ("kp.", 65, "K_NPDOT", "VK_DECIMAL", ".", "KPDL", ("KP_Delete", "KP_Decimal"), 4, 2),
+    ]
+]
+KEYPAD_BY_CHAR = {k.base: k for k in KEYPAD}

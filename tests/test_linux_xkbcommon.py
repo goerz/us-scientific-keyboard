@@ -109,6 +109,15 @@ class Keyboard:
             self.tap("CAPS")
         return keysym, buf.value.decode()
 
+    def keypad(self, key, layer, numlock):
+        """(keysym, text) of a number pad key, with Num Lock on or off."""
+        if numlock:
+            self.tap("NMLK")
+        result = self.press(key.physical.xkb, layer)
+        if numlock:
+            self.tap("NMLK")
+        return result
+
     def tap(self, name):
         LIB.xkb_state_update_key(self.state, self.code(name), DOWN)
         LIB.xkb_state_update_key(self.state, self.code(name), UP)
@@ -138,6 +147,31 @@ def test_keys(xkb):
                 ok = want == got
             if not ok:
                 mismatches.append((key.name, layer, want, got))
+    assert mismatches == []
+
+
+def keypad_expected(key, layer, numlock):
+    """Text of a number pad key: the alternative layer with AltGr, whatever
+    Num Lock is; without AltGr, the digit with Num Lock on and nothing (a
+    navigation key) with Num Lock off."""
+    if layer in ("option", "shift-option"):
+        binding = key.pc_layers[layer]
+        return binding.text if binding is not None else ""
+    if layer == "base":
+        return key.physical.base if numlock or key.physical.xkb_syms[0] == key.physical.xkb_syms[1] else ""
+    return None  # not checked
+
+
+def test_keypad(xkb):
+    kb = Keyboard(xkb[1])
+    mismatches = []
+    for key in LAYOUT.keypad:
+        for numlock in (True, False):
+            for layer in ("base", "option", "shift-option"):
+                want = keypad_expected(key, layer, numlock)
+                got = kb.keypad(key, layer, numlock)[1]
+                if want != got:
+                    mismatches.append((key.name, layer, numlock, want, got))
     assert mismatches == []
 
 
@@ -185,6 +219,21 @@ def test_dead_keys(xkb, dead_id, with_locale):
             LIB.xkb_compose_state_feed(compose, kb.press(trigger[0].physical.xkb, trigger[1])[0])
             assert LIB.xkb_compose_state_get_status(compose) == COMPOSING
             LIB.xkb_compose_state_feed(compose, kb.press(key.physical.xkb, layer)[0])
+            status = LIB.xkb_compose_state_get_status(compose)
+            buf = ctypes.create_string_buffer(64)
+            LIB.xkb_compose_state_get_utf8(compose, buf, 64)
+            got = buf.value.decode() if status == COMPOSED else status
+            want = expected(dead, binding)
+            if want != got:
+                mismatches.append((key.name, layer, want, got))
+    for key in LAYOUT.keypad:  # with Num Lock on
+        for layer in ("base", "option", "shift-option"):
+            binding = key.pc_layers[layer]
+            if binding is None:
+                continue
+            LIB.xkb_compose_state_reset(compose)
+            LIB.xkb_compose_state_feed(compose, kb.press(trigger[0].physical.xkb, trigger[1])[0])
+            LIB.xkb_compose_state_feed(compose, kb.keypad(key, layer, numlock=True)[0])
             status = LIB.xkb_compose_state_get_status(compose)
             buf = ctypes.create_string_buffer(64)
             LIB.xkb_compose_state_get_utf8(compose, buf, 64)

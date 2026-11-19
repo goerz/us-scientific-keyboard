@@ -200,11 +200,11 @@ def dead_entries_table(layout: Layout, dead, drawn: list, typed_on_keys: set) ->
 
 
 def character_count(layout: Layout) -> str:
-    """How many characters beyond ASCII the layout types, on every platform
-    (the ISO key aside), and how many more Unicode composes from those
+    """How many characters beyond ASCII the layout types (the ISO key aside,
+    the number pad included), and how many more Unicode composes from those
     letters and combining accents."""
     typed, direct = set(), set()
-    for key in layout.keys:
+    for key in layout.keys + layout.keypad:
         if key.physical.name == "iso":
             continue
         for layer in ("base", "shift", "option", "shift-option"):
@@ -250,6 +250,22 @@ def about(n: int) -> str:
     return f"{round(n, -1 if n < 1000 else -2):,}"
 
 
+def numpad_section(layout: Layout) -> str:
+    out = [
+        f"![The number pad]({DIAGRAM_DIR}/numpad.svg)",
+        "",
+        "| Key | Option or AltGr | Shift with Option or AltGr |",
+        "|-----|-----------------|----------------------------|",
+    ]
+    for key in sorted(layout.keypad, key=lambda k: (k.physical.row, k.physical.col)):
+        cells = [
+            character_cell(b.text) if b is not None else ""
+            for b in (key.layers["option"], key.layers["shift-option"])
+        ]
+        out.append(f"| {code(key.physical.base)} | {cells[0]} | {cells[1]} |")
+    return "\n".join(out) + "\n"
+
+
 def dead_key_table(layout: Layout) -> str:
     out = ["| Keys | Symbol | Dead key for |", "|------|--------|--------------|"]
     for dead in layout.dead.values():
@@ -269,6 +285,7 @@ SECTIONS = {
     "alternative": alternative_tables,
     "dead-key-table": dead_key_table,
     "dead-keys": dead_key_sections,
+    "numpad": numpad_section,
 }
 
 

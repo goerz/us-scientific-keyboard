@@ -11,6 +11,12 @@ match a key if the sequence spells its keysym the same way the layout does.
 So keys are written with their X11 keysym names where one exists (`Greek_pi`,
 not `U03C0`, whose low 16 bits are the keysym `Amacron`), and sequences with a
 key outside the BMP (𝕚, 𝟙) are left out.
+
+The number pad keeps its keypad keysyms (`KP_Home`, `KP_7`) on the first two
+levels, which Num Lock and Shift choose between as usual, and has the
+alternative layer on levels 3 and 4: the digit keys use the type
+FOUR_LEVEL_MIXED_KEYPAD (types/numpad, as in `keypad(ossnumber)`), which
+picks them with AltGr whatever Num Lock is; the operators use FOUR_LEVEL.
 """
 
 import unicodedata
@@ -187,8 +193,27 @@ def symbols(layout: Layout) -> str:
             f'    key <{key.physical.xkb}> {{ type[Group1] = "{type_name}", '
             f"symbols[Group1] = [ {syms} ] }};  // {note}"
         )
+    lines.append("")
+    for key in layout.keypad:
+        type_name, syms = keypad_levels(key, dead_syms)
+        note = " ".join(shown(key.pc_layers[layer]) for layer in ("option", "shift-option"))
+        lines.append(
+            f'    key <{key.physical.xkb}> {{ type[Group1] = "{type_name}", '
+            f"symbols[Group1] = [ {', '.join(syms)} ] }};  // {note}"
+        )
     lines += ["", '    include "level3(ralt_switch)"', "};"]
     return "\n".join(lines) + "\n"
+
+
+KEYPAD_TYPE = "FOUR_LEVEL_MIXED_KEYPAD"
+
+
+def keypad_levels(key, dead_syms: dict) -> tuple[str, list]:
+    """(XKB type, keysyms per level) for a number pad key."""
+    nav, char = key.physical.xkb_syms
+    type_name = KEYPAD_TYPE if nav != char else "FOUR_LEVEL"
+    extra = [binding_keysym(key.pc_layers[layer], dead_syms) for layer in ("option", "shift-option")]
+    return type_name, [nav, char, *extra]
 
 
 def xkb_description(layout: Layout) -> str:
@@ -206,6 +231,15 @@ def typed_keysyms(layout: Layout) -> list:
             if binding is None:
                 continue
             keysym = binding_keysym(binding, dead_syms)
+            if keysym not in seen:
+                seen.add(keysym)
+                result.append((keysym, binding))
+    # The number pad: its character with Num Lock on, and the alternative layer
+    for key in layout.keypad:
+        for layer, binding in key.pc_layers.items():
+            if binding is None or layer == "shift":
+                continue
+            keysym = key.physical.xkb_syms[1] if layer == "base" else binding_keysym(binding, dead_syms)
             if keysym not in seen:
                 seen.add(keysym)
                 result.append((keysym, binding))

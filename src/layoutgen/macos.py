@@ -35,7 +35,7 @@ def keylayout(layout: Layout) -> str:
     keys = {index: [] for index in MAP_LAYERS}
     actions = {}  # action id -> list of (state, attribute, value)
     outputs = []
-    for key in layout.keys:
+    for key in layout.keys + layout.keypad:
         for index, layer in MAP_LAYERS.items():
             binding = layout.binding(key, layer)
             code = key.physical.mac
