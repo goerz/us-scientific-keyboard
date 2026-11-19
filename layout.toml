@@ -378,6 +378,9 @@ name = "Math"
 desc = "set operations, relations, and other math symbols"
 symbol = "⋅"  # after Space, or before a key without an entry
 table = true  # list the entries in the README
+readme = '''
+The digits give arrows in the directions they have on the number pad (`8` up, `3` down and right, `5` and `0` left-right and up-down), so the arrows also work with the number pad after `⌥6`. After a short arrow, the Math dead key gives the long one: `⌥6⌥⇧k` gives `⟹` (`\implies`).
+'''
 
 [dead.math.map]
 c = "⊂"
@@ -402,6 +405,24 @@ S = "⊇"
 "." = "⋯"
 ":" = "⋮"
 ";" = "⋱"
+# arrows in the directions of the number pad
+7 = "↖"
+8 = "↑"
+9 = "↗"
+4 = "←"
+5 = "↔"
+6 = "→"
+1 = "↙"
+2 = "↓"
+3 = "↘"
+0 = "↕"
+# long arrows, after the short ones
+"←" = "⟵"
+"→" = "⟶"
+"⇐" = "⟸"
+"⇒" = "⟹"
+"⇔" = "⟺"
+
 [dead.math.notes]
 "ℓ" = "script l (angular momentum)"
 "⟂" = "perpendicular, `\\perp` in Julia (not the up tack `⊥`, `\\bot`)"
@@ -417,6 +438,12 @@ S = "⊇"
 "≳" = "greater than or of the order of"
 "⨁" = "n-ary circled plus (direct sum of many, `\\bigoplus`)"
 "⨂" = "n-ary circled times (tensor product of many, `\\bigotimes`)"
+"↕" = "up down arrow"
+"⟵" = "long leftwards arrow (`\\longleftarrow`)"
+"⟶" = "long rightwards arrow (`\\longrightarrow`)"
+"⟸" = "long leftwards double arrow (`\\impliedby`, `\\Longleftarrow`)"
+"⟹" = "long rightwards double arrow (`\\implies`, `\\Longrightarrow`)"
+"⟺" = "long left right double arrow (`\\iff`, `\\Longleftrightarrow`)"
 
 [dead.greek]
 key = "f"

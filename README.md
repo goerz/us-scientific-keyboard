@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **about 590 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
+It types **about 600 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
 
 <!-- END generated: count -->
 
@@ -271,6 +271,8 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 
 ![Math dead key](docs/dead-math.svg)
 
+The digits give arrows in the directions they have on the number pad (`8` up, `3` down and right, `5` and `0` left-right and up-down), so the arrows also work with the number pad after `⌥6`. After a short arrow, the Math dead key gives the long one: `⌥6⌥⇧k` gives `⟹` (`\implies`).
+
 | Key | Symbol | Description |
 |-----|--------|-------------|
 | `c` | `⊂` | subset of |
@@ -285,7 +287,7 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 | `u` | `∪` | union |
 | `\|` | `‖` | double vertical line (norm, `\Vert` in Julia and LaTeX) |
 | `\` | `∖` | set minus |
-| `-` | `↔` | left-right arrow |
+| `-`, `5` | `↔` | left-right arrow |
 | `<` | `≲` | less than or of the order of |
 | `>` | `≳` | greater than or of the order of |
 | `~` | `≃` | asymptotically equal to |
@@ -295,6 +297,20 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 | `.` | `⋯` | midline ellipsis (`\cdots`) |
 | `:` | `⋮` | vertical ellipsis (`\vdots`) |
 | `;` | `⋱` | down right diagonal ellipsis (`\ddots`) |
+| `7` | `↖` | north west arrow |
+| `8` | `↑` | up arrow; also on `⌥t` |
+| `9` | `↗` | north east arrow |
+| `4` | `←` | left arrow; also on `⌥j` |
+| `6` | `→` | right arrow; also on `⌥k` |
+| `1` | `↙` | south west arrow |
+| `2` | `↓` | down arrow; also on `⌥g` |
+| `3` | `↘` | south east arrow |
+| `0` | `↕` | up down arrow |
+| `⌥j` (`←`) | `⟵` | long leftwards arrow (`\longleftarrow`) |
+| `⌥k` (`→`) | `⟶` | long rightwards arrow (`\longrightarrow`) |
+| `⌥⇧j` (`⇐`) | `⟸` | long leftwards double arrow (`\impliedby`, `\Longleftarrow`) |
+| `⌥⇧k` (`⇒`) | `⟹` | long rightwards double arrow (`\implies`, `\Longrightarrow`) |
+| `⌥⇧l` (`⇔`) | `⟺` | long left right double arrow (`\iff`, `\Longleftrightarrow`) |
 
 ### Greek dead key
 
