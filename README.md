@@ -11,7 +11,7 @@ Without modifiers, it is the standard US layout. The alternative layer (Option o
 * Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
 * Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≡, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
 * Combining accents that apply to the preceding character (v⃗, Ĥ, S̃, z̅)
-* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⊥, ∥, ℓ, ↦, ≲, ⊕), and the bold, script, and double-struck math alphabets
+* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ∥, ℓ, ↦, ≲, ⊕), and the bold, script, and double-struck math alphabets
 
 The idea is to type everyday "Unicode math" (in chat, email, or web forms) without round-tripping through an editor with [digraphs](https://vimdoc.sourceforge.net/htmldoc/digraph.html) or [julia-vim](https://github.com/JuliaEditorSupport/julia-vim). The selection of symbols skews toward quantum physics.
 
@@ -55,7 +55,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥p` | `π` | Greek pi |
 | `⌥[` | `⟨` | left angle bracket (bra, `⟨Ψ\|`) |
 | `⌥]` | `⟩` | right angle bracket (ket, `\|Ψ⟩`) |
-| `⌥\` | `≪` | much less than |
+| `⌥\` | `≪` | much less than (not the guillemet `«`, which is `⌥/<`) |
 | `⌥a` | `ä` | umlaut |
 | `⌥s` | `ß` | German sharp s (not to be confused with Greek `β`) |
 | `⌥d` | `∂` | partial derivative |
@@ -96,7 +96,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧0` | `’` | right single quotation mark |
 | `⌥⇧-` | `—` | em-dash |
 | `⌥⇧=` | `±` | plus-minus |
-| `⌥⇧q` | `⨁` | circled plus (direct sum) |
+| `⌥⇧q` | `⨁` | n-ary circled plus (direct sum of many, `\bigoplus`; the binary `⊕` is `⌥6+`) |
 | `⌥⇧w` | `∘` | ring operator (function composition in Julia) |
 | `⌥⇧e` | `∉` | not an element of |
 | `⌥⇧r` | | dead key for letters from the math script alphabet, e.g., for superoperators (see [Math Script](#math-script-dead-key)) |
@@ -108,7 +108,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧p` | `∏` | product (not to be confused with Greek `Π`) |
 | `⌥⇧[` | `“` | left double quotation mark |
 | `⌥⇧]` | `”` | right double quotation mark |
-| `⌥⇧\` | `≫` | much greater than |
+| `⌥⇧\` | `≫` | much greater than (not the guillemet `»`, which is `⌥/>`) |
 | `⌥⇧a` | `Ä` | umlaut |
 | `⌥⇧s` | `∑` | sum (not to be confused with Greek `Σ`) |
 | `⌥⇧d` | `Δ` | Greek capital Delta |
@@ -225,9 +225,9 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `S` | `ẞ` | capital sharp s |
 | `t` / `T` | `ⱦ` `Ⱦ` | t with diagonal stroke |
 | `y` / `Y` | `ð` `Ð` | eth (Icelandic) |
-| `,` | `„` | low double quotation mark (German opening quote) |
-| `<` | `«` | left guillemet |
-| `>` | `»` | right guillemet |
+| `,` | `„` | low double quotation mark, the German opening quote (the closing quote is `“` on `⌥⇧[`) |
+| `<` | `«` | left guillemet (not `≪`, much less than, on `⌥\`) |
+| `>` | `»` | right guillemet (not `≫`, much greater than, on `⌥⇧\`) |
 | `0` | `∅` | empty set |
 | `=` | `≠` | not equal to |
 | `⌥7` (`≡`) | `≢` | not identical to |
@@ -254,7 +254,7 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `l` | `ℓ` | script l (angular momentum) |
 | `m` | `↦` | maps to |
 | `n` | `∩` | intersection |
-| `p` | `⊥` | perpendicular (up tack) |
+| `p` | `⟂` | perpendicular, `\perp` in Julia (not the up tack `⊥`, `\bot`) |
 | `s` | `⊆` | subset of or equal to |
 | `S` | `⊇` | superset of or equal to |
 | `u` | `∪` | union |
@@ -278,8 +278,8 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `b` / `B` | `β` `Β` | Greek beta |
 | `c` / `C` | `ξ` `Ξ` | Greek xi |
 | `d` / `D` | `δ` `Δ` | Greek delta |
-| `e` / `E` | `ϵ` `Ε` | Greek lunate epsilon, `\epsilon` in LaTeX (not to be confused with `∈`) |
-| `f` / `F` | `ϕ` `Φ` | Greek phi, `\phi` in LaTeX |
+| `e` / `E` | `ϵ` `Ε` | Greek lunate epsilon, `\epsilon` in LaTeX and Julia: the math symbol, not the letter `ε` of Greek text (on `v`), and not `∈` |
+| `f` / `F` | `ϕ` `Φ` | Greek phi, `\phi` in LaTeX and Julia: the math symbol, not the letter `φ` of Greek text (on `V`) |
 | `g` / `G` | `γ` `Γ` | Greek gamma |
 | `h` / `H` | `θ` `Θ` | Greek theta |
 | `i` / `I` | `ι` `Ι` | Greek iota |
@@ -296,8 +296,8 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `s` / `S` | `σ` `Σ` | Greek sigma |
 | `t` / `T` | `τ` `Τ` | Greek tau |
 | `u` / `U` | `υ` `Υ` | Greek upsilon |
-| `v` | `ε` | Greek epsilon, `\varepsilon` in LaTeX |
-| `V` | `φ` | Greek phi, `\varphi` in LaTeX |
+| `v` | `ε` | Greek epsilon, `\varepsilon` in LaTeX and Julia: the letter of Greek text |
+| `V` | `φ` | Greek phi, `\varphi` in LaTeX and Julia: the letter of Greek text |
 | `w` / `W` | `ω` `Ω` | Greek omega (angular frequency) |
 | `x` / `X` | `χ` `Χ` | Greek chi |
 | `y` / `Y` | `η` `Η` | Greek eta |
@@ -356,6 +356,8 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `�
 <!-- END generated: dead-keys -->
 
 The Accent dead key goes *after* the letter, because it types a combining mark, which attaches to the character before it: `c⌥;v` gives `č`, `x⌥;` followed by Space gives `ẋ`, and `x⌥;:` gives `ẍ`. Marks stack, so `α⌥;(⌥;'` gives `ἅ` (rough breathing, then acute). The result is the letter followed by the mark (`c` + U+030C), which is canonically equivalent to the precomposed `č`: it looks the same, but software that doesn't normalize Unicode, such as `grep`, treats the two as different.
+
+The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and `⌥ff` gives `ϕ` (`\phi`). These are the math symbols, not the letters of Greek text, which are `ε` (`\varepsilon`, on `v`) and `φ` (`\varphi`, on `V`). For Greek text, use `v` and `V`: an accent on `ϵ` doesn't normalize to a precomposed letter, while `ε⌥f'` becomes `έ`.
 
 Unicode doesn't have a complete alphabet of subscripts and superscripts, so some letters are missing. A few of the superscripts (`ꟲ`, `ꟳ`, `ꟴ`, `𐞥`) were only added in Unicode 14 and are missing from many fonts.
 
