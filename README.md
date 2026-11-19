@@ -59,7 +59,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥a` | `ä` | umlaut |
 | `⌥s` | `ß` | German sharp s (not to be confused with Greek `β`) |
 | `⌥d` | `∂` | partial derivative |
-| `⌥f` | | dead key for Greek letters, plus the first few Hebrew letters used in mathematics (see [Greek](#greek-dead-key)) |
+| `⌥f` | | dead key for Greek letters, polytonic accents (typed after the letter), and the first few Hebrew letters used in mathematics (see [Greek](#greek-dead-key)) |
 | `⌥g` | `↓` | down arrow |
 | `⌥h` | `ℏ` | reduced Planck constant |
 | `⌥j` | `←` | left arrow |
@@ -151,7 +151,7 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `⌥;` | `◌̇` | [combining accents for the character typed before it](#accent-dead-key) |
 | `⌥/` | `/` | [letters with a stroke, other European letters, and negated symbols](#slash-dead-key) |
 | `⌥6` | `⋅` | [set operations, relations, and other math symbols](#math-dead-key) |
-| `⌥f` | `α` | [Greek letters, plus the first few Hebrew letters used in mathematics](#greek-dead-key) |
+| `⌥f` | `α` | [Greek letters, polytonic accents (typed after the letter), and the first few Hebrew letters used in mathematics](#greek-dead-key) |
 | `⌥z` | `₀` | [subscripts](#subscript-dead-key) |
 | `⌥⇧z` | `⁰` | [superscripts](#superscript-dead-key) |
 | `⌥⇧r` | `ℒ` | [letters from the math script alphabet, e.g., for superoperators](#math-script-dead-key) |
@@ -268,7 +268,7 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 ### Greek dead key
 
-`⌥f`, then a key: Greek letters, plus the first few Hebrew letters used in mathematics. Space types `α`.
+`⌥f`, then a key: Greek letters, polytonic accents (typed after the letter), and the first few Hebrew letters used in mathematics. Space types `α`.
 
 ![Greek dead key](docs/dead-greek.svg)
 
@@ -309,6 +309,13 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `⌥b` (`β`) | `ϐ` | Greek curled beta |
 | `⌥p` (`π`) | `ϖ` | Greek pi, `\varpi` in LaTeX |
 | `⌥r` (`ρ`) | `ϱ` | Greek rho, `\varrho` in LaTeX |
+| `'` | `◌́` | acute (oxia, tonos), after the letter, e.g., `α⌥f'` gives `ά` |
+| `` ` `` | `◌̀` | grave (varia), after the letter, e.g., ``α⌥f` `` gives `ὰ` |
+| `~` | `◌͂` | circumflex (perispomeni), after the letter, e.g., `α⌥f~` gives `ᾶ` |
+| `(` | `◌̔` | rough breathing (dasia), after the letter, e.g., `α⌥f(` gives `ἁ`, `α⌥f(⌥f'` gives `ἅ` |
+| `)` | `◌̓` | smooth breathing (psili), after the letter, e.g., `α⌥f)` gives `ἀ` |
+| `:` | `◌̈` | diaeresis (dialytika), after the letter, e.g., `ι⌥f:` gives `ϊ` |
+| `\|` | `◌ͅ` | iota subscript (ypogegrammeni), after the letter, e.g., `α⌥f\|` gives `ᾳ` |
 
 ### Subscript dead key
 

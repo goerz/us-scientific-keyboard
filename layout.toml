@@ -217,26 +217,26 @@ _ = "\u0332"  # combining low line
 "!" = "\u0323"  # combining dot below
 
 [dead.accent.notes]
-"̇" = "dot above, e.g., `x⌥;.` gives `ẋ` (time derivative), `z⌥;.` gives `ż`"  # combining dot above
-"̈" = "diaeresis (umlaut), e.g., `x⌥;:` gives `ẍ`, `e⌥;:` gives `ë`"  # combining diaeresis
-"́" = "acute, e.g., `s⌥;'` gives `ś`, `α⌥;'` gives `ά` (Greek tonos or oxia)"  # combining acute accent
-"̀" = "grave, e.g., ``α⌥;` `` gives `ὰ` (Greek varia)"  # combining grave accent
-"̂" = "circumflex (the same as the hat on `⌥⇧6`), e.g., `w⌥;^` gives `ŵ`"  # combining circumflex accent
-"̌" = "caron (háček), e.g., `c⌥;v` gives `č`"  # combining caron
-"̄" = "macron (not the overline on `⌥5`), e.g., `a⌥;-` gives `ā`"  # combining macron
-"̊" = "ring above, e.g., `a⌥;o` gives `å`, `u⌥;o` gives `ů`"  # combining ring above
-"̆" = "breve, e.g., `g⌥;u` gives `ğ`, `a⌥;u` gives `ă`"  # combining breve
-"̧" = "cedilla, e.g., `s⌥;,` gives `ş` (Turkish)"  # combining cedilla
-"̦" = "comma below, e.g., `s⌥;<` gives `ș` (Romanian; not the cedilla)"  # combining comma below
-"̨" = "ogonek, e.g., `a⌥;;` gives `ą`"  # combining ogonek
-"̋" = "double acute, e.g., `o⌥;\"` gives `ő` (Hungarian)"  # combining double acute accent
-"̔" = "rough breathing (dasia), e.g., `α⌥;(` gives `ἁ`"  # combining reversed comma above
-"̓" = "smooth breathing (psili), e.g., `α⌥;)` gives `ἀ`"  # combining comma above
-"͂" = "Greek circumflex (perispomeni; not the tilde on `` ⌥⇧` ``), e.g., `α⌥;~` gives `ᾶ`"  # combining greek perispomeni
-"ͅ" = "iota subscript (ypogegrammeni), e.g., `α⌥;i` gives `ᾳ`"  # combining greek ypogegrammeni
-"̸" = "long solidus overlay (negation), e.g., `⊂⌥;/` gives `⊄`"  # combining long solidus overlay
-"̲" = "low line (underline), e.g., `v⌥;_` gives `v̲`"  # combining low line
-"̣" = "dot below, e.g., `h⌥;!` gives `ḥ`"  # combining dot below
+"\u0307" = "dot above, e.g., `x⌥;.` gives `ẋ` (time derivative), `z⌥;.` gives `ż`"  # combining dot above
+"\u0308" = "diaeresis (umlaut), e.g., `x⌥;:` gives `ẍ`, `e⌥;:` gives `ë`"  # combining diaeresis
+"\u0301" = "acute, e.g., `s⌥;'` gives `ś`, `α⌥;'` gives `ά` (Greek tonos or oxia)"  # combining acute accent
+"\u0300" = "grave, e.g., ``α⌥;` `` gives `ὰ` (Greek varia)"  # combining grave accent
+"\u0302" = "circumflex (the same as the hat on `⌥⇧6`), e.g., `w⌥;^` gives `ŵ`"  # combining circumflex accent
+"\u030C" = "caron (háček), e.g., `c⌥;v` gives `č`"  # combining caron
+"\u0304" = "macron (not the overline on `⌥5`), e.g., `a⌥;-` gives `ā`"  # combining macron
+"\u030A" = "ring above, e.g., `a⌥;o` gives `å`, `u⌥;o` gives `ů`"  # combining ring above
+"\u0306" = "breve, e.g., `g⌥;u` gives `ğ`, `a⌥;u` gives `ă`"  # combining breve
+"\u0327" = "cedilla, e.g., `s⌥;,` gives `ş` (Turkish)"  # combining cedilla
+"\u0326" = "comma below, e.g., `s⌥;<` gives `ș` (Romanian; not the cedilla)"  # combining comma below
+"\u0328" = "ogonek, e.g., `a⌥;;` gives `ą`"  # combining ogonek
+"\u030B" = "double acute, e.g., `o⌥;\"` gives `ő` (Hungarian)"  # combining double acute accent
+"\u0314" = "rough breathing (dasia), e.g., `α⌥;(` gives `ἁ`"  # combining reversed comma above
+"\u0313" = "smooth breathing (psili), e.g., `α⌥;)` gives `ἀ`"  # combining comma above
+"\u0342" = "Greek circumflex (perispomeni; not the tilde on `` ⌥⇧` ``), e.g., `α⌥;~` gives `ᾶ`"  # combining greek perispomeni
+"\u0345" = "iota subscript (ypogegrammeni), e.g., `α⌥;i` gives `ᾳ`"  # combining greek ypogegrammeni
+"\u0338" = "long solidus overlay (negation), e.g., `⊂⌥;/` gives `⊄`"  # combining long solidus overlay
+"\u0332" = "low line (underline), e.g., `v⌥;_` gives `v̲`"  # combining low line
+"\u0323" = "dot below, e.g., `h⌥;!` gives `ḥ`"  # combining dot below
 
 [dead.slash]
 key = "/"
@@ -340,7 +340,7 @@ S = "⊇"
 [dead.greek]
 key = "f"
 name = "Greek"
-desc = "Greek letters, plus the first few Hebrew letters used in mathematics"
+desc = "Greek letters, polytonic accents (typed after the letter), and the first few Hebrew letters used in mathematics"
 symbol = "α"  # after Space, or before a key without an entry
 table = true  # list the entries in the README
 
@@ -404,6 +404,13 @@ J = "ϑ"
 "β" = "ϐ"
 "π" = "ϖ"
 "ρ" = "ϱ"
+"'" = "\u0301"  # combining acute accent
+"`" = "\u0300"  # combining grave accent
+"~" = "\u0342"  # combining greek perispomeni
+"(" = "\u0314"  # combining reversed comma above (rough breathing)
+")" = "\u0313"  # combining comma above (smooth breathing)
+":" = "\u0308"  # combining diaeresis
+"|" = "\u0345"  # combining greek ypogegrammeni (iota subscript)
 
 [dead.greek.notes]
 "ϵ" = "Greek lunate epsilon, `\\epsilon` in LaTeX (not to be confused with `∈`)"
@@ -415,6 +422,13 @@ J = "ϑ"
 "ϐ" = "Greek curled beta"
 "ϖ" = "Greek pi, `\\varpi` in LaTeX"
 "ϱ" = "Greek rho, `\\varrho` in LaTeX"
+"\u0301" = "acute (oxia, tonos), after the letter, e.g., `α⌥f'` gives `ά`"  # combining acute accent
+"\u0300" = "grave (varia), after the letter, e.g., ``α⌥f` `` gives `ὰ`"  # combining grave accent
+"\u0342" = "circumflex (perispomeni), after the letter, e.g., `α⌥f~` gives `ᾶ`"  # combining greek perispomeni
+"\u0314" = "rough breathing (dasia), after the letter, e.g., `α⌥f(` gives `ἁ`, `α⌥f(⌥f'` gives `ἅ`"  # combining reversed comma above
+"\u0313" = "smooth breathing (psili), after the letter, e.g., `α⌥f)` gives `ἀ`"  # combining comma above
+"\u0308" = "diaeresis (dialytika), after the letter, e.g., `ι⌥f:` gives `ϊ`"  # combining diaeresis
+"\u0345" = "iota subscript (ypogegrammeni), after the letter, e.g., `α⌥f\\|` gives `ᾳ`"  # combining greek ypogegrammeni
 
 [dead.subscript]
 key = "z"

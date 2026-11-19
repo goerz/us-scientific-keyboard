@@ -14,7 +14,7 @@ All notable changes to this project are documented in this file. The format is b
 - Math dead key on `⌥6`: `∪` (`u`), `∩` (`n`), `⊂ ⊃` (`c`, `C`), `⊆ ⊇` (`s`, `S`), `∖` (`\`), `ℓ` (`l`), `⊥` (`p`), `∥` (`|`), `↦` (`m`), `↔` (`-`), `≲ ≳` (`<`, `>`), `≃` (`~`), `⊕` (`+`). Space gives `⋅`.
 - Slash dead key: `æ Æ` (`a`), `đ Đ` (`d`), `œ Œ` (`e`), `ħ Ħ` (`h`), `ı İ` (`i`), `þ Þ` (`p`), `ß ẞ` (`s`), `ð Ð` (`y`), `„` (`,`), `« »` (`<`, `>`), `∓` (`+` or `⌥⇧=`), and the negations `≢ ∄ ≉ ≁ ≰ ≱ ↛ ⇏ ⇎` (after `⌥7`, `⌥⇧;`, `⌥=`, `⌥⇧7`, `⌥⇧,`, `⌥⇧.`, `⌥k`, `⌥⇧k`, `⌥⇧l`).
 - Acute dead key: `ń Ń`, `ś Ś`, `ẃ Ẃ`. Grave dead key: `ǹ Ǹ`, `ẁ Ẁ`.
-- Greek dead key: `ϑ` (`J`), and the variant forms `ϐ ϖ ϱ` after `⌥b` (`β`), `⌥p` (`π`), `⌥r` (`ρ`).
+- Greek dead key: `ϑ` (`J`), the variant forms `ϐ ϖ ϱ` after `⌥b` (`β`), `⌥p` (`π`), `⌥r` (`ρ`), and the polytonic accents, typed after the letter like the Accent dead key: acute (`'`), grave (`` ` ``), perispomeni (`~`), rough and smooth breathing (`(`, `)`), diaeresis (`:`), and iota subscript (`|`).
 - Superscript dead key: `ᵅ` (after `⌥q`). Math Bold dead key: bold Greek `𝛂 𝛃 𝛑 𝛒 𝛚 𝚪 𝚫 𝚽 𝚿` and `𝛁` after the alternative-layer Greek letters and `∇` (not on native Windows, which can't produce characters outside the BMP from dead keys).
 - `⌥g` types `↓`, `⌥t` types `↑`, `⌥⇧7` types `∼`, `⌥⇧;` types `∃`.
 - The README lists the entries of the Accent, Slash, Math, and Greek dead keys in tables, with what each accent or symbol is.
