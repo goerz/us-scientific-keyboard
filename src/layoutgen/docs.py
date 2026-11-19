@@ -116,6 +116,8 @@ def dead_key_sections(layout: Layout) -> str:
             f"![{dead.name} dead key]({DIAGRAM_DIR}/dead-{dead.id}.svg)",
             "",
         ]
+        if dead.readme:
+            out += [dead.readme, ""]
         if dead.table:
             out += [dead_entries_table(layout, dead, drawn, typed_on_keys), ""]
             continue

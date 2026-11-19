@@ -186,6 +186,8 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 ![Accent dead key](docs/dead-accent.svg)
 
+The Accent dead key goes *after* the letter, because it types a combining mark, which attaches to the character before it: `c⌥;v` gives `č`, `x⌥;` followed by Space gives `ẋ`, and `x⌥;:` gives `ẍ`. Marks stack, so `α⌥;(⌥;'` gives `ἅ` (rough breathing, then acute). The result is the letter followed by the mark (`c` + U+030C), which is canonically equivalent to the precomposed `č`: it looks the same, but software that doesn't normalize Unicode, such as `grep`, treats the two as different.
+
 | Key | Symbol | Description |
 |-----|--------|-------------|
 | `.` | `◌̇` | dot above, e.g., `x⌥;.` gives `ẋ` (time derivative), `z⌥;.` gives `ż` |
@@ -280,6 +282,8 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 ![Greek dead key](docs/dead-greek.svg)
 
+The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and `⌥ff` gives `ϕ` (`\phi`). These are the math symbols, not the letters of Greek text, which are `ε` (`\varepsilon`, on `v`) and `φ` (`\varphi`, on `V`). For Greek text, use `v` and `V`: an accent on `ϵ` doesn't normalize to a precomposed letter, while `ε⌥f'` becomes `έ`.
+
 | Key | Symbol | Description |
 |-----|--------|-------------|
 | `a` / `A` | `α` `Α` | Greek alpha |
@@ -331,6 +335,8 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 ![Subscript dead key](docs/dead-subscript.svg)
 
+Unicode doesn't have a complete alphabet of subscripts, so some letters are missing.
+
 With an alternative character after the dead key: `⌥b` (`β`) gives `ᵦ`, `⌥r` (`ρ`) gives `ᵨ`.
 
 ### Superscript dead key
@@ -338,6 +344,8 @@ With an alternative character after the dead key: `⌥b` (`β`) gives `ᵦ`, `�
 `⌥⇧z`, then a key: superscripts. Space types `⁰`.
 
 ![Superscript dead key](docs/dead-superscript.svg)
+
+Unicode doesn't have a complete alphabet of superscripts, so some letters are missing. A few of them (`ꟲ`, `ꟳ`, `ꟴ`, `𐞥`) were only added in Unicode 14 and are missing from many fonts.
 
 With an alternative character after the dead key: `⌥q` (`α`) gives `ᵅ`, `⌥b` (`β`) gives `ᵝ`.
 
@@ -362,13 +370,6 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `�
 ![Double-Struck dead key](docs/dead-doublestruck.svg)
 
 <!-- END generated: dead-keys -->
-
-The Accent dead key goes *after* the letter, because it types a combining mark, which attaches to the character before it: `c⌥;v` gives `č`, `x⌥;` followed by Space gives `ẋ`, and `x⌥;:` gives `ẍ`. Marks stack, so `α⌥;(⌥;'` gives `ἅ` (rough breathing, then acute). The result is the letter followed by the mark (`c` + U+030C), which is canonically equivalent to the precomposed `č`: it looks the same, but software that doesn't normalize Unicode, such as `grep`, treats the two as different.
-
-The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and `⌥ff` gives `ϕ` (`\phi`). These are the math symbols, not the letters of Greek text, which are `ε` (`\varepsilon`, on `v`) and `φ` (`\varphi`, on `V`). For Greek text, use `v` and `V`: an accent on `ϵ` doesn't normalize to a precomposed letter, while `ε⌥f'` becomes `έ`.
-
-Unicode doesn't have a complete alphabet of subscripts and superscripts, so some letters are missing. A few of the superscripts (`ꟲ`, `ꟳ`, `ꟴ`, `𐞥`) were only added in Unicode 14 and are missing from many fonts.
-
 
 ## Installation
 

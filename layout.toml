@@ -14,7 +14,8 @@
 # characters without a note are described by their Unicode name. A dead key
 # with `table = true` lists its entries in a table in the README, described
 # by its own [dead.<id>.notes] (keyed by the result), [notes], or the
-# Unicode name.
+# Unicode name. `readme` is a paragraph (Markdown) for the dead key's section
+# of the README, below its diagram.
 
 [layout]
 name = "U.S. Scientific"
@@ -188,6 +189,9 @@ key = ";"
 name = "Accent"
 desc = "combining accents for the character typed before it"
 symbol = "\u0307"  # combining dot above; after Space, or before a key without an entry
+readme = '''
+The Accent dead key goes *after* the letter, because it types a combining mark, which attaches to the character before it: `c⌥;v` gives `č`, `x⌥;` followed by Space gives `ẋ`, and `x⌥;:` gives `ẍ`. Marks stack, so `α⌥;(⌥;'` gives `ἅ` (rough breathing, then acute). The result is the letter followed by the mark (`c` + U+030C), which is canonically equivalent to the precomposed `č`: it looks the same, but software that doesn't normalize Unicode, such as `grep`, treats the two as different.
+'''
 table = true  # list the entries in the README
 
 [dead.accent.map]
@@ -346,6 +350,9 @@ key = "f"
 name = "Greek"
 desc = "Greek letters, polytonic accents (typed after the letter), and the first few Hebrew letters used in mathematics"
 symbol = "α"  # after Space, or before a key without an entry
+readme = '''
+The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and `⌥ff` gives `ϕ` (`\phi`). These are the math symbols, not the letters of Greek text, which are `ε` (`\varepsilon`, on `v`) and `φ` (`\varphi`, on `V`). For Greek text, use `v` and `V`: an accent on `ϵ` doesn't normalize to a precomposed letter, while `ε⌥f'` becomes `έ`.
+'''
 table = true  # list the entries in the README
 
 [dead.greek.map]
@@ -439,6 +446,9 @@ key = "z"
 name = "Subscript"
 desc = "subscripts"
 symbol = "₀"  # after Space, or before a key without an entry
+readme = '''
+Unicode doesn't have a complete alphabet of subscripts, so some letters are missing.
+'''
 
 [dead.subscript.map]
 a = "ₐ"
@@ -481,6 +491,9 @@ key = "Z"
 name = "Superscript"
 desc = "superscripts"
 symbol = "⁰"  # after Space, or before a key without an entry
+readme = '''
+Unicode doesn't have a complete alphabet of superscripts, so some letters are missing. A few of them (`ꟲ`, `ꟳ`, `ꟴ`, `𐞥`) were only added in Unicode 14 and are missing from many fonts.
+'''
 
 [dead.superscript.map]
 a = "ᵃ"

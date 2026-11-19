@@ -41,6 +41,7 @@ class DeadKey:
     map: dict  # typed character -> result
     table: bool = False  # list the entries in a table in the README
     notes: dict = field(default_factory=dict)  # result -> description
+    readme: str = ""  # paragraph for the README section
 
 
 @dataclass
@@ -150,7 +151,7 @@ def load(path: Path) -> Layout:
 
     for dead_id, spec in data.get("dead", {}).items():
         where = f"[dead.{dead_id}]"
-        unknown = set(spec) - {"key", "name", "desc", "symbol", "windows-symbol", "map", "table", "notes"}
+        unknown = set(spec) - {"key", "name", "desc", "symbol", "windows-symbol", "map", "table", "notes", "readme"}
         if unknown:
             raise LayoutError(f"{where}: unknown fields {sorted(unknown)}")
         for required in ("key", "symbol", "map"):
@@ -169,6 +170,7 @@ def load(path: Path) -> Layout:
             map={" ": spec["symbol"], **spec["map"]},
             table=bool(spec.get("table", False)),
             notes=spec.get("notes", {}),
+            readme=spec.get("readme", "").strip(),
         )
         for result in layout.dead[dead_id].notes:
             if result not in spec["map"].values():
