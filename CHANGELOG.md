@@ -10,6 +10,8 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ## [Unreleased]
 
+## [5.1.0] - 2026-11-19
+
 ### Added
 
 - Math dead key: `⋯` (`.`), `⋮` (`:`), `⋱` (`;`), `≊` (`⌥=`), and the n-ary `⨁ ⨂` after the binary `⊕ ⊗` (`⌥⇧q`, `⌥⇧x`).
@@ -83,7 +85,8 @@ First release of U.S. Scientific, the successor of the macOS-only "U.S. Internat
 - Caps Lock uppercases letters consistently, also after dead keys and on the alternative layer, and no longer turns `'` and `` ` `` into dead keys.
 - Grave dead key: removed the stray `c` and `C` entries.
 
-[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v5.0.0...HEAD
+[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v5.1.0...HEAD
+[5.1.0]: https://github.com/goerz/us-scientific-keyboard/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.1.0...v5.0.0
 [4.1.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/goerz/us-scientific-keyboard/releases/tag/v4.0.0
