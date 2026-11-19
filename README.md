@@ -229,6 +229,8 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 | `<` | `«` | left guillemet (not `≪`, much less than, on `⌥\`) |
 | `>` | `»` | right guillemet (not `≫`, much greater than, on `⌥⇧\`) |
 | `0` | `∅` | empty set |
+| `6` | `§` | section sign (on `⌥6` in Apple's US layout) |
+| `7` | `¶` | pilcrow, paragraph sign (on `⌥7` in Apple's US layout) |
 | `=` | `≠` | not equal to |
 | `⌥7` (`≡`) | `≢` | not identical to |
 | `+`, `⌥⇧=` (`±`) | `∓` | minus-plus |
