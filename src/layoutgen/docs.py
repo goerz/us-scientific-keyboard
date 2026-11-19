@@ -10,6 +10,7 @@ whose content `update_readme` replaces.
 """
 
 import re
+import sys
 import unicodedata
 
 from .model import Char, Dead, Layout
@@ -184,24 +185,53 @@ def dead_entries_table(layout: Layout, dead, drawn: list, typed_on_keys: set) ->
 
 def character_count(layout: Layout) -> str:
     """How many characters beyond ASCII the layout types, on every platform
-    (the ISO key aside)."""
-    direct, combining = set(), set()
+    (the ISO key aside), and how many more Unicode composes from those
+    letters and combining accents."""
+    typed, direct = set(), set()
     for key in layout.keys:
         if key.physical.name == "iso":
             continue
-        for layer in ("option", "shift-option"):
+        for layer in ("base", "shift", "option", "shift-option"):
             binding = layout.binding(key, layer, "pc")
             if isinstance(binding, Char):
-                direct.add(binding.text)
-    results = {r for dead in layout.dead.values() for r in dead.map.values()}
-    total = {c for c in direct | results if not (len(c) == 1 and ord(c) < 128)}
-    combining = {c for c in total if len(c) == 1 and unicodedata.combining(c)}
-    direct -= {c for c in direct if len(c) == 1 and ord(c) < 128}
+                typed.add(binding.text)
+                if layer in ("option", "shift-option"):
+                    direct.add(binding.text)
+    for dead in layout.dead.values():
+        typed |= set(dead.map.values())
+
+    def is_ascii(c):
+        return len(c) == 1 and ord(c) < 128
+
+    beyond = {c for c in typed if not is_ascii(c)}
+    direct = {c for c in direct if not is_ascii(c)}
+    marks = {c for c in typed if len(c) == 1 and unicodedata.combining(c)}
+    bases = {c for c in typed if len(c) == 1 and not unicodedata.combining(c)}
+    # Characters with a canonical decomposition into a typed base and typed marks
+    composed = {"Latin": 0, "Greek": 0, "other": 0}
+    for cp in range(sys.maxunicode + 1):
+        c = chr(cp)
+        decomposition = unicodedata.decomposition(c)
+        if not decomposition or decomposition.startswith("<") or c in typed:
+            continue
+        d = unicodedata.normalize("NFD", c)
+        # at least one mark: singletons like the Ohm sign are only duplicates
+        if len(d) > 1 and d[0] in bases and all(m in marks for m in d[1:]):
+            script = unicodedata.name(c).split()[0].capitalize()
+            composed[script if script in composed else "other"] += 1
+    total = sum(composed.values())
     return (
-        f"It types **{len(total)} characters beyond ASCII**: {len(direct)} directly with Option or AltGr, "
-        f"the others through dead keys. {len(combining)} of them are combining accents, which go on any letter "
-        "(`ǖ`, `ṩ`, `x̲`), so the number of accented letters you can type is much larger."
+        f"It types **about {about(len(beyond))} characters beyond ASCII**, {about(len(direct))} of them directly "
+        f"with Option or AltGr and the rest through dead keys. {len(marks)} are combining accents, which go on "
+        f"any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly {about(total)} accented characters "
+        f"that Unicode has as single characters ({about(composed['Latin'])} Latin, {about(composed['Greek'])} "
+        f"Greek, and a few symbols such as `≮`): **about {about(len(beyond) + total)} in all**."
     )
+
+
+def about(n: int) -> str:
+    """`n` rounded for prose: to tens below 1000, to hundreds above."""
+    return f"{round(n, -1 if n < 1000 else -2):,}"
 
 
 def dead_key_table(layout: Layout) -> str:

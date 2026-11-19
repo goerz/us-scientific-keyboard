@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **536 characters beyond ASCII**: 84 directly with Option or AltGr, the others through dead keys. 23 of them are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so the number of accented letters you can type is much larger.
+It types **about 540 characters beyond ASCII**, 80 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,100 in all**.
 
 <!-- END generated: count -->
 
