@@ -28,6 +28,10 @@ All notable changes to this project are documented in this file. The format is b
 - `⌥6` is the Math dead key instead of `⋅`, which is still on `⌥⇧8` (and on `⌥6` followed by Space).
 - The cheat sheet has six diagrams per page, slightly smaller, to fit the new dead keys on one sheet.
 
+### Fixed
+
+- `make install` on macOS no longer adds another "U.S. Scientific" entry to the input sources each time it runs in the same login session.
+
 ## [4.1.0] - 2026-11-18
 
 ### Added
