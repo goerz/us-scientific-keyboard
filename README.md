@@ -17,7 +17,7 @@ Without modifiers, it is the standard US layout. The alternative layer (Option o
 * Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
 * Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≡, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
 * Combining accents that apply to the preceding character (v⃗, Ĥ, S̃, z̅)
-* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ∥, ℓ, ↦, ≲, ⊕), and the bold, script, and double-struck math alphabets
+* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ‖, ℓ, ↦, ≲, ⊕), and the bold, script, and double-struck math alphabets
 
 The idea is to type everyday "Unicode math" (in chat, email, or web forms) without round-tripping through an editor with [digraphs](https://vimdoc.sourceforge.net/htmldoc/digraph.html) or [julia-vim](https://github.com/JuliaEditorSupport/julia-vim). The selection of symbols skews toward quantum physics.
 
@@ -102,7 +102,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧0` | `’` | right single quotation mark |
 | `⌥⇧-` | `—` | em-dash |
 | `⌥⇧=` | `±` | plus-minus |
-| `⌥⇧q` | `⨁` | n-ary circled plus (direct sum of many, `\bigoplus`; the binary `⊕` is `⌥6+`) |
+| `⌥⇧q` | `⊕` | circled plus (direct sum, `\oplus`; the n-ary `⨁` is `⌥6⌥⇧q`) |
 | `⌥⇧w` | `∘` | ring operator (function composition in Julia) |
 | `⌥⇧e` | `∉` | not an element of |
 | `⌥⇧r` | | dead key for letters from the math script alphabet, e.g., for superoperators (see [Math Script](#math-script-dead-key)) |
@@ -127,7 +127,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧;` | `∃` | there exists |
 | `⌥⇧'` | `″` | double prime |
 | `⌥⇧z` | | dead key for superscripts (see [Superscript](#superscript-dead-key)) |
-| `⌥⇧x` | `⊗` | tensor (Kronecker) product |
+| `⌥⇧x` | `⊗` | circled times (tensor or Kronecker product, `\otimes`; the n-ary `⨂` is `⌥6⌥⇧x`) |
 | `⌥⇧c` | `Ç` | capital C with cedilla |
 | `⌥⇧v` | `∧` | logical and |
 | `⌥⇧b` | `∇` | nabla (gradient) |
@@ -265,16 +265,23 @@ The Accent dead key goes *after* the letter, because it types a combining mark, 
 | `m` | `↦` | maps to |
 | `n` | `∩` | intersection |
 | `p` | `⟂` | perpendicular, `\perp` in Julia (not the up tack `⊥`, `\bot`) |
+| `P` | `∥` | parallel (`\parallel`) |
 | `s` | `⊆` | subset of or equal to |
 | `S` | `⊇` | superset of or equal to |
 | `u` | `∪` | union |
-| `\|` | `∥` | parallel |
+| `\|` | `‖` | double vertical line (norm, `\Vert` in Julia and LaTeX) |
 | `\` | `∖` | set minus |
 | `-` | `↔` | left-right arrow |
 | `<` | `≲` | less than or of the order of |
 | `>` | `≳` | greater than or of the order of |
 | `~` | `≃` | asymptotically equal to |
-| `+` | `⊕` | circled plus (direct sum, XOR) |
+| `⌥=` (`≈`) | `≊` | almost equal or equal to (`\approxeq`) |
+| `+` | `⊕` | circled plus (direct sum, XOR); also on `⌥⇧q` |
+| `⌥⇧q` (`⊕`) | `⨁` | n-ary circled plus (direct sum of many, `\bigoplus`) |
+| `⌥⇧x` (`⊗`) | `⨂` | n-ary circled times (tensor product of many, `\bigotimes`) |
+| `.` | `⋯` | midline ellipsis (`\cdots`) |
+| `:` | `⋮` | vertical ellipsis (`\vdots`) |
+| `;` | `⋱` | down right diagonal ellipsis (`\ddots`) |
 
 ### Greek dead key
 
@@ -335,7 +342,7 @@ The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and 
 
 ![Subscript dead key](docs/dead-subscript.svg)
 
-Unicode doesn't have a complete alphabet of subscripts, so some letters are missing.
+Unicode doesn't have a complete alphabet of subscripts, so some letters are missing. Of the Greek subscripts, `ᵦ` and `ᵨ` follow `⌥b` (`β`) and `⌥r` (`ρ`); `ᵧ`, `ᵩ`, and `ᵪ` are on `G`, `F`, and `X`, the keys of `γ`, `ϕ`, and `χ` in the Greek dead key (uppercase, so the lowercase keys stay free for Latin subscripts Unicode might add).
 
 With an alternative character after the dead key: `⌥b` (`β`) gives `ᵦ`, `⌥r` (`ρ`) gives `ᵨ`.
 
@@ -426,7 +433,7 @@ The limits:
 * XKB layouts in `~/.config/xkb` work in Wayland sessions (GNOME, KDE Plasma, Sway, and others), which use libxkbcommon. The X server of an X11 session only reads its system folder; there, `install.py` prints a command that loads the layout until you log out.
 * The dead keys need a program that reads `~/.XCompose`: GTK, IBus (which GNOME uses), Qt and KDE, fcitx5, and most terminals do. In one that doesn't (some Snap packages, for example), a dead key types nothing.
 * After a dead key, `⌥i` (`𝕚`) and `⌥⇧i` (`𝟙`) cancel the dead key, because GTK and IBus can't use keys outside the Basic Multilingual Plane in Compose sequences.
-* Shift with Caps Lock on gives lowercase letters on most letter keys, as usual on Linux, but uppercase letters on keys whose alternative characters aren't a lowercase-uppercase pair, such as `q` (`α` and `⨁`).
+* Shift with Caps Lock on gives lowercase letters on most letter keys, as usual on Linux, but uppercase letters on keys whose alternative characters aren't a lowercase-uppercase pair, such as `q` (`α` and `⊕`).
 
 The layout has been checked with libxkbcommon 1.6 and 1.13 and IBus 1.5.34, but not yet on a Linux desktop.
 
@@ -442,7 +449,7 @@ The whole layout is defined in [`layout.toml`](layout.toml), and everything else
 ```toml
 [alternative]  # keyed by what the key types without ⌥; uppercase/shifted means ⌥⇧
 q = "α"
-Q = "⨁"
+Q = "⊕"
 
 [dead.greek]
 key = "f"      # ⌥f

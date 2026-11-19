@@ -8,6 +8,16 @@ All notable changes to this project are documented in this file. The format is b
 
 ## [Unreleased]
 
+### Added
+
+- Math dead key: `⋯` (`.`), `⋮` (`:`), `⋱` (`;`), `≊` (`⌥=`), and the n-ary `⨁ ⨂` after the binary `⊕ ⊗` (`⌥⇧q`, `⌥⇧x`).
+- Subscript dead key: `ᵧ ᵩ ᵪ` (`G`, `F`, `X`, the keys of `γ ϕ χ` in the Greek dead key).
+
+### Fixed
+
+- Math `|` types the double vertical line `‖` (the norm, `\|` in Julia) instead of `∥` (parallel), which moved to Math `P`, next to `⟂` on Math `p`.
+- `⌥⇧q` types the binary circled plus `⊕`, the counterpart of `⊗` on `⌥⇧x`, instead of the n-ary `⨁`, which is now `⌥6⌥⇧q`. `⨁` can't be used as an infix operator in Julia.
+
 ## [5.0.0] - 2026-11-18
 
 ### Added
