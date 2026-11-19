@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **about 550 characters beyond ASCII**, 80 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,100 in all**.
+It types **about 560 characters beyond ASCII**, 80 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,100 in all**.
 
 <!-- END generated: count -->
 
@@ -226,12 +226,14 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 | `d` / `D` | `đ` `Đ` | d with stroke (Croatian, Serbian, Vietnamese) |
 | `e` / `E` | `œ` `Œ` | oe ligature (French) |
 | `g` | `©` | copyright sign (on `⌥g` in Apple's US layout) |
+| `G` | `™` | trade mark sign (on `⌥2` in Apple's US layout) |
 | `h` / `H` | `ħ` `Ħ` | h with stroke (Maltese; not `ℏ`) |
 | `i` | `ı` | dotless i (Turkish) |
 | `I` | `İ` | capital I with dot above (Turkish) |
 | `l` / `L` | `ł` `Ł` | l with stroke |
 | `o` / `O` | `ø` `Ø` | o with stroke |
 | `p` / `P` | `þ` `Þ` | thorn (Icelandic) |
+| `r` | `®` | registered sign (on `⌥r` in Apple's US layout) |
 | `s` | `ß` | German sharp s (not to be confused with Greek `β`) |
 | `S` | `ẞ` | capital sharp s |
 | `t` / `T` | `ⱦ` `Ⱦ` | t with diagonal stroke |

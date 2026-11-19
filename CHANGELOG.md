@@ -13,7 +13,8 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 ### Added
 
 - Math dead key: `⋯` (`.`), `⋮` (`:`), `⋱` (`;`), `≊` (`⌥=`), and the n-ary `⨁ ⨂` after the binary `⊕ ⊗` (`⌥⇧q`, `⌥⇧x`).
-- Slash dead key: the fractions `½ ⅓ ¼ ⅕` (`2` to `5`, 1/n) and `⅔ ¾ ⅘ ⅚` (with Shift, n/(n+1)), and `©` (`g`, where Apple's US layout has it on `⌥g`).
+- Slash dead key: the fractions `½ ⅓ ¼ ⅕` (`2` to `5`, 1/n) and `⅔ ¾ ⅘ ⅚` (with Shift, n/(n+1)).
+- Slash dead key: `©` (`g`), `™` (`G`), and `®` (`r`). Apple's US layout has `©` and `®` on `⌥g` and `⌥r`.
 - Subscript dead key: `ᵧ ᵩ ᵪ` (`G`, `F`, `X`, the keys of `γ ϕ χ` in the Greek dead key).
 
 ### Fixed
