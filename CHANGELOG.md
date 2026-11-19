@@ -8,6 +8,8 @@ All notable changes to this project are documented in this file. The format is b
 
 ## [Unreleased]
 
+## [5.0.0] - 2026-11-18
+
 ### Added
 
 - Accent dead key on `⌥;`, pressed *after* the letter: a combining mark for the preceding character. Dot above (`.` or Space), diaeresis (`:`), acute (`'`), grave (`` ` ``), circumflex (`^`), caron (`v`), macron (`-`), ring above (`o`), breve (`u`), cedilla (`,`), comma below (`<`), ogonek (`;`), double acute (`"`), tilde (`~`), dot below (`!`), low line (`_`), long solidus overlay (`/`, strikes through any symbol, e.g., `⊂⌥;/` gives `⊄`), and for polytonic Greek, rough and smooth breathing (`(`, `)`) and iota subscript (`i`).
@@ -63,6 +65,7 @@ First release of U.S. Scientific, the successor of the macOS-only "U.S. Internat
 - Caps Lock uppercases letters consistently, also after dead keys and on the alternative layer, and no longer turns `'` and `` ` `` into dead keys.
 - Grave dead key: removed the stray `c` and `C` entries.
 
-[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v4.1.0...HEAD
+[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v5.0.0...HEAD
+[5.0.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.1.0...v5.0.0
 [4.1.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/goerz/us-scientific-keyboard/releases/tag/v4.0.0

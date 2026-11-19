@@ -1,6 +1,6 @@
 [project]
 name = "layoutgen"
-version = "4.1.0"
+version = "5.0.0"
 description = "Generate the U.S. International - Scientific keyboard layout for macOS, Windows, and Linux from layout.toml"
 license = "MIT"
 requires-python = ">=3.11"
