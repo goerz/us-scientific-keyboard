@@ -18,7 +18,7 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 ### Fixed
 
 - Math `|` types the double vertical line `‖` (the norm, `\|` in Julia) instead of `∥` (parallel), which moved to Math `P`, next to `⟂` on Math `p`.
-- `⌥⇧q` types the binary circled plus `⊕`, the counterpart of `⊗` on `⌥⇧x`, instead of the n-ary `⨁`, which is now `⌥6⌥⇧q`. `⨁` can't be used as an infix operator in Julia.
+- `⌥⇧q` types the binary circled plus `⊕`, the counterpart of `⊗` on `⌥⇧x`, instead of the n-ary `⨁`, which is now `⌥6⌥⇧q`. `⨁` can't be used as an infix operator in Julia. Math `+` no longer types `⊕`, which was only there because `⌥⇧q` didn't.
 
 ## [5.0.0] - 2026-11-18
 

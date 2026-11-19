@@ -17,7 +17,7 @@ Without modifiers, it is the standard US layout. The alternative layer (Option o
 * Umlauts and other common accented letters (ä, ö, ü, ß, ç, ñ)
 * Frequently used math and physics symbols (∂, ∇, ∫, ∑, ∞, ≈, ≡, ≤, ⊗, ⟨, ⟩, ℏ, †, …)
 * Combining accents that apply to the preceding character (v⃗, Ĥ, S̃, z̅)
-* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ‖, ℓ, ↦, ≲, ⊕), and the bold, script, and double-struck math alphabets
+* Dead keys for Greek letters, subscripts, superscripts, acute and grave accents, combining accents for European languages and polytonic Greek (č, ā, å, ő, ą, ș, ἅ, ᾳ, ẋ, …), letters with a stroke and other European letters (ø, ł, đ, æ, œ, «, »), negated relations (≠, ≢, ≰, ∄, ⇏), set notation and other math symbols (∪, ∩, ⊂, ⊆, ⟂, ‖, ℓ, ↦, ≲, ⨁), and the bold, script, and double-struck math alphabets
 
 The idea is to type everyday "Unicode math" (in chat, email, or web forms) without round-tripping through an editor with [digraphs](https://vimdoc.sourceforge.net/htmldoc/digraph.html) or [julia-vim](https://github.com/JuliaEditorSupport/julia-vim). The selection of symbols skews toward quantum physics.
 
@@ -102,7 +102,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥⇧0` | `’` | right single quotation mark |
 | `⌥⇧-` | `—` | em-dash |
 | `⌥⇧=` | `±` | plus-minus |
-| `⌥⇧q` | `⊕` | circled plus (direct sum, `\oplus`; the n-ary `⨁` is `⌥6⌥⇧q`) |
+| `⌥⇧q` | `⊕` | circled plus (direct sum, XOR, `\oplus`; the n-ary `⨁` is `⌥6⌥⇧q`) |
 | `⌥⇧w` | `∘` | ring operator (function composition in Julia) |
 | `⌥⇧e` | `∉` | not an element of |
 | `⌥⇧r` | | dead key for letters from the math script alphabet, e.g., for superoperators (see [Math Script](#math-script-dead-key)) |
@@ -276,7 +276,6 @@ The Accent dead key goes *after* the letter, because it types a combining mark, 
 | `>` | `≳` | greater than or of the order of |
 | `~` | `≃` | asymptotically equal to |
 | `⌥=` (`≈`) | `≊` | almost equal or equal to (`\approxeq`) |
-| `+` | `⊕` | circled plus (direct sum, XOR); also on `⌥⇧q` |
 | `⌥⇧q` (`⊕`) | `⨁` | n-ary circled plus (direct sum of many, `\bigoplus`) |
 | `⌥⇧x` (`⊗`) | `⨂` | n-ary circled times (tensor product of many, `\bigotimes`) |
 | `.` | `⋯` | midline ellipsis (`\cdots`) |
