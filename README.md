@@ -24,6 +24,18 @@ The idea is to type everyday "Unicode math" (in chat, email, or web forms) witho
 
 This is the successor of [USScientific.bundle](https://github.com/goerz/USScientific.bundle), the macOS-only "U.S. International - Scientific" layout made with Ukelele.
 
+<!-- BEGIN generated: toc -->
+
+* [Alternative layer](#alternative-layer)
+* [Dead keys](#dead-keys): [Acute](#acute-dead-key), [Grave](#grave-dead-key), [Accent](#accent-dead-key), [Slash](#slash-dead-key), [Math](#math-dead-key), [Greek](#greek-dead-key), [Subscript](#subscript-dead-key), [Superscript](#superscript-dead-key), [Math Script](#math-script-dead-key), [Math Bold](#math-bold-dead-key), [Double-Struck](#double-struck-dead-key)
+* [Number pad](#number-pad)
+* [Installation](#installation): [macOS](#macos), [Windows (Keyman)](#windows-keyman), [Windows (native layout)](#windows-native-layout), [Linux](#linux), [Linux (Keyman)](#linux-keyman)
+* [Changing the layout](#changing-the-layout)
+* [Building](#building)
+* [License](#license)
+
+<!-- END generated: toc -->
+
 ![The alternative layer](docs/alternative.svg)
 
 The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windows and Linux) and `⇧` is Shift.

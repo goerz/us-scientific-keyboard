@@ -289,12 +289,39 @@ SECTIONS = {
 }
 
 
+def headings(text: str) -> list:
+    """[(level, title)] of the Markdown headings outside code blocks."""
+    result, fenced = [], False
+    for line in text.splitlines():
+        if line.startswith("```"):
+            fenced = not fenced
+        elif not fenced and (m := re.match(r"^(#+) (.*)$", line)):
+            result.append((len(m.group(1)), m.group(2)))
+    return result
+
+
+def table_of_contents(text: str) -> str:
+    """A line per section (##), with its subsections (###) after a colon."""
+    sections = []  # (link, [links of subsections])
+    for level, title in headings(text):
+        if level == 2:
+            sections.append((f"[{title}](#{anchor(title)})", []))
+        elif level == 3 and sections:
+            sections[-1][1].append(f"[{title.removesuffix(' dead key')}](#{anchor(title)})")
+    return "".join(
+        f"* {link}" + (": " + ", ".join(subs) if subs else "") + "\n" for link, subs in sections
+    )
+
+
+def _fill(text: str, name: str, content: str) -> str:
+    pattern = re.compile(rf"(<!-- BEGIN generated: {name} -->\n).*?(<!-- END generated: {name} -->)", re.S)
+    if not pattern.search(text):
+        raise ValueError(f"README.md has no generated section {name!r}")
+    return pattern.sub(lambda m: m.group(1) + "\n" + content.rstrip("\n") + "\n\n" + m.group(2), text)
+
+
 def update_readme(text: str, layout: Layout) -> str:
     for name, func in SECTIONS.items():
-        pattern = re.compile(
-            rf"(<!-- BEGIN generated: {name} -->\n).*?(<!-- END generated: {name} -->)", re.S
-        )
-        if not pattern.search(text):
-            raise ValueError(f"README.md has no generated section {name!r}")
-        text = pattern.sub(lambda m: m.group(1) + "\n" + func(layout).rstrip("\n") + "\n\n" + m.group(2), text)
-    return text
+        text = _fill(text, name, func(layout))
+    # Last, from the headings of everything else
+    return _fill(text, "toc", table_of_contents(text))

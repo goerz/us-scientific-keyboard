@@ -16,6 +16,7 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 - Math dead key: arrows on the digits, in the directions they have on the number pad: `↖ ↑ ↗ ← ↔ → ↙ ↓ ↘` (`7` to `1`) and `↕` (`0`); with the number pad after `⌥6`, too. After a short arrow, the long one: `⟵ ⟶ ⟸ ⟹ ⟺` (after `⌥j`, `⌥k`, `⌥⇧j`, `⌥⇧k`, `⌥⇧l`).
 - After a dead key, a number pad key works like the key of the main keyboard that types the same character (e.g., `⌥z` followed by number pad `2` gives `₂`). This was already the case in the native Windows layout.
 - The README has a section for the number pad, and the cheat sheet a third page.
+- The README has a table of contents.
 
 ## [5.1.0] - 2026-11-19
 
