@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **about 600 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
+It types **about 620 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
 
 <!-- END generated: count -->
 
@@ -58,7 +58,7 @@ The key notation below is the one used on macOS: `⌥` is Option (AltGr on Windo
 | `⌥6` | | dead key for set operations, relations, and other math symbols (see [Math](#math-dead-key)) |
 | `⌥7` | `≡` | identical to |
 | `⌥8` | `∞` | infinity |
-| `⌥9` | `Å` | Ångström |
+| `⌥9` | `Å` | Ångström |
 | `⌥0` | `°` | degree |
 | `⌥-` | `–` | en-dash |
 | `⌥=` | `≈` | almost equal |
@@ -283,32 +283,57 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 
 ![Math dead key](docs/dead-math.svg)
 
-The digits give arrows in the directions they have on the number pad (`8` up, `3` down and right, `5` and `0` left-right and up-down), so the arrows also work with the number pad after `⌥6`. After a short arrow, the Math dead key gives the long one: `⌥6⌥⇧k` gives `⟹` (`\implies`).
+The digits give arrows in the directions they have on the number pad (`8` up, `3` down and right, `5` and `0` left-right and up-down), so the arrows also work with the number pad after `⌥6`.
+
+After a symbol on an Option key, the Math dead key gives a related one: the long arrows after the short ones (`⌥6⌥⇧k` gives `⟹`, `\implies`), the n-ary `⨁ ⨂` after `⊕ ⊗`, `≊` after `≈`, the curly `⪯ ⪰` after `≤ ≥`, the reversed `∋ ∌` after `∈ ∉`, the barred `⊼ ⊽` (`nand`, `nor`) after `∧ ∨`, the circled `⊙ ⊖` after `⋅ –`, the squared `⊠` after `×` (the circled `⊗` is on `⌥⇧x`), and `⨟`, composition in the other order, after `∘`. Brackets go by shape: `( )` give `⊊ ⊋`, `{ }` the curly `≺ ≻`, and `[` the squared `⊡`. Shift+3 and Shift+4 give the roots `∛` and `∜`, `x` gives `⊻` (`xor`), `!` gives `¬`, and `=` gives `≅`.
+
+With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
 
 | Key | Symbol | Description |
 |-----|--------|-------------|
 | `c` | `⊂` | subset of |
 | `C` | `⊃` | superset of |
-| `l` | `ℓ` | script l (angular momentum) |
-| `m` | `↦` | maps to |
-| `n` | `∩` | intersection |
-| `p` | `⟂` | perpendicular, `\perp` in Julia (not the up tack `⊥`, `\bot`) |
-| `P` | `∥` | parallel (`\parallel`) |
 | `s` | `⊆` | subset of or equal to |
 | `S` | `⊇` | superset of or equal to |
+| `(` | `⊊` | proper subset (`\subsetneq`) |
+| `)` | `⊋` | proper superset (`\supsetneq`) |
+| `n` | `∩` | intersection |
 | `u` | `∪` | union |
-| `\|` | `‖` | double vertical line (norm, `\Vert` in Julia and LaTeX) |
 | `\` | `∖` | set minus |
-| `-`, `5` | `↔` | left-right arrow |
-| `<` | `≲` | less than or of the order of |
-| `>` | `≳` | greater than or of the order of |
+| `⌥e` (`∈`) | `∋` | contains as member (`in` with the arguments swapped in Julia, `\ni`) |
+| `⌥⇧e` (`∉`) | `∌` | does not contain as member (`\nni`) |
+| `x` | `⊻` | exclusive or (`xor` in Julia, `\xor`) |
+| `⌥⇧v` (`∧`) | `⊼` | nand (`nand` in Julia, `\nand`) |
+| `⌥v` (`∨`) | `⊽` | nor (`nor` in Julia, `\nor`) |
+| `!` | `¬` | logical not (`\neg`) |
+| `=` | `≅` | approximately equal to, congruent (`\cong`) |
 | `~` | `≃` | asymptotically equal to |
 | `⌥=` (`≈`) | `≊` | almost equal or equal to (`\approxeq`) |
+| `<` | `≲` | less than or of the order of |
+| `>` | `≳` | greater than or of the order of |
+| `{` | `≺` | precedes (`\prec`) |
+| `}` | `≻` | succeeds (`\succ`) |
+| `⌥⇧,` (`≤`) | `⪯` | precedes or equal (`\preceq`) |
+| `⌥⇧.` (`≥`) | `⪰` | succeeds or equal (`\succeq`) |
+| `p` | `⟂` | perpendicular, `\perp` in Julia (not the up tack `⊥`, `\bot`) |
+| `P` | `∥` | parallel (`\parallel`) |
+| `\|` | `‖` | double vertical line (norm, `\Vert` in Julia and LaTeX) |
+| `⌥⇧8` (`⋅`) | `⊙` | circled dot (Hadamard product, `\odot`) |
+| `⌥-` (`–`) | `⊖` | circled minus (`\ominus`) |
+| `⌥x` (`×`) | `⊠` | squared times (`\boxtimes`) |
+| `[` | `⊡` | squared dot (double contraction, `\boxdot`) |
+| `*` | `⋆` | star operator (`\star`) |
+| `⌥⇧w` (`∘`) | `⨟` | forward composition, `f ⨟ g` is `g ∘ f` (`\bbsemi`) |
 | `⌥⇧q` (`⊕`) | `⨁` | n-ary circled plus (direct sum of many, `\bigoplus`) |
 | `⌥⇧x` (`⊗`) | `⨂` | n-ary circled times (tensor product of many, `\bigotimes`) |
+| `#` | `∛` | cube root (`cbrt` in Julia, `\cbrt`) |
+| `$` | `∜` | fourth root (`fourthroot` in Julia, `\fourthroot`) |
+| `l` | `ℓ` | script l (angular momentum) |
+| `m` | `↦` | maps to |
 | `.` | `⋯` | midline ellipsis (`\cdots`) |
 | `:` | `⋮` | vertical ellipsis (`\vdots`) |
 | `;` | `⋱` | down right diagonal ellipsis (`\ddots`) |
+| `-`, `5` | `↔` | left-right arrow |
 | `7` | `↖` | north west arrow |
 | `8` | `↑` | up arrow; also on `⌥t` |
 | `9` | `↗` | north east arrow |

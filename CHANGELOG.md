@@ -17,6 +17,13 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 - After a dead key, a number pad key works like the key of the main keyboard that types the same character (e.g., `⌥z` followed by number pad `2` gives `₂`). This was already the case in the native Windows layout.
 - The README has a section for the number pad, and the cheat sheet a third page.
 - The README has a table of contents.
+- The cheat sheet lists the dead-key entries that follow an Option key (e.g., `⌥6⌥⇧k` for `⟹`), which the diagrams can't show.
+- Math dead key: the Unicode operators of Julia's Base that the layout didn't have, `⊻` (`x`, `xor`), `⊼` and `⊽` (after `⌥⇧v` and `⌥v`, `nand` and `nor`), `∋` and `∌` (after `⌥e` and `⌥⇧e`), `⊊` and `⊋` (`(` and `)`), and `∛` and `∜` (`#` and `$`).
+- Math dead key: operators that registered Julia packages use, `≅` (`=`), `⊙` (after `⌥⇧8`), `⊖` (after `⌥-`), `⊠` (after `⌥x`), `⊡` (`[`), `⋆` (`*`), `⨟` (after `⌥⇧w`), `¬` (`!`), `≺` and `≻` (`{` and `}`), and `⪯` and `⪰` (after `⌥⇧,` and `⌥⇧.`).
+
+### Fixed
+
+- `⌥9` types `Å` LATIN CAPITAL LETTER A WITH RING ABOVE (U+00C5) instead of the ANGSTROM SIGN (U+212B), which Unicode normalization (NFC) replaces with U+00C5, so text could contain either.
 
 ## [5.1.0] - 2026-11-19
 

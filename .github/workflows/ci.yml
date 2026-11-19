@@ -58,7 +58,7 @@ jobs:
       - name: Install rsvg-convert and LuaLaTeX
         run: |
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends librsvg2-bin texlive-luatex texlive-latex-recommended
+          sudo apt-get install -y --no-install-recommends librsvg2-bin texlive-luatex texlive-latex-recommended texlive-pictures fonts-lmodern
       - name: Build
         run: make linux cheatsheet
       - uses: actions/upload-artifact@v7
