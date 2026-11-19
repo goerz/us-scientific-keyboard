@@ -375,7 +375,7 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `�
 
 Download the files from the [releases page](https://github.com/goerz/us-scientific-keyboard/releases).
 
-From a clone of this repository, `make install` builds and installs the layout for the current user. On macOS, it installs the bundle and enables the layout right away, without logging out; select it in the input menu. `make install SYSTEM=1` installs it for all users instead (in `/Library/Keyboard Layouts`, asking for your password). On Linux, it installs the [native layout](#linux), and `make install-keyman` installs the Keyman package instead. `make uninstall` (or `make uninstall-keyman`) removes it.
+From a clone of this repository, `make install` builds and installs the layout for the current user. On macOS, it installs the bundle and enables the layout right away, without logging out; select it in the input menu. When it replaces an earlier version, log out and back in, since macOS keeps using the version it has already loaded. `make install SYSTEM=1` installs it for all users instead (in `/Library/Keyboard Layouts`, asking for your password). On Linux, it installs the [native layout](#linux), and `make install-keyman` installs the Keyman package instead. `make uninstall` (or `make uninstall-keyman`) removes it.
 
 ### macOS
 

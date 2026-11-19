@@ -131,6 +131,7 @@ install: build/$(ID).bundle
 	fi
 	@echo "Installed $(ID).bundle in $(MACOS_LAYOUTS)."
 	@swift tools/macos-activate.swift "$(MACOS_LAYOUTS)/$(ID).bundle" 2>&1 | grep -v '^Keyboard Layouts:' || true
+	@echo "If an earlier version was installed, log out and back in for macOS to load this one."
 	@for dir in "$(HOME)/Library/Keyboard Layouts" "/Library/Keyboard Layouts"; do \
 	    if [ -e "$$dir/USScientific.bundle" ]; then \
 	        echo "The predecessor is still installed; to remove it, run:"; \
