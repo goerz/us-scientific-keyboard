@@ -40,6 +40,10 @@ TEX = r"""\documentclass[10pt]{{article}}
     \begin{{tabular}}[c]{{@{{}}c@{{}}}}\includegraphics[width={numpad_width}]{{#2}}\\[2pt]\footnotesize #3\end{{tabular}}\hspace{{1.5em}}%
     \begin{{tabular}}[c]{{@{{}}c@{{}}}}\includegraphics[width={numpad_width}]{{#4}}\\[2pt]\footnotesize #5\end{{tabular}}%
   \end{{minipage}}\par}}
+% a single number pad diagram, under the two layers
+\newcommand{{\numpadsinglerow}}[2]{{%
+  \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
+  \begin{{minipage}}[c]{{{width}}}\hfill\includegraphics[width={numpad_width}]{{#2}}\end{{minipage}}\par}}
 \begin{{document}}
 {{\large {name}}} keyboard layout\hfill version {version}\par
 \vfill
@@ -62,8 +66,22 @@ NUMPAD = (
     r"\footnotesize Box drawing in the shape of the keys: single lines, and with Shift, double lines"
     r" and the tees that join a single and a double line."
     r" Num Lock doesn't matter. Not in the native Windows layout."
-    r" After a dead key, the number pad works like the main keys."
 )
+
+
+# The dead key whose number pad entries the cheat sheet shows as an example.
+NUMPAD_DEAD = "math"
+
+
+def numpad_dead(layout: Layout) -> str:
+    dead = layout.dead[NUMPAD_DEAD]
+    return (
+        rf"{{\large {tex_escape(dead.name)}, then the number pad}}\par\smallskip"
+        rf" {tex_escape(trigger(layout, NUMPAD_DEAD))}, then a number pad key.\par\smallskip"
+        r"\footnotesize After a dead key, a number pad key types what the main key"
+        r" with the same character does: with the Math dead key, the digits give"
+        r" arrows in their directions on the number pad."
+    )
 
 
 def tex_escape(text: str) -> str:
@@ -134,6 +152,8 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
         for layer in ("option", "shift-option"):
             content = svg.numpad(layout, svg.Font(font), compact=True, layer=layer)
             (outdir / f"numpad-{layer}.svg").write_text(content, encoding="utf-8")
+        content = svg.numpad(layout, svg.Font(font), compact=True, dead=NUMPAD_DEAD)
+        (outdir / f"numpad-{NUMPAD_DEAD}.svg").write_text(content, encoding="utf-8")
     # the number pad at the scale of the other diagrams, so its keys have the same size
     scale = DIAGRAM_WIDTH / svg_width(next(iter(diagrams.values())))
     numpad_width = svg_width(numpad) * scale if numpad is not None else 0
@@ -147,7 +167,13 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
             rows.pop()
         # at the top of its page, in the columns of the other pages
         layers = r"{numpad-option.pdf}{Option}{numpad-shift-option.pdf}{Shift+Option}"
-        rows += [r"\newpage", rf"\numpadrow{{{NUMPAD}}}{layers}", r"\vfill\null"]
+        rows += [
+            r"\newpage",
+            rf"\numpadrow{{{NUMPAD}}}{layers}",
+            r"\bigskip\bigskip",
+            rf"\numpadsinglerow{{{numpad_dead(layout)}}}{{numpad-{NUMPAD_DEAD}.pdf}}",
+            r"\vfill\null",
+        ]
     (outdir / "cheatsheet.tex").write_text(
         TEX.format(
             name=layout.name,

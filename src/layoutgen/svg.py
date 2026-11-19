@@ -267,18 +267,23 @@ KEYPAD_SIZES = {"kp+": (1, 2), "kp0": (2, 1)}
 KEYPAD_FRAME = [(0, 0, 1, 1, "num lock"), (3, 3, 1, 2, "enter")]
 
 
-def numpad(layout: Layout, font: Font, compact=False, layer=None) -> str:
+def numpad(layout: Layout, font: Font, compact=False, layer=None, dead=None) -> str:
     """SVG of the number pad with Option (left) and Shift+Option (right).
     Box drawing characters are as tall as the font's whole line, to connect
     from line to line, so they go side by side instead of one above the other.
-    With `layer` ("option" or "shift-option"), only that layer, centered."""
+    With `layer` ("option" or "shift-option"), only that layer, centered.
+    With `dead` (a dead key id), what the number pad types after that dead
+    key (it acts like the main keys that type the same characters)."""
     drawing = Drawing(font)
     _text = drawing.text
-    title = {
-        None: "Option or AltGr; right: with Shift",
-        "option": "Option or AltGr",
-        "shift-option": "Shift+Option or Shift+AltGr",
-    }[layer]
+    if dead is not None:
+        title = f"{layout.dead[dead].name} dead key, then the number pad"
+    else:
+        title = {
+            None: "Option or AltGr; right: with Shift",
+            "option": "Option or AltGr",
+            "shift-option": "Shift+Option or Shift+AltGr",
+        }[layer]
     title_height = 0 if compact else 26
     width, height = 4 * U + 2 * PAD, 5 * U + 2 * PAD + title_height
     parts = [
@@ -307,9 +312,20 @@ def numpad(layout: Layout, font: Font, compact=False, layer=None) -> str:
         physical = key.physical
         w, h = KEYPAD_SIZES.get(physical.name, (1, 1))
         left, right = key.layers["option"], key.layers["shift-option"]
-        x, y = box(physical.row, physical.col, w, h, "key" if left or right else "key unused")
+        if dead is not None:
+            used = physical.base in layout.dead[dead].map
+        elif layer is not None:
+            used = key.layers[layer] is not None
+        else:
+            used = left or right
+        x, y = box(physical.row, physical.col, w, h, "key" if used else "key unused")
         parts.append(_text(x + w * U - 7, y + 15, physical.base, "label", "end"))
         baseline = y + h * U / 2 + 12  # below the label
+        if dead is not None:
+            result = layout.dead[dead].map.get(physical.base)
+            if result is not None:
+                parts.append(_text(x + w * U / 2, baseline, display(result), "out", "middle"))
+            continue
         if layer is not None:
             binding = key.layers[layer]
             if binding is not None:
