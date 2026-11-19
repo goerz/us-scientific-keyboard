@@ -20,7 +20,7 @@
 [layout]
 name = "U.S. Scientific"
 id = "us_scientific"
-version = "5.0.0"
+version = "5.1.0-dev"  # X.Y.Z for a release; between releases, X.Y.Z+dev or X.Y.Z-dev (see CHANGELOG.md)
 author = "Michael Goerz"
 copyright = "2021-2026"
 license = "MIT"

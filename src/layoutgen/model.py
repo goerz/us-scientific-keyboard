@@ -1,5 +1,6 @@
 """Load and validate layout.toml."""
 
+import re
 import tomllib
 import unicodedata
 from dataclasses import dataclass, field
@@ -70,6 +71,12 @@ class Layout:
     keys: list = field(default_factory=list)  # Key, in keyboard order
     dead: dict = field(default_factory=dict)  # id -> DeadKey, in file order
 
+    @property
+    def numeric_version(self) -> str:
+        """`version` without a "-dev" or "+dev" suffix, for the platforms that
+        only take numbers (macOS bundle, Keyman, Windows file version)."""
+        return re.sub(r"[+-]dev$", "", self.version)
+
     def binding(self, key: Key, layer: str, platform: str = "mac"):
         """What `key` does in `layer` on `platform` ("mac" or "pc"),
         including the derived Caps Lock layers."""
@@ -126,6 +133,9 @@ def load(path: Path) -> Layout:
         )
     except KeyError as exc:
         raise LayoutError(f"[layout] is missing {exc}") from None
+    # A release, or between releases "+dev" (after the last release) or "-dev" (before the next)
+    if not re.fullmatch(r"\d+\.\d+\.\d+([+-]dev)?", layout.version):
+        raise LayoutError(f"version {layout.version!r} is not X.Y.Z, X.Y.Z+dev, or X.Y.Z-dev")
 
     # Typed character (without Option) -> (physical key, Option layer)
     positions = {}

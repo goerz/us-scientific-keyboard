@@ -65,7 +65,7 @@ def kmn(layout: Layout, bitmap: str | None = None) -> str:
         "store(&VERSION) '10.0'",
         f"store(&NAME) '{layout.name}'",
         f"store(&COPYRIGHT) '{layout.copyright_notice}'",
-        f"store(&KEYBOARDVERSION) '{layout.version}'",
+        f"store(&KEYBOARDVERSION) '{layout.numeric_version}'",
         "store(&TARGETS) 'windows macosx linux'",
     ]
     if bitmap:
@@ -128,7 +128,7 @@ def kps(layout: Layout, kmx: str, icon: str, license_file: str) -> str:
         "    <Keyboard>\n"
         f"      <Name>{escape(layout.name)}</Name>\n"
         f"      <ID>{layout.id}</ID>\n"
-        f"      <Version>{layout.version}</Version>\n"
+        f"      <Version>{layout.numeric_version}</Version>\n"
         "      <Languages>\n"
         f'        <Language ID="{layout.language}">English</Language>\n'
         "      </Languages>\n"

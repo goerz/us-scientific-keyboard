@@ -485,7 +485,7 @@ def write_source(layout: Layout, outdir: Path) -> list:
         name=layout.name,
         author=layout.author,
         version=layout.version,
-        vcomma=",".join((layout.version.split(".") + ["0"] * 4)[:4]),
+        vcomma=",".join((layout.numeric_version.split(".") + ["0"] * 4)[:4]),
         dll=dll,
         copyright_ascii=f"(c) {layout.copyright} {layout.author}",
     )

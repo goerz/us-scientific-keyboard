@@ -6,6 +6,8 @@ All notable changes to this project are documented in this file. The format is b
 - Minor: additions that don't change anything existing, e.g., a character on a free key, a new dead key entry, or a new platform or package.
 - Patch: fixes that don't change `layout.toml`, such as a platform that didn't do what `layout.toml` says, and fixes to the documentation, cheat sheet, or packaging.
 
+Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) follows [these recommendations](https://michaelgoerz.net/notes/inter-release-versioning-recommendations.html): right after releasing `X.Y.Z`, it is `X.Y.Z+dev`; the first change under [Unreleased] sets it to the version that change implies, with `-dev` (e.g., `5.1.0-dev`), and a later change that implies a bigger step raises it (e.g., to `6.0.0-dev`). The cheat sheet shows the full version; the macOS bundle, the Keyman package, and the Windows file version get it without the suffix, since they only take numbers.
+
 ## [Unreleased]
 
 ### Added

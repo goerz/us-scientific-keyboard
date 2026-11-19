@@ -103,8 +103,8 @@ def bundle(layout: Layout, path: Path, icon: Path) -> None:
     info = {
         "CFBundleIdentifier": layout.macos_bundle_id,
         "CFBundleName": layout.name,
-        "CFBundleVersion": layout.version,
-        "CFBundleShortVersionString": layout.version,
+        "CFBundleVersion": layout.numeric_version,
+        "CFBundleShortVersionString": layout.numeric_version,
         # Keyed by the layout's name (the name attribute of the .keylayout)
         f"KLInfo_{layout.name}": {
             "TICapsLockLanguageSwitchCapable": False,
