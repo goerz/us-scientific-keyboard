@@ -17,6 +17,7 @@ All notable changes to this project are documented in this file. The format is b
 - Greek dead key: `ϑ` (`J`), and the variant forms `ϐ ϖ ϱ` after `⌥b` (`β`), `⌥p` (`π`), `⌥r` (`ρ`).
 - Superscript dead key: `ᵅ` (after `⌥q`). Math Bold dead key: bold Greek `𝛂 𝛃 𝛑 𝛒 𝛚 𝚪 𝚫 𝚽 𝚿` and `𝛁` after the alternative-layer Greek letters and `∇` (not on native Windows, which can't produce characters outside the BMP from dead keys).
 - `⌥g` types `↓`, `⌥t` types `↑`, `⌥⇧7` types `∼`, `⌥⇧;` types `∃`.
+- The README lists the entries of the Accent, Slash, Math, and Greek dead keys in tables, with what each accent or symbol is.
 
 ### Changed
 

@@ -39,6 +39,8 @@ class DeadKey:
     symbol: str
     windows_symbol: str
     map: dict  # typed character -> result
+    table: bool = False  # list the entries in a table in the README
+    notes: dict = field(default_factory=dict)  # result -> description
 
 
 @dataclass
@@ -148,7 +150,7 @@ def load(path: Path) -> Layout:
 
     for dead_id, spec in data.get("dead", {}).items():
         where = f"[dead.{dead_id}]"
-        unknown = set(spec) - {"key", "name", "desc", "symbol", "windows-symbol", "map"}
+        unknown = set(spec) - {"key", "name", "desc", "symbol", "windows-symbol", "map", "table", "notes"}
         if unknown:
             raise LayoutError(f"{where}: unknown fields {sorted(unknown)}")
         for required in ("key", "symbol", "map"):
@@ -165,7 +167,12 @@ def load(path: Path) -> Layout:
             windows_symbol=spec.get("windows-symbol", spec["symbol"]),
             # Space after a dead key types its symbol, unless defined otherwise
             map={" ": spec["symbol"], **spec["map"]},
+            table=bool(spec.get("table", False)),
+            notes=spec.get("notes", {}),
         )
+        for result in layout.dead[dead_id].notes:
+            if result not in spec["map"].values():
+                raise LayoutError(f"{where}.notes: {result!r} is not a result of the dead key")
         assign(spec["key"], Dead(dead_id), f"{where} key")
 
     for physical in KEYS:

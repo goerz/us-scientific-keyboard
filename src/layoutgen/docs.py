@@ -32,12 +32,20 @@ def keys(physical, shifted: bool) -> str:
     return "⌥" + ("⇧" if shifted else "") + label
 
 
-def describe(layout: Layout, text: str) -> str:
+def describe(layout: Layout, text: str, dead=None, pair: bool = False) -> str:
+    """Description of `text`: from the dead key's notes, the notes of the
+    alternative layer, or the Unicode name (for an uppercase/lowercase
+    `pair`, without "small")."""
+    if dead is not None and text in dead.notes:
+        return dead.notes[text]
     if len(text) == 1:
         note = layout_notes(layout).get(text)
         if note:
             return note
-        return unicodedata.name(text, "").lower()
+        name = unicodedata.name(text, "").lower()
+        if pair:
+            name = name.replace(" small ", " ").removeprefix("latin letter ")
+        return re.sub(r"^greek (small |capital )?(letter )?", "Greek ", name)
     return ""
 
 
@@ -108,6 +116,9 @@ def dead_key_sections(layout: Layout) -> str:
             f"![{dead.name} dead key]({DIAGRAM_DIR}/dead-{dead.id}.svg)",
             "",
         ]
+        if dead.table:
+            out += [dead_entries_table(layout, dead, drawn, typed_on_keys), ""]
+            continue
         extras = []
         for typed, result in dead.map.items():
             if typed in typed_on_keys:
@@ -122,6 +133,50 @@ def dead_key_sections(layout: Layout) -> str:
                         )
         if extras:
             out += ["With an alternative character after the dead key: " + ", ".join(extras) + ".", ""]
+    return "\n".join(out)
+
+
+def dead_entries_table(layout: Layout, dead, drawn: list, typed_on_keys: set) -> str:
+    """The entries of a dead key as a table, one row per result; a lowercase
+    result and its uppercase form on the uppercase key share a row."""
+
+    def typed_cell(typed: str) -> str:
+        if typed in typed_on_keys:
+            return code(typed)
+        for key in drawn:
+            for layer in ("option", "shift-option"):
+                b = key.layers[layer]
+                if isinstance(b, Char) and b.text == typed:
+                    return f"{code(keys(key.physical, layer == 'shift-option'))} ({code(typed)})"
+        raise ValueError(f"{dead.id}: no key types {typed!r}")
+
+    position = {typed: i for i, typed in enumerate(dead.map)}
+
+    def rank(typed: str):
+        """Map order, with an uppercase key right after its lowercase key."""
+        return (position.get(typed.lower(), position[typed]), typed != typed.lower())
+
+    by_result = {}  # result -> typed characters
+    for typed, result in sorted(dead.map.items(), key=lambda item: rank(item[0])):
+        if typed != " ":
+            by_result.setdefault(result, []).append(typed)
+    out = ["| Key | Symbol | Description |", "|-----|--------|-------------|"]
+    done = set()
+    for result, typed in by_result.items():
+        if result in done:
+            continue
+        upper = result.upper()
+        pair = (
+            len(result) == 1 and len(upper) == 1 and upper != result
+            and by_result.get(upper) == [t.upper() for t in typed]
+        )
+        results = [result, upper] if pair else [result]
+        done.update(results)
+        cells = [", ".join(typed_cell(t) for t in by_result[r]) for r in results]
+        out.append(
+            f"| {' / '.join(cells)} | {' '.join(code(display(r)) for r in results)} | "
+            f"{describe(layout, result, dead, pair)} |"
+        )
     return "\n".join(out)
 
 

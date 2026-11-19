@@ -11,7 +11,10 @@
 # alternative is their uppercase form. A dead key followed by Space types the dead key's symbol.
 #
 # [notes] explains characters (keyed by the character) for the README;
-# characters without a note are described by their Unicode name.
+# characters without a note are described by their Unicode name. A dead key
+# with `table = true` lists its entries in a table in the README, described
+# by its own [dead.<id>.notes] (keyed by the result), [notes], or the
+# Unicode name.
 
 [layout]
 name = "U.S. Scientific"
@@ -185,6 +188,7 @@ key = ";"
 name = "Accent"
 desc = "combining accents for the character typed before it"
 symbol = "\u0307"  # combining dot above; after Space, or before a key without an entry
+table = true  # list the entries in the README
 
 [dead.accent.map]
 "." = "\u0307"  # combining dot above
@@ -212,11 +216,34 @@ I = "\u0345"  # combining greek ypogegrammeni (iota subscript)
 _ = "\u0332"  # combining low line
 "!" = "\u0323"  # combining dot below
 
+[dead.accent.notes]
+"̇" = "dot above, e.g., `x⌥;.` gives `ẋ` (time derivative), `z⌥;.` gives `ż`"  # combining dot above
+"̈" = "diaeresis (umlaut), e.g., `x⌥;:` gives `ẍ`, `e⌥;:` gives `ë`"  # combining diaeresis
+"́" = "acute, e.g., `s⌥;'` gives `ś`, `α⌥;'` gives `ά` (Greek tonos or oxia)"  # combining acute accent
+"̀" = "grave, e.g., ``α⌥;` `` gives `ὰ` (Greek varia)"  # combining grave accent
+"̂" = "circumflex (the same as the hat on `⌥⇧6`), e.g., `w⌥;^` gives `ŵ`"  # combining circumflex accent
+"̌" = "caron (háček), e.g., `c⌥;v` gives `č`"  # combining caron
+"̄" = "macron (not the overline on `⌥5`), e.g., `a⌥;-` gives `ā`"  # combining macron
+"̊" = "ring above, e.g., `a⌥;o` gives `å`, `u⌥;o` gives `ů`"  # combining ring above
+"̆" = "breve, e.g., `g⌥;u` gives `ğ`, `a⌥;u` gives `ă`"  # combining breve
+"̧" = "cedilla, e.g., `s⌥;,` gives `ş` (Turkish)"  # combining cedilla
+"̦" = "comma below, e.g., `s⌥;<` gives `ș` (Romanian; not the cedilla)"  # combining comma below
+"̨" = "ogonek, e.g., `a⌥;;` gives `ą`"  # combining ogonek
+"̋" = "double acute, e.g., `o⌥;\"` gives `ő` (Hungarian)"  # combining double acute accent
+"̔" = "rough breathing (dasia), e.g., `α⌥;(` gives `ἁ`"  # combining reversed comma above
+"̓" = "smooth breathing (psili), e.g., `α⌥;)` gives `ἀ`"  # combining comma above
+"͂" = "Greek circumflex (perispomeni; not the tilde on `` ⌥⇧` ``), e.g., `α⌥;~` gives `ᾶ`"  # combining greek perispomeni
+"ͅ" = "iota subscript (ypogegrammeni), e.g., `α⌥;i` gives `ᾳ`"  # combining greek ypogegrammeni
+"̸" = "long solidus overlay (negation), e.g., `⊂⌥;/` gives `⊄`"  # combining long solidus overlay
+"̲" = "low line (underline), e.g., `v⌥;_` gives `v̲`"  # combining low line
+"̣" = "dot below, e.g., `h⌥;!` gives `ḥ`"  # combining dot below
+
 [dead.slash]
 key = "/"
 name = "Slash"
 desc = "letters with a stroke, other European letters, and negated symbols"
 symbol = "/"  # after Space, or before a key without an entry
+table = true  # list the entries in the README
 
 [dead.slash.map]
 a = "æ"
@@ -260,11 +287,27 @@ Y = "Ð"
 "⇒" = "⇏"
 "⇔" = "⇎"
 
+[dead.slash.notes]
+"æ" = "ae ligature (Danish, Norwegian, Icelandic)"
+"đ" = "d with stroke (Croatian, Serbian, Vietnamese)"
+"œ" = "oe ligature (French)"
+"ħ" = "h with stroke (Maltese; not `ℏ`)"
+"ı" = "dotless i (Turkish)"
+"İ" = "capital I with dot above (Turkish)"
+"þ" = "thorn (Icelandic)"
+"ð" = "eth (Icelandic)"
+"ẞ" = "capital sharp s"
+"„" = "low double quotation mark (German opening quote)"
+"«" = "left guillemet"
+"»" = "right guillemet"
+"∓" = "minus-plus"
+
 [dead.math]
 key = "6"
 name = "Math"
 desc = "set operations, relations, and other math symbols"
 symbol = "⋅"  # after Space, or before a key without an entry
+table = true  # list the entries in the README
 
 [dead.math.map]
 c = "⊂"
@@ -284,11 +327,22 @@ S = "⊇"
 "~" = "≃"
 "+" = "⊕"
 
+[dead.math.notes]
+"ℓ" = "script l (angular momentum)"
+"⊥" = "perpendicular (up tack)"
+"∥" = "parallel"
+"↦" = "maps to"
+"↔" = "left-right arrow"
+"≲" = "less than or of the order of"
+"≳" = "greater than or of the order of"
+"⊕" = "circled plus (direct sum, XOR)"
+
 [dead.greek]
 key = "f"
 name = "Greek"
 desc = "Greek letters, plus the first few Hebrew letters used in mathematics"
 symbol = "α"  # after Space, or before a key without an entry
+table = true  # list the entries in the README
 
 [dead.greek.map]
 a = "α"
@@ -350,6 +404,17 @@ J = "ϑ"
 "β" = "ϐ"
 "π" = "ϖ"
 "ρ" = "ϱ"
+
+[dead.greek.notes]
+"ϵ" = "Greek lunate epsilon, `\\epsilon` in LaTeX (not to be confused with `∈`)"
+"ε" = "Greek epsilon, `\\varepsilon` in LaTeX"
+"ϕ" = "Greek phi, `\\phi` in LaTeX"
+"φ" = "Greek phi, `\\varphi` in LaTeX"
+"ς" = "Greek final sigma, `\\varsigma` in LaTeX"
+"ϑ" = "Greek theta, `\\vartheta` in LaTeX"
+"ϐ" = "Greek curled beta"
+"ϖ" = "Greek pi, `\\varpi` in LaTeX"
+"ϱ" = "Greek rho, `\\varrho` in LaTeX"
 
 [dead.subscript]
 key = "z"

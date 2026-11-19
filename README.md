@@ -180,13 +180,66 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 ![Accent dead key](docs/dead-accent.svg)
 
+| Key | Symbol | Description |
+|-----|--------|-------------|
+| `.` | `◌̇` | dot above, e.g., `x⌥;.` gives `ẋ` (time derivative), `z⌥;.` gives `ż` |
+| `:` | `◌̈` | diaeresis (umlaut), e.g., `x⌥;:` gives `ẍ`, `e⌥;:` gives `ë` |
+| `'` | `◌́` | acute, e.g., `s⌥;'` gives `ś`, `α⌥;'` gives `ά` (Greek tonos or oxia) |
+| `` ` `` | `◌̀` | grave, e.g., ``α⌥;` `` gives `ὰ` (Greek varia) |
+| `^` | `◌̂` | circumflex (the same as the hat on `⌥⇧6`), e.g., `w⌥;^` gives `ŵ` |
+| `v`, `V` | `◌̌` | caron (háček), e.g., `c⌥;v` gives `č` |
+| `-` | `◌̄` | macron (not the overline on `⌥5`), e.g., `a⌥;-` gives `ā` |
+| `o`, `O` | `◌̊` | ring above, e.g., `a⌥;o` gives `å`, `u⌥;o` gives `ů` |
+| `u`, `U` | `◌̆` | breve, e.g., `g⌥;u` gives `ğ`, `a⌥;u` gives `ă` |
+| `,` | `◌̧` | cedilla, e.g., `s⌥;,` gives `ş` (Turkish) |
+| `<` | `◌̦` | comma below, e.g., `s⌥;<` gives `ș` (Romanian; not the cedilla) |
+| `;` | `◌̨` | ogonek, e.g., `a⌥;;` gives `ą` |
+| `"` | `◌̋` | double acute, e.g., `o⌥;"` gives `ő` (Hungarian) |
+| `(` | `◌̔` | rough breathing (dasia), e.g., `α⌥;(` gives `ἁ` |
+| `)` | `◌̓` | smooth breathing (psili), e.g., `α⌥;)` gives `ἀ` |
+| `~` | `◌͂` | Greek circumflex (perispomeni; not the tilde on `` ⌥⇧` ``), e.g., `α⌥;~` gives `ᾶ` |
+| `i`, `I` | `◌ͅ` | iota subscript (ypogegrammeni), e.g., `α⌥;i` gives `ᾳ` |
+| `/` | `◌̸` | long solidus overlay (negation), e.g., `⊂⌥;/` gives `⊄` |
+| `_` | `◌̲` | low line (underline), e.g., `v⌥;_` gives `v̲` |
+| `!` | `◌̣` | dot below, e.g., `h⌥;!` gives `ḥ` |
+
 ### Slash dead key
 
 `⌥/`, then a key: letters with a stroke, other European letters, and negated symbols. Space types `/`.
 
 ![Slash dead key](docs/dead-slash.svg)
 
-With an alternative character after the dead key: `⌥7` (`≡`) gives `≢`, `⌥⇧=` (`±`) gives `∓`, `⌥⇧;` (`∃`) gives `∄`, `⌥=` (`≈`) gives `≉`, `⌥⇧7` (`∼`) gives `≁`, `⌥⇧,` (`≤`) gives `≰`, `⌥⇧.` (`≥`) gives `≱`, `⌥k` (`→`) gives `↛`, `⌥⇧k` (`⇒`) gives `⇏`, `⌥⇧l` (`⇔`) gives `⇎`.
+| Key | Symbol | Description |
+|-----|--------|-------------|
+| `a` / `A` | `æ` `Æ` | ae ligature (Danish, Norwegian, Icelandic) |
+| `c` / `C` | `ȼ` `Ȼ` | c with stroke |
+| `d` / `D` | `đ` `Đ` | d with stroke (Croatian, Serbian, Vietnamese) |
+| `e` / `E` | `œ` `Œ` | oe ligature (French) |
+| `h` / `H` | `ħ` `Ħ` | h with stroke (Maltese; not `ℏ`) |
+| `i` | `ı` | dotless i (Turkish) |
+| `I` | `İ` | capital I with dot above (Turkish) |
+| `l` / `L` | `ł` `Ł` | l with stroke |
+| `o` / `O` | `ø` `Ø` | o with stroke |
+| `p` / `P` | `þ` `Þ` | thorn (Icelandic) |
+| `s` | `ß` | German sharp s (not to be confused with Greek `β`) |
+| `S` | `ẞ` | capital sharp s |
+| `t` / `T` | `ⱦ` `Ⱦ` | t with diagonal stroke |
+| `y` / `Y` | `ð` `Ð` | eth (Icelandic) |
+| `,` | `„` | low double quotation mark (German opening quote) |
+| `<` | `«` | left guillemet |
+| `>` | `»` | right guillemet |
+| `0` | `∅` | empty set |
+| `=` | `≠` | not equal to |
+| `⌥7` (`≡`) | `≢` | not identical to |
+| `+`, `⌥⇧=` (`±`) | `∓` | minus-plus |
+| `⌥⇧;` (`∃`) | `∄` | there does not exist |
+| `⌥=` (`≈`) | `≉` | not almost equal to |
+| `⌥⇧7` (`∼`) | `≁` | not tilde |
+| `⌥⇧,` (`≤`) | `≰` | neither less-than nor equal to |
+| `⌥⇧.` (`≥`) | `≱` | neither greater-than nor equal to |
+| `⌥k` (`→`) | `↛` | rightwards arrow with stroke |
+| `⌥⇧k` (`⇒`) | `⇏` | rightwards double arrow with stroke |
+| `⌥⇧l` (`⇔`) | `⇎` | left right double arrow with stroke |
 
 ### Math dead key
 
@@ -194,13 +247,68 @@ With an alternative character after the dead key: `⌥7` (`≡`) gives `≢`, `�
 
 ![Math dead key](docs/dead-math.svg)
 
+| Key | Symbol | Description |
+|-----|--------|-------------|
+| `c` | `⊂` | subset of |
+| `C` | `⊃` | superset of |
+| `l` | `ℓ` | script l (angular momentum) |
+| `m` | `↦` | maps to |
+| `n` | `∩` | intersection |
+| `p` | `⊥` | perpendicular (up tack) |
+| `s` | `⊆` | subset of or equal to |
+| `S` | `⊇` | superset of or equal to |
+| `u` | `∪` | union |
+| `\|` | `∥` | parallel |
+| `\` | `∖` | set minus |
+| `-` | `↔` | left-right arrow |
+| `<` | `≲` | less than or of the order of |
+| `>` | `≳` | greater than or of the order of |
+| `~` | `≃` | asymptotically equal to |
+| `+` | `⊕` | circled plus (direct sum, XOR) |
+
 ### Greek dead key
 
 `⌥f`, then a key: Greek letters, plus the first few Hebrew letters used in mathematics. Space types `α`.
 
 ![Greek dead key](docs/dead-greek.svg)
 
-With an alternative character after the dead key: `⌥b` (`β`) gives `ϐ`, `⌥p` (`π`) gives `ϖ`, `⌥r` (`ρ`) gives `ϱ`.
+| Key | Symbol | Description |
+|-----|--------|-------------|
+| `a` / `A` | `α` `Α` | Greek alpha |
+| `b` / `B` | `β` `Β` | Greek beta |
+| `c` / `C` | `ξ` `Ξ` | Greek xi |
+| `d` / `D` | `δ` `Δ` | Greek delta |
+| `e` / `E` | `ϵ` `Ε` | Greek lunate epsilon, `\epsilon` in LaTeX (not to be confused with `∈`) |
+| `f` / `F` | `ϕ` `Φ` | Greek phi, `\phi` in LaTeX |
+| `g` / `G` | `γ` `Γ` | Greek gamma |
+| `h` / `H` | `θ` `Θ` | Greek theta |
+| `i` / `I` | `ι` `Ι` | Greek iota |
+| `j` | `ς` | Greek final sigma, `\varsigma` in LaTeX |
+| `J` | `ϑ` | Greek theta, `\vartheta` in LaTeX |
+| `k` / `K` | `κ` `Κ` | Greek kappa |
+| `l` / `L` | `λ` `Λ` | Greek lamda |
+| `m` / `M` | `μ` `Μ` | Greek mu |
+| `n` / `N` | `ν` `Ν` | Greek nu |
+| `o` / `O` | `ο` `Ο` | Greek omicron |
+| `p` / `P` | `π` `Π` | Greek pi |
+| `q` / `Q` | `ψ` `Ψ` | Greek psi |
+| `r` / `R` | `ρ` `Ρ` | Greek rho (density matrix) |
+| `s` / `S` | `σ` `Σ` | Greek sigma |
+| `t` / `T` | `τ` `Τ` | Greek tau |
+| `u` / `U` | `υ` `Υ` | Greek upsilon |
+| `v` | `ε` | Greek epsilon, `\varepsilon` in LaTeX |
+| `V` | `φ` | Greek phi, `\varphi` in LaTeX |
+| `w` / `W` | `ω` `Ω` | Greek omega (angular frequency) |
+| `x` / `X` | `χ` `Χ` | Greek chi |
+| `y` / `Y` | `η` `Η` | Greek eta |
+| `z` / `Z` | `ζ` `Ζ` | Greek zeta |
+| `1` | `ℵ` | alef symbol |
+| `2` | `ℶ` | bet symbol |
+| `3` | `ℷ` | gimel symbol |
+| `4` | `ℸ` | dalet symbol |
+| `⌥b` (`β`) | `ϐ` | Greek curled beta |
+| `⌥p` (`π`) | `ϖ` | Greek pi, `\varpi` in LaTeX |
+| `⌥r` (`ρ`) | `ϱ` | Greek rho, `\varrho` in LaTeX |
 
 ### Subscript dead key
 
