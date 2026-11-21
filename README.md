@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **about 620 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
+It types **about 630 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
 
 <!-- END generated: count -->
 
@@ -296,23 +296,27 @@ After `⌥6`, a key that types a symbol with Option gives a related symbol. For 
 - `⌥⇧8` (`⋅`) and `⌥-` (`–`) give the circled `⊙ ⊖`
 - `⌥x` (`×`) gives the squared `⊠` (the circled `⊗` is on `⌥⇧x`)
 - `⌥⇧w` (`∘`) gives `⨟`, composition in the other order
+- `⌥[` (`⟨`) and `⌥]` (`⟩`) give the triangles `◁ ▷` (series product in SLH)
 
 After `⌥6`, other keys go by their shape or name:
 
 - the brackets `(`, `)` give `⊊ ⊋`, the curly `{`, `}` give `≺ ≻`, and the square `[` gives the squared `⊡`
+- `+` and `_` give the squared `⊞ ⊟`
+- `d` and `D` give `⊆ ⊇`, on the key above `c` and `C` (`⊂ ⊃`), and `⊇` looks like a D
+- with Option, the keys of the set symbols give their square versions: `⌥c`, `⌥d`, `⌥⇧c`, `⌥⇧d` (the keys of `⊂ ⊆ ⊃ ⊇`) give `⊏ ⊑ ⊐ ⊒`, and `⌥n`, `⌥u` (the keys of `∩ ∪`) give `⊓ ⊔`
 - Shift+3 and Shift+4 (`#`, `$`) give the roots `∛` and `∜`
 - `x` gives `⊻` (`xor`)
 - `!` gives `¬` (not)
 - `=` gives `≅`
 
-With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` (`⌥6s`, `⌥6S`) followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
+With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` (`⌥6d`, `⌥6D`) followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
 
 | Key | Symbol | Description |
 |-----|--------|-------------|
 | `c` | `⊂` | subset of |
 | `C` | `⊃` | superset of |
-| `s` | `⊆` | subset of or equal to |
-| `S` | `⊇` | superset of or equal to |
+| `d` | `⊆` | subset of or equal to |
+| `D` | `⊇` | superset of or equal to |
 | `(` | `⊊` | proper subset (`\subsetneq`) |
 | `)` | `⊋` | proper superset (`\supsetneq`) |
 | `n` | `∩` | intersection |
@@ -320,6 +324,12 @@ With these, every Unicode operator of Julia's Base can be typed. The negated `�
 | `\` | `∖` | set minus |
 | `⌥e` (`∈`) | `∋` | contains as member (`in` with the arguments swapped in Julia, `\ni`) |
 | `⌥⇧e` (`∉`) | `∌` | does not contain as member (`\nni`) |
+| `⌥c` (`ç`) | `⊏` | square image of (`\sqsubset`) |
+| `⌥⇧c` (`Ç`) | `⊐` | square original of (`\sqsupset`) |
+| `⌥d` (`∂`) | `⊑` | square image of or equal (partial order, `\sqsubseteq`) |
+| `⌥⇧d` (`Δ`) | `⊒` | square original of or equal (`\sqsupseteq`) |
+| `⌥n` (`ñ`) | `⊓` | square cap (meet, `\sqcap`) |
+| `⌥u` (`ü`) | `⊔` | square cup (join, `\sqcup`) |
 | `x` | `⊻` | exclusive or (`xor` in Julia, `\xor`) |
 | `⌥⇧v` (`∧`) | `⊼` | nand (`nand` in Julia, `\nand`) |
 | `⌥v` (`∨`) | `⊽` | nor (`nor` in Julia, `\nor`) |
@@ -340,6 +350,10 @@ With these, every Unicode operator of Julia's Base can be typed. The negated `�
 | `⌥-` (`–`) | `⊖` | circled minus (`\ominus`) |
 | `⌥x` (`×`) | `⊠` | squared times (`\boxtimes`) |
 | `[` | `⊡` | squared dot (double contraction, `\boxdot`) |
+| `+` | `⊞` | squared plus (`\boxplus`; concatenation in SLH) |
+| `_` | `⊟` | squared minus (`\boxminus`) |
+| `⌥[` (`⟨`) | `◁` | white left-pointing triangle (series product in SLH, `\triangleleft`; not an operator in Julia) |
+| `⌥]` (`⟩`) | `▷` | white right-pointing triangle (`\triangleright`; an operator in Julia, with the precedence of `*`) |
 | `*` | `⋆` | star operator (`\star`) |
 | `⌥⇧w` (`∘`) | `⨟` | forward composition, `f ⨟ g` is `g ∘ f` (`\bbsemi`) |
 | `⌥⇧q` (`⊕`) | `⨁` | n-ary circled plus (direct sum of many, `\bigoplus`) |
@@ -459,6 +473,10 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `�
 `⌥⇧m`, then a key: letters from the double-struck alphabet, e.g., for number sets. Space types `𝕄`.
 
 ![Double-Struck dead key](docs/dead-doublestruck.svg)
+
+The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
+
+With an alternative character after the dead key: `⌥[` (`⟨`) gives `⟪`, `⌥]` (`⟩`) gives `⟫`.
 
 <!-- END generated: dead-keys -->
 

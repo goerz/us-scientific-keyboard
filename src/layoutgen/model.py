@@ -43,6 +43,9 @@ class DeadKey:
     table: bool = False  # list the entries in a table in the README
     notes: dict = field(default_factory=dict)  # result -> description
     readme: str = ""  # paragraph for the README section
+    # typed characters (after Option) whose result doesn't build on them, so
+    # the cheat sheet doesn't show them small and gray behind it
+    no_hint: frozenset = frozenset()
 
 
 @dataclass
@@ -162,7 +165,7 @@ def load(path: Path) -> Layout:
 
     for dead_id, spec in data.get("dead", {}).items():
         where = f"[dead.{dead_id}]"
-        unknown = set(spec) - {"key", "name", "desc", "symbol", "windows-symbol", "map", "table", "notes", "readme"}
+        unknown = set(spec) - {"key", "name", "desc", "symbol", "windows-symbol", "map", "table", "notes", "readme", "no-hint"}
         if unknown:
             raise LayoutError(f"{where}: unknown fields {sorted(unknown)}")
         for required in ("key", "symbol", "map"):
@@ -184,7 +187,11 @@ def load(path: Path) -> Layout:
             table=bool(spec.get("table", False)),
             notes=spec.get("notes", {}),
             readme=spec.get("readme", "").strip(),
+            no_hint=frozenset(spec.get("no-hint", [])),
         )
+        for typed in layout.dead[dead_id].no_hint:
+            if typed not in spec["map"]:
+                raise LayoutError(f"{where}.no-hint: {typed!r} is not in the map")
         for result in layout.dead[dead_id].notes:
             if result not in spec["map"].values():
                 raise LayoutError(f"{where}.notes: {result!r} is not a result of the dead key")

@@ -13,9 +13,10 @@ from . import svg
 from .model import Char, Dead, Layout
 
 PER_PAGE = 6
-# Glyphs that JuliaMono squeezes into one cell, so that they look like
-# their narrow counterparts (⟶ like →, ⨁ like ⊕): set in Latin Modern Math.
-WIDE = set("⟵⟶⟷⟸⟹⟺⟻⟼⨀⨁⨂⨃⨄∑∏∐⋂⋃⋀⋁")
+# The key that explains the dead keys' Option column (see `svg.dead_key`),
+# between the diagram of its dead key and the next one: (dead key, what the key types),
+# a key with all four legends and a gray hint, beside its dead key's diagram.
+LEGEND_KEY = ("slash", "=")
 DIAGRAM_WIDTH = 4.6  # inches; six diagrams fit in the height of a letter page
 
 TEX = r"""\documentclass[10pt]{{article}}
@@ -23,11 +24,42 @@ TEX = r"""\documentclass[10pt]{{article}}
 \usepackage{{graphicx}}
 \usepackage{{xcolor}}
 \usepackage{{tikz}}
-% a key in the fine print: its keystroke (small, top) and what it types without the dead key
-\newcommand{{\keycap}}[2]{{\tikz[baseline={{([yshift=2.9pt]k.south)}}]\node[draw=black!45,fill=white,rounded corners=1.5pt,inner xsep=1.2pt,inner ysep=1.3pt,align=center,minimum width=12pt](k){{{{\fontsize{{5pt}}{{5.5pt}}\selectfont\color{{black!55}}\rule{{0pt}}{{5pt}}#1}}\\[-0.5pt]{{\footnotesize\rule[-1.6pt]{{0pt}}{{6.4pt}}#2}}}};}}
+% the legend of the Option column, in the column of the descriptions: a key,
+% with what each of its legends is; without height, centered on where it is,
+% in the space beside the gap between two diagrams
+% a keystroke in the legend, in a rounded box
+\newcommand{{\keybox}}[1]{{\tikz[baseline=(b.base)]\node[draw=black!35,rounded corners=1pt,inner xsep=1pt,inner ysep=0.7pt](b){{\vphantom{{⌥⇧/=}}#1}};}}
+% the width of the widest key's box, so that the labels' columns line up
+\newlength{{\legendkeywidth}}
+% the labels are typeset before the picture, so that their boxes aren't nested in it
+\newsavebox{{\legendshift}}\newsavebox{{\legendbase}}\newsavebox{{\legendshiftoption}}\newsavebox{{\legendoption}}\newsavebox{{\legendhints}}
+\newcommand{{\legendkey}}[1]{{%
+  \settowidth{{\legendkeywidth}}{{\tiny\keybox{{{legend_widest}}}}}%
+  \sbox{{\legendshift}}{{\tiny {legend_shift}}}\sbox{{\legendbase}}{{\tiny {legend_base}}}%
+  \sbox{{\legendshiftoption}}{{\tiny {legend_shift_option}}}\sbox{{\legendoption}}{{\tiny {legend_option}}}\sbox{{\legendhints}}{{\tiny {legend_hints}}}%
+  \nointerlineskip\vbox to 0pt{{\vss\hbox{{\begin{{tikzpicture}}[every node/.style={{font=\tiny,inner sep=1pt}}]
+  \node[inner sep=0,anchor=north west] (k) at (0,0) {{\includegraphics[width={legend_width}in]{{#1}}}};
+  % what each legend is, next to the key: right-aligned on its left, left-aligned on its right
+  \node[anchor=east] (ws) at ([xshift=-2pt,yshift=-{legend_top}in]k.north west) {{with Shift}};
+  \node[anchor=east] (wb) at ([xshift=-2pt,yshift=-{legend_bottom}in]k.north west) {{without Shift}};
+  \coordinate (left) at ([xshift=-0.6em]current bounding box.west);
+  \node[anchor=west] (wso) at ([xshift=2pt,yshift=-{legend_top}in]k.north east) {{with Shift+Option}};
+  \node[anchor=west] (wo) at ([xshift=2pt,yshift=-{legend_bottom}in]k.north east) {{with Option}};
+  \coordinate (right) at ([xshift=0.6em]current bounding box.east);
+  % the keystrokes, all equally wide, in a column on each side
+  \node[anchor=base east] at (left |- ws.base) {{\usebox{{\legendshift}}}};
+  \node[anchor=base east] at (left |- wb.base) {{\usebox{{\legendbase}}}};
+  \node[anchor=base west] at (right |- wso.base) {{\usebox{{\legendshiftoption}}}};
+  \node[anchor=base west] at (right |- wo.base) {{\usebox{{\legendoption}}}};
+  \node[anchor=south west,inner sep=0,font=\tiny\bfseries] at ([yshift=4pt]current bounding box.west |- k.north) {{Legend}};
+  \node[anchor=north west,inner sep=0,text width=\dimexpr\linewidth-{width}-1em-10pt\relax,align=left]
+    at ([yshift=-4pt]current bounding box.west |- k.south) {{Small and gray: what the key types with Option, if the result builds on it: \usebox{{\legendhints}}}};
+  \draw[black!30,rounded corners=3pt] ([shift={{(-4pt,-4pt)}}]current bounding box.south west)
+    rectangle ([shift={{(4pt,4pt)}}]current bounding box.north east);
+\end{{tikzpicture}}}}\vss}}\nointerlineskip}}
 \usepackage{{fontspec}}
-\setmainfont{{{font_file}}}[Path={font_dir}/,Ligatures=TeXOff]
-\newfontfamily\widefont{{latinmodern-math.otf}}
+% bold (for the legend's title) as JuliaMono Regular with a thicker outline
+\setmainfont{{{font_file}}}[Path={font_dir}/,Ligatures=TeXOff,BoldFont={font_file},BoldFeatures={{FakeBold=1.5}}]
 \pagestyle{{empty}}
 \setlength{{\parindent}}{{0pt}}
 \newcommand{{\row}}[2]{{%
@@ -101,23 +133,6 @@ def trigger(layout: Layout, dead_id: str) -> str:
     raise ValueError(f"dead key {dead_id} has no trigger")
 
 
-def hidden_entries(layout: Layout, dead_id: str) -> list:
-    """(keys, typed, result) of the dead key's entries that follow an Option
-    key, which the diagram can't show, e.g. ("⌥⇧e", "∉", "∌")."""
-    option_keys = {}
-    for key in layout.keys:
-        for layer, prefix in (("option", "⌥"), ("shift-option", "⌥⇧")):
-            binding = key.layers[layer]
-            if isinstance(binding, Char):
-                option_keys.setdefault(binding.text, prefix + key.physical.base)
-    entries = []
-    for typed, result in layout.dead[dead_id].map.items():
-        if typed in option_keys:
-            text = result.text if isinstance(result, Char) else str(result)
-            entries.append((option_keys[typed], typed, text))
-    return entries
-
-
 def description(layout: Layout, dead_id: str) -> str:
     dead = layout.dead[dead_id]
     desc = dead.desc[0].upper() + dead.desc[1:]
@@ -126,15 +141,37 @@ def description(layout: Layout, dead_id: str) -> str:
         rf" {tex_escape(trigger(layout, dead_id))}\par\smallskip"
         rf"\footnotesize {tex_escape(desc)}."
     )
-    hidden = hidden_entries(layout, dead_id)
-    if hidden:
-        def entry(keys, typed, result):
-            font = r"\widefont" if result in WIDE else ""
-            return rf"\mbox{{\keycap{{{tex_escape(keys)}}}{{{tex_escape(typed)}}}\,{{\small{font} {tex_escape(result)}}}}}"
-
-        entries = r"\hspace{0.8em plus 0.4em minus 0.2em}".join(entry(*e) for e in hidden)
-        text += rf"\par\smallskip Then a key with Option:\par\setlength{{\lineskiplimit}}{{1.5pt}}\setlength{{\lineskip}}{{2pt}}{entries}"
     return text
+
+
+def legend_labels(layout: Layout, dead_id: str, base: str) -> dict:
+    """The legend's labels for the four legends of the key that types
+    `base`: the keystrokes, each in a box, and their result (`⌥/ ⌥= ≉`);
+    and what the key types with Option where the diagram shows that small
+    and gray (`⌥= ≈`), for the end of the note about it."""
+    key = next(key for key in layout.keys if key.physical.base == base)
+    dead = layout.dead[dead_id]
+    trigger = next(
+        prefix + k.physical.base
+        for k in layout.keys
+        for layer, prefix in (("option", "⌥"), ("shift-option", "⌥⇧"))
+        if isinstance(k.layers[layer], Dead) and k.layers[layer].id == dead_id
+    )
+    labels, hints = {}, []
+    layers = (("shift", "⇧"), ("base", ""), ("shift-option", "⌥⇧"), ("option", "⌥"))
+    for layer, prefix in layers:
+        typed = key.layers[layer].text
+        keys = prefix + key.physical.base
+        labels[f"legend_{layer.replace('-', '_')}"] = (
+            rf"\keybox{{{tex_escape(trigger)}}}\,"
+            rf"\makebox[\legendkeywidth][l]{{\keybox{{{tex_escape(keys)}}}}}\,{tex_escape(dead.map[typed])}"
+        )
+        if layer.endswith("option") and len(svg._option_legend(key.layers[layer], dead.map, dead.no_hint)) == 3:
+            hints.append(rf"\keybox{{{tex_escape(keys)}}}\,{tex_escape(typed)}")
+    labels["legend_hints"] = ", ".join(hints) + "."
+    # JuliaMono is monospaced: the most characters make the widest box
+    labels["legend_widest"] = tex_escape(max((prefix + key.physical.base for _, prefix in layers), key=len))
+    return labels
 
 
 def svg_width(content: str) -> float:
@@ -143,9 +180,15 @@ def svg_width(content: str) -> float:
 
 def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     outdir.mkdir(parents=True, exist_ok=True)
-    diagrams = svg.all_diagrams(layout, font, compact=True)
+    diagrams = svg.all_diagrams(layout, font, compact=True, option=True)
+    # the key that the legend explains, marked in its dead key's diagram
+    diagrams[f"dead-{LEGEND_KEY[0]}.svg"] = svg.dead_key(
+        layout, svg.Font(font), LEGEND_KEY[0], compact=True, option=True, marked=LEGEND_KEY[1]
+    )
     for name, content in diagrams.items():
         (outdir / name).write_text(content, encoding="utf-8")
+    legend_key = svg.single_key(layout, svg.Font(font), *LEGEND_KEY)
+    (outdir / "legend-key.svg").write_text(legend_key, encoding="utf-8")
     numpad = diagrams.pop("numpad.svg", None)
     if numpad is not None:  # on the cheat sheet, each layer by itself
         (outdir / "numpad.svg").unlink()
@@ -157,11 +200,15 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     # the number pad at the scale of the other diagrams, so its keys have the same size
     scale = DIAGRAM_WIDTH / svg_width(next(iter(diagrams.values())))
     numpad_width = svg_width(numpad) * scale if numpad is not None else 0
+    legend_width = svg_width(legend_key) * scale  # the size of the keys in the diagrams
     texts = [ALTERNATIVE] + [description(layout, dead_id) for dead_id in layout.dead]
     rows = []
     for i, (name, text) in enumerate(zip(diagrams, texts, strict=True)):
         rows.append(rf"\row{{{text}}}{{{Path(name).stem}.pdf}}")
-        rows.append(r"\newpage\vfill" if (i + 1) % PER_PAGE == 0 else r"\vfill")
+        if name == f"dead-{LEGEND_KEY[0]}.svg":  # halfway to the next diagram
+            rows.append(r"\vspace{0pt plus 0.5fill}\legendkey{legend-key.pdf}\vspace{0pt plus 0.5fill}")
+        else:
+            rows.append(r"\newpage\vfill" if (i + 1) % PER_PAGE == 0 else r"\vfill")
     if numpad is not None:
         if rows[-1].startswith(r"\newpage"):
             rows.pop()
@@ -179,6 +226,11 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
             name=layout.name,
             width=f"{DIAGRAM_WIDTH}in",
             numpad_width=f"{numpad_width:.3f}in",
+            legend_width=f"{legend_width:.3f}",
+            **legend_labels(layout, *LEGEND_KEY),
+            # the rows of legends, from the top of the key (see svg._draw_key)
+            legend_top=f"{legend_width * 0.30:.3f}",
+            legend_bottom=f"{legend_width * 0.70:.3f}",
             version=layout.version,
             rows="\n".join(rows),
             font_file=Path(font).name,

@@ -15,7 +15,10 @@
 # with `table = true` lists its entries in a table in the README, described
 # by its own [dead.<id>.notes] (keyed by the result), [notes], or the
 # Unicode name. `readme` is a paragraph (Markdown) for the dead key's section
-# of the README, below its diagram.
+# of the README, below its diagram. On the cheat sheet, a result after an
+# Option key shows the character it is keyed by small and gray behind it, as
+# a mnemonic (`⟹` after `⇒`), unless that is a letter or listed in the dead
+# key's `no-hint`.
 #
 # [numpad.option] and [numpad.shift-option] are the number pad with Option
 # (AltGr) and with Shift+Option (Shift+AltGr), keyed by what the key types
@@ -26,7 +29,7 @@
 [layout]
 name = "U.S. Scientific"
 id = "us_scientific"
-version = "5.2.0+dev"  # X.Y.Z for a release; between releases, X.Y.Z+dev or X.Y.Z-dev (see CHANGELOG.md)
+version = "6.0.0-dev"  # X.Y.Z for a release; between releases, X.Y.Z+dev or X.Y.Z-dev (see CHANGELOG.md)
 author = "Michael Goerz"
 copyright = "2021-2026"
 license = "MIT"
@@ -378,6 +381,7 @@ name = "Math"
 desc = "set operations, relations, and other math symbols"
 symbol = "⋅"  # after Space, or before a key without an entry
 table = true  # list the entries in the README
+no-hint = ["∂"]  # `⊑` (`⌥6⌥d`) builds on `⊆` (`⌥6d`), not on `∂`
 readme = '''
 The digits give arrows in the directions they have on the number pad (`8` up, `3` down and right, `5` and `0` left-right and up-down), so the arrows also work with the number pad after `⌥6`.
 
@@ -392,31 +396,42 @@ After `⌥6`, a key that types a symbol with Option gives a related symbol. For 
 - `⌥⇧8` (`⋅`) and `⌥-` (`–`) give the circled `⊙ ⊖`
 - `⌥x` (`×`) gives the squared `⊠` (the circled `⊗` is on `⌥⇧x`)
 - `⌥⇧w` (`∘`) gives `⨟`, composition in the other order
+- `⌥[` (`⟨`) and `⌥]` (`⟩`) give the triangles `◁ ▷` (series product in SLH)
 
 After `⌥6`, other keys go by their shape or name:
 
 - the brackets `(`, `)` give `⊊ ⊋`, the curly `{`, `}` give `≺ ≻`, and the square `[` gives the squared `⊡`
+- `+` and `_` give the squared `⊞ ⊟`
+- `d` and `D` give `⊆ ⊇`, on the key above `c` and `C` (`⊂ ⊃`), and `⊇` looks like a D
+- with Option, the keys of the set symbols give their square versions: `⌥c`, `⌥d`, `⌥⇧c`, `⌥⇧d` (the keys of `⊂ ⊆ ⊃ ⊇`) give `⊏ ⊑ ⊐ ⊒`, and `⌥n`, `⌥u` (the keys of `∩ ∪`) give `⊓ ⊔`
 - Shift+3 and Shift+4 (`#`, `$`) give the roots `∛` and `∜`
 - `x` gives `⊻` (`xor`)
 - `!` gives `¬` (not)
 - `=` gives `≅`
 
-With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` (`⌥6s`, `⌥6S`) followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
+With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` (`⌥6d`, `⌥6D`) followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
 '''
 
 [dead.math.map]
 # sets
 c = "⊂"
-s = "⊆"
+d = "⊆"
 "(" = "⊊"
 C = "⊃"
-S = "⊇"
+D = "⊇"
 ")" = "⊋"
 n = "∩"
 u = "∪"
 "\\" = "∖"
 "∈" = "∋"
 "∉" = "∌"
+# square versions, with Option on the keys of the set symbols
+"ç" = "⊏"
+"∂" = "⊑"
+"Ç" = "⊐"
+"Δ" = "⊒"
+"ñ" = "⊓"
+"ü" = "⊔"
 # logic
 x = "⊻"
 "∧" = "⊼"
@@ -440,6 +455,10 @@ P = "∥"
 "–" = "⊖"
 "×" = "⊠"
 "[" = "⊡"
+"+" = "⊞"
+_ = "⊟"
+"⟨" = "◁"
+"⟩" = "▷"
 "*" = "⋆"
 "∘" = "⨟"
 "⊕" = "⨁"
@@ -513,6 +532,16 @@ m = "↦"
 "≻" = "succeeds (`\\succ`)"
 "⪯" = "precedes or equal (`\\preceq`)"
 "⪰" = "succeeds or equal (`\\succeq`)"
+"⊏" = "square image of (`\\sqsubset`)"
+"⊑" = "square image of or equal (partial order, `\\sqsubseteq`)"
+"⊐" = "square original of (`\\sqsupset`)"
+"⊒" = "square original of or equal (`\\sqsupseteq`)"
+"⊓" = "square cap (meet, `\\sqcap`)"
+"⊔" = "square cup (join, `\\sqcup`)"
+"⊞" = "squared plus (`\\boxplus`; concatenation in SLH)"
+"⊟" = "squared minus (`\\boxminus`)"
+"◁" = "white left-pointing triangle (series product in SLH, `\\triangleleft`; not an operator in Julia)"
+"▷" = "white right-pointing triangle (`\\triangleright`; an operator in Julia, with the precedence of `*`)"
 
 [dead.greek]
 key = "f"
@@ -880,6 +909,9 @@ name = "Double-Struck"
 desc = "letters from the double-struck alphabet, e.g., for number sets"
 symbol = "𝕄"  # after Space, or before a key without an entry
 windows-symbol = "ℍ"  # Windows needs a BMP character
+readme = '''
+The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
+'''
 
 [dead.doublestruck.map]
 a = "𝕒"
@@ -944,6 +976,8 @@ Z = "ℤ"
 7 = "𝟟"
 8 = "𝟠"
 9 = "𝟡"
+"⟨" = "⟪"
+"⟩" = "⟫"
 
 [notes]
 "\u0303" = "combining over-tilde for the previous character, e.g., ``S⌥⇧` `` gives `S\u0303` (Fourier transform)"  # combining tilde

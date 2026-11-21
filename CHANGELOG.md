@@ -10,6 +10,16 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ## [Unreleased]
 
+### Added
+
+- Double-Struck dead key: the double angle brackets `⟪ ⟫` (`⌥⇧m⌥[` and `⌥⇧m⌥]`, after the keys of `⟨ ⟩`), for vectors in Liouville space.
+- Math dead key (`⌥6`, then the key): the squared `⊞ ⊟` (`+`, `_`), the triangles `◁ ▷` (`⌥[` and `⌥]`, the keys of `⟨ ⟩`; series product in SLH), and the square versions of the set symbols, `⊏ ⊑ ⊐ ⊒` (`⌥c`, `⌥d`, `⌥⇧c`, `⌥⇧d`, the keys of `⊂ ⊆ ⊃ ⊇` with Option) and `⊓ ⊔` (`⌥n`, `⌥u`, the keys of `∩ ∪` with Option).
+
+### Changed
+
+- Math dead key: `⊆ ⊇` moved from `s` and `S` to `d` and `D`, the key above `c` and `C` (`⊂ ⊃`); `⊇` looks like a D. `⌥6s` and `⌥6S` type `⋅s` and `⋅S` now, like other keys without an entry.
+- Cheat sheet: the dead keys' entries that follow an Option key are in the diagrams, in a second column on each key, instead of in a list below the description; a result that builds on what the key types with Option has that symbol small and gray behind it (e.g., `⟹⇒` on `K`). The Slash dead key's description has a legend.
+
 ## [5.2.0] - 2026-11-19
 
 ### Added
