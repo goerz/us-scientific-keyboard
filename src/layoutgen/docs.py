@@ -103,24 +103,38 @@ def dead_key_sections(layout: Layout) -> str:
     # The keys the diagrams show (not the ISO key)
     drawn = [k for k in layout.keys if k.physical.name != "iso"]
     typed_on_keys = {k.physical.base for k in drawn} | {k.physical.shift for k in drawn}
-    for dead in layout.dead.values():
-        trigger = next(
+
+    def trigger_keys(dead_id):
+        key, layer = next(
             (key, layer) for key in layout.keys for layer in ("option", "shift-option")
-            if isinstance(key.layers[layer], Dead) and key.layers[layer].id == dead.id
+            if isinstance(key.layers[layer], Dead) and key.layers[layer].id == dead_id
         )
-        trigger_keys = keys(trigger[0].physical, trigger[1] == "shift-option")
+        return keys(key.physical, layer == "shift-option")
+
+    for dead in layout.dead.values():
         out += [
             f"### {dead_heading(dead)}",
             "",
-            f"{code(trigger_keys)}, then a key: {dead.desc}. Space types {code(display(dead.symbol))}.",
+            f"{code(trigger_keys(dead.id))}, then a key: {dead.desc}. Space types {code(display(dead.symbol))}.",
             "",
             f"![{dead.name} dead key]({DIAGRAM_DIR}/dead-{dead.id}.svg)",
             "",
         ]
         if dead.readme:
             out += [dead.readme, ""]
+        # at the end of the section: chained dead keys that start with this one
+        chained = []
+        for (first, second), chain in layout.chains.items():
+            if first == dead.id:
+                chained += [
+                    f"{code(trigger_keys(first))}, then the {layout.dead[second].name} dead key "
+                    f"({code(trigger_keys(second))}), then a key: {chain.desc}.",
+                    "",
+                    f"![{chain.name}]({DIAGRAM_DIR}/dead-{chain.id}.svg)",
+                    "",
+                ]
         if dead.table:
-            out += [dead_entries_table(layout, dead, drawn, typed_on_keys), ""]
+            out += [dead_entries_table(layout, dead, drawn, typed_on_keys), "", *chained]
             continue
         extras = []
         for typed, result in dead.map.items():
@@ -136,6 +150,7 @@ def dead_key_sections(layout: Layout) -> str:
                         )
         if extras:
             out += ["With an alternative character after the dead key: " + ", ".join(extras) + ".", ""]
+        out += chained
     return "\n".join(out)
 
 
@@ -213,7 +228,7 @@ def character_count(layout: Layout) -> str:
                 typed.add(binding.text)
                 if layer in ("option", "shift-option"):
                     direct.add(binding.text)
-    for dead in layout.dead.values():
+    for dead in layout.states:
         typed |= set(dead.map.values())
 
     def is_ascii(c):

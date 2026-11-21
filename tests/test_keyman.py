@@ -14,6 +14,7 @@ from layoutgen import keyman, model
 
 ROOT = Path(__file__).resolve().parent.parent
 LAYOUT = model.load(ROOT / "layout.toml")
+STATES = {dead.id: dead for dead in LAYOUT.states}
 
 # layer -> (held modifiers, Caps Lock on)
 LAYER_STATE = {
@@ -59,7 +60,7 @@ def tokens(binding):
     return [f"U+{ord(c):04X}" for c in binding.text]
 
 
-@pytest.mark.parametrize("dead", [None, *LAYOUT.dead])
+@pytest.mark.parametrize("dead", [None, *STATES])
 def test_rules(rules, dead):
     mismatches = []
     for key in LAYOUT.keys + LAYOUT.keypad:
@@ -71,10 +72,12 @@ def test_rules(rules, dead):
                 want = None  # no rule: the number pad does what the system does
             elif dead is None:
                 want = tokens(binding)
-            elif isinstance(binding, model.Char) and binding.text in LAYOUT.dead[dead].map:
-                want = tokens(model.Char(LAYOUT.dead[dead].map[binding.text]))
+            elif isinstance(binding, model.Char) and binding.text in STATES[dead].map:
+                want = tokens(model.Char(STATES[dead].map[binding.text]))
+            elif chain := LAYOUT.chain(dead, binding):
+                want = [f"dk({chain.id})"]
             else:
-                want = tokens(model.Char(LAYOUT.dead[dead].symbol)) + tokens(binding)
+                want = tokens(model.Char(STATES[dead].symbol)) + tokens(binding)
             got = press(rules, dead, key.physical.keyman, layer)
             if want != got:
                 mismatches.append((key.name, layer, want, got))

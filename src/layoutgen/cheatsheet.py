@@ -13,9 +13,11 @@ from . import svg
 from .model import Char, Dead, Layout
 
 PER_PAGE = 6
-# The key that explains the dead keys' Option column (see `svg.dead_key`),
-# between the diagram of its dead key and the next one: (dead key, what the key types),
-# a key with all four legends and a gray hint, beside its dead key's diagram.
+# The key that explains the dead keys' Option column (see `svg.dead_key`):
+# (dead key, what the key types), a key with all four legends and a gray
+# hint, outlined in its dead key's diagram. The legend is right above that
+# dead key's description, in the space the description before leaves free
+# (it has to be short).
 LEGEND_KEY = ("slash", "=")
 DIAGRAM_WIDTH = 4.6  # inches; six diagrams fit in the height of a letter page
 
@@ -25,8 +27,8 @@ TEX = r"""\documentclass[10pt]{{article}}
 \usepackage{{xcolor}}
 \usepackage{{tikz}}
 % the legend of the Option column, in the column of the descriptions: a key,
-% with what each of its legends is; without height, centered on where it is,
-% in the space beside the gap between two diagrams
+% with what each of its legends is; without height, hanging up from where it
+% is, into the space below the description before
 % a keystroke in the legend, in a rounded box
 \newcommand{{\keybox}}[1]{{\tikz[baseline=(b.base)]\node[draw=black!35,rounded corners=1pt,inner xsep=1pt,inner ysep=0.7pt](b){{\vphantom{{⌥⇧/=}}#1}};}}
 % the width of the widest key's box, so that the labels' columns line up
@@ -56,26 +58,27 @@ TEX = r"""\documentclass[10pt]{{article}}
     at ([yshift=-4pt]current bounding box.west |- k.south) {{Small and gray: what the key types with Option, if the result builds on it: \usebox{{\legendhints}}}};
   \draw[black!30,rounded corners=3pt] ([shift={{(-4pt,-4pt)}}]current bounding box.south west)
     rectangle ([shift={{(4pt,4pt)}}]current bounding box.north east);
-\end{{tikzpicture}}}}\vss}}\nointerlineskip}}
+\end{{tikzpicture}}}}\vskip 8pt}}\nointerlineskip}}
 \usepackage{{fontspec}}
 % bold (for the legend's title) as JuliaMono Regular with a thicker outline
 \setmainfont{{{font_file}}}[Path={font_dir}/,Ligatures=TeXOff,BoldFont={font_file},BoldFeatures={{FakeBold=1.5}}]
 \pagestyle{{empty}}
 \setlength{{\parindent}}{{0pt}}
+% a description beside its diagram, their tops aligned
 \newcommand{{\row}}[2]{{%
-  \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
-  \begin{{minipage}}[c]{{{width}}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
+  \begin{{minipage}}[t]{{\dimexpr\linewidth-{width}-1em}}\vspace{{0pt}}\raggedright #1\end{{minipage}}\hfill
+  \begin{{minipage}}[t]{{{width}}}\vspace{{0pt}}\includegraphics[width=\linewidth]{{#2}}\end{{minipage}}\par}}
 % the number pad: description, then its two layers side by side, each with a caption
 \newcommand{{\numpadrow}}[5]{{%
-  \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
-  \begin{{minipage}}[c]{{{width}}}\hfill
+  \begin{{minipage}}[t]{{\dimexpr\linewidth-{width}-1em}}\vspace{{0pt}}\raggedright #1\end{{minipage}}\hfill
+  \begin{{minipage}}[t]{{{width}}}\vspace{{0pt}}\hfill
     \begin{{tabular}}[c]{{@{{}}c@{{}}}}\includegraphics[width={numpad_width}]{{#2}}\\[2pt]\footnotesize #3\end{{tabular}}\hspace{{1.5em}}%
     \begin{{tabular}}[c]{{@{{}}c@{{}}}}\includegraphics[width={numpad_width}]{{#4}}\\[2pt]\footnotesize #5\end{{tabular}}%
   \end{{minipage}}\par}}
 % a single number pad diagram, under the two layers
 \newcommand{{\numpadsinglerow}}[2]{{%
-  \begin{{minipage}}[c]{{\dimexpr\linewidth-{width}-1em}}\raggedright #1\end{{minipage}}\hfill
-  \begin{{minipage}}[c]{{{width}}}\hfill\includegraphics[width={numpad_width}]{{#2}}\end{{minipage}}\par}}
+  \begin{{minipage}}[t]{{\dimexpr\linewidth-{width}-1em}}\vspace{{0pt}}\raggedright #1\end{{minipage}}\hfill
+  \begin{{minipage}}[t]{{{width}}}\vspace{{0pt}}\hfill\includegraphics[width={numpad_width}]{{#2}}\end{{minipage}}\par}}
 \begin{{document}}
 {{\large {name}}} keyboard layout\hfill version {version}\par
 \vfill
@@ -141,6 +144,18 @@ def description(layout: Layout, dead_id: str) -> str:
         rf" {tex_escape(trigger(layout, dead_id))}\par\smallskip"
         rf"\footnotesize {tex_escape(desc)}."
     )
+    # chained dead keys that start with this one: what the second dead key
+    # gives that the chain has a version of, lowercase first
+    for (first, second), chain in layout.chains.items():
+        if first == dead_id:
+            letters = sorted(
+                {layout.dead[second].map[typed] for typed in chain.map if typed != " "},
+                key=lambda c: (c.isupper(), ord(c)),
+            )
+            text += (
+                rf"\par\smallskip Combines with {tex_escape(layout.dead[second].name)}"
+                rf" ({tex_escape(trigger(layout, second))}): {' '.join(letters)}"
+            )
     return text
 
 
@@ -180,7 +195,7 @@ def svg_width(content: str) -> float:
 
 def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     outdir.mkdir(parents=True, exist_ok=True)
-    diagrams = svg.all_diagrams(layout, font, compact=True, option=True)
+    diagrams = svg.all_diagrams(layout, font, compact=True, option=True, chains=False)
     # the key that the legend explains, marked in its dead key's diagram
     diagrams[f"dead-{LEGEND_KEY[0]}.svg"] = svg.dead_key(
         layout, svg.Font(font), LEGEND_KEY[0], compact=True, option=True, marked=LEGEND_KEY[1]
@@ -204,11 +219,10 @@ def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     texts = [ALTERNATIVE] + [description(layout, dead_id) for dead_id in layout.dead]
     rows = []
     for i, (name, text) in enumerate(zip(diagrams, texts, strict=True)):
+        if name == f"dead-{LEGEND_KEY[0]}.svg":
+            rows.append(r"\legendkey{legend-key.pdf}")
         rows.append(rf"\row{{{text}}}{{{Path(name).stem}.pdf}}")
-        if name == f"dead-{LEGEND_KEY[0]}.svg":  # halfway to the next diagram
-            rows.append(r"\vspace{0pt plus 0.5fill}\legendkey{legend-key.pdf}\vspace{0pt plus 0.5fill}")
-        else:
-            rows.append(r"\newpage\vfill" if (i + 1) % PER_PAGE == 0 else r"\vfill")
+        rows.append(r"\newpage\vfill" if (i + 1) % PER_PAGE == 0 else r"\vfill")
     if numpad is not None:
         if rows[-1].startswith(r"\newpage"):
             rows.pop()

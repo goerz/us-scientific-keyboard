@@ -3,7 +3,9 @@ file, module definition, and build/install scripts.
 
 Windows dead keys can only produce single characters from the Basic
 Multilingual Plane (BMP), so dead-key results outside of it are dropped; a
-plain key can still type one as a surrogate pair ("ligature").
+plain key can still type one as a surrogate pair ("ligature"). A chained
+dead key is a dead key of its own, which a DEADTRANS entry with DKF_DEAD
+starts: the second dead key's character after the first's.
 """
 
 from importlib.resources import files
@@ -383,14 +385,18 @@ def tables(layout: Layout):
     """(dead characters, dead-key translations, report) for the layout.
 
     dead characters: {dead id: dead character}, only for dead keys that keep
-    any results; translations: {dead id: {typed char: result}}.
+    any results; translations: {dead id: {typed char: result}}. Both include
+    the chained dead keys whose two dead keys are kept (see `chain_starts`).
     """
     report, dead_char, trans = [], {}, {}
-    for dead in layout.dead.values():
+    for dead in layout.states:
+        if dead.after and not all(d in dead_char for d in dead.after):
+            report.append(f"{dead.id}: chained after a removed dead key, removed")
+            continue
         table, dropped = {}, 0
         for typed, result in dead.map.items():
-            if result == dead.symbol:
-                result = dead.windows_symbol
+            if typed == " " and not is_bmp_char(result):
+                result = dead.windows_symbol  # Space types the dead key's symbol
             if not is_bmp_char(typed):
                 continue  # can't be typed by a single key
             if is_bmp_char(result):
@@ -406,7 +412,28 @@ def tables(layout: Layout):
             raise ValueError(f"[dead.{dead.id}] needs a unique BMP windows-symbol")
         dead_char[dead.id] = dead.windows_symbol
         trans[dead.id] = table
+    # Windows looks a dead key up by its character, as if a key had typed it:
+    # where that starts a chained dead key, no key may type it
+    typed = {
+        binding.text for key in layout.keys for layer in COLUMN_LAYERS.values()
+        if isinstance(binding := layout.binding(key, layer, "pc"), Char)
+    }
+    for (first, second), chain in layout.chains.items():
+        if chain.id in dead_char and dead_char[second] in typed:
+            raise ValueError(
+                f"[dead.{second}] needs a windows-symbol that no key types, as it starts [dead.{chain.id}]"
+            )
     return dead_char, trans, report
+
+
+def chain_starts(layout: Layout, dead_char: dict) -> list:
+    """[(first dead character, second dead character, chained dead
+    character)] for the chained dead keys that are kept."""
+    return [
+        (dead_char[first], dead_char[second], dead_char[chain.id])
+        for (first, second), chain in layout.chains.items()
+        if chain.id in dead_char
+    ]
 
 
 def c_source(layout: Layout) -> tuple[str, list]:
@@ -457,6 +484,14 @@ def c_source(layout: Layout) -> tuple[str, list]:
             rows.append(f"    {{VK__none_, 0, {{{', '.join(dcells)}}}}},\n")
 
     deadtrans, dead_names = [], []
+    starts = chain_starts(layout, dead_char)
+    if starts:
+        deadtrans.append("    // chained dead keys: a dead key after another starts one (DKF_DEAD)\n")
+    for first, second, chained in starts:
+        deadtrans.append(
+            f"    DEADTRANS({wch(second)}, {wch(first)}, {wch(chained)}, DKF_DEAD), "
+            f"// {c_comment(second)} after {c_comment(first)} -> {c_comment(chained)}\n"
+        )
     for dead_id, dc in dead_char.items():
         dead_names.append(f'    L"\\x{ord(dc):04X}" L"{dead_id.upper()}",\n')
         deadtrans.append(f"    // {dead_id} (dead character {c_comment(dc)})\n")

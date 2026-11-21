@@ -280,8 +280,19 @@ def compose(layout: Layout) -> str:
         for keysym, binding in typed:
             if isinstance(binding, Char) and not in_compose_tables(binding.text):
                 continue
+            if layout.chain(dead.id, binding):
+                continue  # starts a chained dead key: its sequences are below
             result = compose_result(layout, dead, binding)
             lines.append(f"<{dead_syms[dead.id]}> <{keysym}> : {compose_string(result)}")
+    # A chained dead key: its two dead keysyms, then every key
+    for (first, second), chain in layout.chains.items():
+        prefix = f"<{dead_syms[first]}> <{dead_syms[second]}>"
+        lines += ["", f"# {chain.name} ({dead_syms[first]}, then {dead_syms[second]}): {chain.desc}"]
+        for keysym, binding in typed:
+            if isinstance(binding, Char) and not in_compose_tables(binding.text):
+                continue
+            result = compose_result(layout, chain, binding)
+            lines.append(f"{prefix} <{keysym}> : {compose_string(result)}")
     return "\n".join(lines) + "\n"
 
 

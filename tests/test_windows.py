@@ -5,7 +5,8 @@ MSVC doesn't run here, so this parses the character table, dead-key
 translations, and ligatures from the generated C source and simulates how
 Windows uses them: CAPLOK/CAPLOKALTGR for Caps Lock, WCH_DEAD followed by a
 row with the dead character, and, after a dead key, the DEADTRANS entry for
-the next character or else the dead character followed by that character.
+the next character or else the dead character followed by that character. A
+DEADTRANS entry with DKF_DEAD starts another dead key (a chained one).
 """
 
 import re
@@ -40,8 +41,8 @@ def tables():
         dead_cells = [value(c.strip()) for c in dead_row[2].split(",")] if dead_row else None
         keys[vk] = (set(attrs.split(" | ")), cells, dead_cells)
     deadtrans = {
-        (chr(int(a, 16)), chr(int(b, 16))): chr(int(c, 16))
-        for a, b, c in re.findall(r"DEADTRANS\(0x(\w+), 0x(\w+), 0x(\w+), 0x0000\)", source)
+        (chr(int(a, 16)), chr(int(b, 16))): chr(int(c, 16)) if flags == "0x0000" else ("dead", chr(int(c, 16)))
+        for a, b, c, flags in re.findall(r"DEADTRANS\(0x(\w+), 0x(\w+), 0x(\w+), (0x0000|DKF_DEAD)\)", source)
     }
     ligatures = {
         (vk, int(col)): "".join(chr(int(u, 16)) for u in units.split(", ")).encode(
@@ -77,7 +78,10 @@ def expected(binding, dead_id):
         return None
     if isinstance(binding, model.Dead):
         if dead_id is not None:
-            return "skip"  # two dead keys in a row: not modeled
+            chain = LAYOUT.chain(dead_id, binding)
+            if chain is not None and chain.id in DEAD_CHAR:
+                return ("dead", DEAD_CHAR[chain.id])
+            return "skip"  # two dead keys in a row, no chained dead key: not modeled
         return ("dead", DEAD_CHAR[binding.id]) if binding.id in DEAD_CHAR else None
     if dead_id is None:
         return ("char", binding.text)
@@ -96,9 +100,14 @@ def test_keys(tables, dead_id):
             if want == "skip":
                 continue
             got = press(tables, key.physical.vk, layer)
-            if dead_id is not None and got is not None and got[0] == "char" and len(got[1]) == 1:
+            if dead_id is not None and got is not None and len(got[1]) == 1:
+                # a character, or a dead key's, after a dead key: its DEADTRANS entry
                 dc = DEAD_CHAR[dead_id]
-                got = ("char", deadtrans.get((got[1], dc), dc + got[1]))
+                result = deadtrans.get((got[1], dc))
+                if isinstance(result, tuple):
+                    got = result  # starts a chained dead key
+                elif got[0] == "char":
+                    got = ("char", result or dc + got[1])
             elif dead_id is not None and got is not None and got[0] == "char":
                 got = ("char", DEAD_CHAR[dead_id] + got[1])  # a ligature after a dead key
             if want != got:
@@ -107,10 +116,11 @@ def test_keys(tables, dead_id):
 
 
 def test_whats_missing_on_windows():
-    """Only results outside the BMP, and so the bold dead key, are lost."""
-    for dead in LAYOUT.dead.values():
+    """Only results outside the BMP, and so the bold dead key and its
+    chained dead key, are lost."""
+    for dead in LAYOUT.states:
         kept = TRANS.get(dead.id, {})
         for typed, result in dead.map.items():
             if typed not in kept:
-                assert not windows.is_bmp_char(result if result != dead.symbol else dead.windows_symbol)
-    assert set(LAYOUT.dead) - set(DEAD_CHAR) == {"bold"}
+                assert not windows.is_bmp_char(dead.windows_symbol if typed == " " else result), (dead.id, typed)
+    assert {dead.id for dead in LAYOUT.states} - set(DEAD_CHAR) == {"bold", "boldgreek"}

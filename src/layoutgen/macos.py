@@ -43,11 +43,14 @@ def keylayout(layout: Layout) -> str:
                 continue
             if isinstance(binding, Dead):
                 aid = action_id(binding)
-                actions[aid] = [("none", "next", binding.id)]
+                # a dead key starts its state, or a chained dead key after another
+                chains = [(first, "next", chain.id) for (first, second), chain in layout.chains.items()
+                          if second == binding.id]
+                actions[aid] = [("none", "next", binding.id), *chains]
             else:
                 whens = [
                     (dead.id, "output", dead.map[binding.text])
-                    for dead in layout.dead.values()
+                    for dead in layout.states
                     if binding.text in dead.map
                 ]
                 outputs.append(binding.text)
@@ -68,9 +71,9 @@ def keylayout(layout: Layout) -> str:
 
     terminators = [
         f'        <when state="{dead.id}" output="{xml_escape(dead.symbol)}"/>'
-        for dead in layout.dead.values()
+        for dead in layout.states
     ]
-    outputs.extend(dead.symbol for dead in layout.dead.values())
+    outputs.extend(dead.symbol for dead in layout.states)
     maxout = max(len(text.encode("utf-16-le")) // 2 for text in outputs)
 
     text = files("layoutgen").joinpath("templates", "macos.keylayout").read_text(encoding="utf-8")

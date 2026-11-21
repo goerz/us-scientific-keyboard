@@ -77,12 +77,14 @@ def kmn(layout: Layout, bitmap: str | None = None) -> str:
         lines.append(f"store(&BITMAP) '{bitmap}'")
     lines += ["", "begin Unicode > use(main)", "", "group(main) using keys", ""]
 
-    for dead in layout.dead.values():
+    for dead in layout.states:
         lines.append(f"c ---- dead key {dead.id} ----")
         for vkey, binding in specs + keypad:
             if isinstance(binding, Char) and binding.text in dead.map:
                 result = dead.map[binding.text]
                 out, note = kmn_string(result), shown(result)
+            elif chain := layout.chain(dead.id, binding):
+                out, note = f"dk({chain.id})", f"<{chain.id}>"
             else:
                 # No entry: the dead key's symbol, then the key's own output
                 out, note = rhs(binding)

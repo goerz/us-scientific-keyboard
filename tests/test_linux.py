@@ -59,7 +59,7 @@ for line in (ROOT / "src/layoutgen/keysyms.txt").read_text(encoding="utf-8").spl
         KEYSYMS[name] = (int(value, 16), chr(int(uni[0][2:], 16)) if uni else None)
 
 KEY_LINE = re.compile(r'^    key <(\w+)> \{ type\[Group1\] = "(\w+)", symbols\[Group1\] = \[ ([^\]]*) \] \};')
-SEQUENCE = re.compile(r'^<(\w+)> <(\w+)> : "((?:[^"\\]|\\.)*)"$')
+SEQUENCE = re.compile(r'^((?:<\w+> )+): "((?:[^"\\]|\\.)*)"$')
 
 
 @pytest.fixture(scope="module")
@@ -82,8 +82,9 @@ def sequences():
             continue
         m = SEQUENCE.match(line)
         assert m, f"unparsed line: {line}"
-        assert (m.group(1), m.group(2)) not in result, f"duplicate: {line}"
-        result[(m.group(1), m.group(2))] = re.sub(r"\\(.)", r"\1", m.group(3))
+        keys = tuple(re.findall(r"<(\w+)>", m.group(1)))
+        assert keys not in result, f"duplicate: {line}"
+        result[keys] = re.sub(r"\\(.)", r"\1", m.group(2))
     return result
 
 
@@ -176,7 +177,9 @@ def test_dead_keys(symbols, sequences, dead_id):
                 continue
             sym = press(symbols, key.physical.xkb, layer)
             got = sequences.get((dead_sym, sym))
-            if isinstance(binding, model.Dead):
+            if LAYOUT.chain(dead_id, binding):
+                want = None  # a prefix of the chained dead key's sequences
+            elif isinstance(binding, model.Dead):
                 want = dead.symbol + LAYOUT.dead[binding.id].symbol
             elif ord(binding.text) > 0xFFFF:
                 want = None  # GTK and IBus can't match it; left out
@@ -192,12 +195,45 @@ def test_dead_keys(symbols, sequences, dead_id):
     assert mismatches == []
 
 
+@pytest.mark.parametrize("pair", list(LAYOUT.chains), ids="-".join)
+def test_chained_dead_keys(symbols, sequences, pair):
+    """The two dead keys of a chained dead key, then every key."""
+    chain = LAYOUT.chains[pair]
+    prefix = tuple(linux.dead_keysyms(LAYOUT)[dead_id] for dead_id in pair)
+    mismatches = []
+    for key in LAYOUT.keys:
+        for layer in LAYER_MODS:
+            binding = LAYOUT.binding(key, layer, "pc")
+            if binding is None:
+                continue
+            sym = press(symbols, key.physical.xkb, layer)
+            got = sequences.get((*prefix, sym))
+            if isinstance(binding, model.Dead):
+                want = chain.symbol + LAYOUT.dead[binding.id].symbol
+            elif ord(binding.text) > 0xFFFF:
+                want = None  # GTK and IBus can't match it; left out
+            else:
+                want = chain.map.get(binding.text, chain.symbol + binding.text)
+            if want != got:
+                mismatches.append((key.name, layer, want, got))
+    for sym, binding in keypad_typed():
+        want = None if ord(binding.text) > 0xFFFF else chain.map.get(binding.text, chain.symbol + binding.text)
+        got = sequences.get((*prefix, sym))
+        if want != got:
+            mismatches.append((sym, want, got))
+    assert mismatches == []
+
+
 def test_no_extra_sequences(symbols, sequences):
     typed = {press(symbols, key.physical.xkb, layer) for key in LAYOUT.keys for layer in LAYER_MODS}
     typed |= {sym for sym, _ in keypad_typed()}
-    dead_syms = set(linux.dead_keysyms(LAYOUT).values())
-    for first, second in sequences:
-        assert first in dead_syms and second in typed, (first, second)
+    dead_syms = linux.dead_keysyms(LAYOUT)
+    chains = {tuple(dead_syms[d] for d in pair) for pair in LAYOUT.chains}
+    for keys in sequences:
+        *dead, last = keys
+        assert (len(dead) == 1 and dead[0] in dead_syms.values() and (*dead, last) not in chains)\
+            or tuple(dead) in chains, keys
+        assert last in typed, keys
 
 
 def test_keysyms_for_gtk_and_ibus(sequences):
@@ -209,8 +245,8 @@ def test_keysyms_for_gtk_and_ibus(sequences):
     by_value = {value: name for name, (value, _) in KEYSYMS.items()}
     chars = {char: name for name, (_, char) in reversed(list(KEYSYMS.items())) if char}
     size = 0
-    for (first, second), result in sequences.items():
-        for sym in (first, second):
+    for keys, result in sequences.items():
+        for sym in keys:
             if re.fullmatch(r"U[0-9A-F]{4,6}", sym):
                 cp = int(sym[1:], 16)
                 assert cp <= 0xFFFF and cp not in by_value and chr(cp) not in chars, sym

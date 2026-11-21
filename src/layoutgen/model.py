@@ -46,6 +46,9 @@ class DeadKey:
     # typed characters (after Option) whose result doesn't build on them, so
     # the cheat sheet doesn't show them small and gray behind it
     no_hint: frozenset = frozenset()
+    # a chained dead key: the two dead keys typed one after the other to get
+    # to it (their ids), instead of a key of its own
+    after: tuple = ()
 
 
 @dataclass
@@ -74,6 +77,8 @@ class Layout:
     keys: list = field(default_factory=list)  # Key, in keyboard order
     keypad: list = field(default_factory=list)  # Key of the number pad (layer "shift": Shift+digit, macOS)
     dead: dict = field(default_factory=dict)  # id -> DeadKey, in file order
+    # chained dead keys: (first dead key id, second dead key id) -> DeadKey
+    chains: dict = field(default_factory=dict)
 
     @property
     def numeric_version(self) -> str:
@@ -92,6 +97,18 @@ class Layout:
                 return layers["shift-option"]
             return layers["option"]
         return layers[layer]
+
+    @property
+    def states(self) -> list:
+        """Every dead key, the chained ones last: the dead-key states."""
+        return [*self.dead.values(), *self.chains.values()]
+
+    def chain(self, state: str, binding):
+        """The chained dead key that `binding` starts in the dead-key state
+        `state` (a dead key id), or None."""
+        if isinstance(binding, Dead):
+            return self.chains.get((state, binding.id))
+        return None
 
     def dead_result(self, dead: DeadKey, binding):
         """Result of `binding` after the dead key: Char, or None (no entry)."""
@@ -163,12 +180,16 @@ def load(path: Path) -> Layout:
             raise LayoutError(f"[alternative] {typed!r}: expected a non-empty string")
         assign(typed, Char(text, notes.get(text, "")), f"[alternative] {typed!r}")
 
+    chained = []  # (where, DeadKey) of the chained dead keys
     for dead_id, spec in data.get("dead", {}).items():
         where = f"[dead.{dead_id}]"
-        unknown = set(spec) - {"key", "name", "desc", "symbol", "windows-symbol", "map", "table", "notes", "readme", "no-hint"}
+        fields = {"key", "after", "name", "desc", "symbol", "windows-symbol", "map", "table", "notes", "readme", "no-hint"}
+        unknown = set(spec) - fields
         if unknown:
             raise LayoutError(f"{where}: unknown fields {sorted(unknown)}")
-        for required in ("key", "symbol", "map"):
+        if ("key" in spec) == ("after" in spec):
+            raise LayoutError(f"{where}: needs either 'key' or 'after' (a chained dead key)")
+        for required in ("symbol", "map"):
             if required not in spec:
                 raise LayoutError(f"{where}: missing {required!r}")
         alternatives = [*data.get("alternative", {}).values()]
@@ -176,7 +197,7 @@ def load(path: Path) -> Layout:
         for typed in spec["map"]:
             if typed not in positions and typed not in alternatives:
                 raise LayoutError(f"{where}.map: no key types {typed!r}")
-        layout.dead[dead_id] = DeadKey(
+        dead = DeadKey(
             id=dead_id,
             name=spec.get("name", dead_id),
             desc=spec.get("desc", ""),
@@ -188,14 +209,25 @@ def load(path: Path) -> Layout:
             notes=spec.get("notes", {}),
             readme=spec.get("readme", "").strip(),
             no_hint=frozenset(spec.get("no-hint", [])),
+            after=tuple(spec.get("after", ())),
         )
-        for typed in layout.dead[dead_id].no_hint:
+        for typed in dead.no_hint:
             if typed not in spec["map"]:
                 raise LayoutError(f"{where}.no-hint: {typed!r} is not in the map")
-        for result in layout.dead[dead_id].notes:
+        for result in dead.notes:
             if result not in spec["map"].values():
                 raise LayoutError(f"{where}.notes: {result!r} is not a result of the dead key")
-        assign(spec["key"], Dead(dead_id), f"{where} key")
+        if dead.after:
+            chained.append((where, dead))
+        else:
+            layout.dead[dead_id] = dead
+            assign(spec["key"], Dead(dead_id), f"{where} key")
+    for where, dead in chained:  # after all dead keys, which they refer to
+        if len(dead.after) != 2 or not all(d in layout.dead for d in dead.after):
+            raise LayoutError(f"{where}.after: expected the ids of two dead keys (not chained ones)")
+        if dead.after in layout.chains:
+            raise LayoutError(f"{where}.after: {list(dead.after)} already starts [dead.{layout.chains[dead.after].id}]")
+        layout.chains[dead.after] = dead
 
     for physical in KEYS:
         pc_layers = {

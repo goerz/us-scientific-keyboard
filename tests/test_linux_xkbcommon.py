@@ -186,11 +186,16 @@ def compose_table(ctx, with_locale):
     return table
 
 
+STATES = {dead.id: dead for dead in LAYOUT.states}
+
+
 def expected(dead, binding):
     """What the dead key followed by `binding` types: the dead key's result,
     or else its symbol and what the key types (for a second dead key, its
-    symbol). Keys outside the BMP have no sequences (see linux.py), so the
-    dead key cancels."""
+    symbol), unless it starts a chained dead key. Keys outside the BMP have
+    no sequences (see linux.py), so the dead key cancels."""
+    if LAYOUT.chain(dead.id, binding):
+        return COMPOSING
     if isinstance(binding, model.Dead):
         return dead.symbol + LAYOUT.dead[binding.id].symbol
     if ord(binding.text[0]) > 0xFFFF:
@@ -198,32 +203,46 @@ def expected(dead, binding):
     return dead.map.get(binding.text, dead.symbol + binding.text)
 
 
-@pytest.mark.parametrize("with_locale",[False, True], ids=["alone", "after-%L"])
-@pytest.mark.parametrize("dead_id", list(LAYOUT.dead))
-def test_dead_keys(xkb, dead_id, with_locale):
-    ctx, keymap = xkb
-    kb = Keyboard(keymap)
-    compose = LIB.xkb_compose_state_new(compose_table(ctx, with_locale), 0)
-    dead = LAYOUT.dead[dead_id]
-    trigger = next(
+def trigger(dead_id):
+    """(key, layer) that types the dead key."""
+    return next(
         (key, layer) for key in LAYOUT.keys for layer in model.LAYERS
         if LAYOUT.binding(key, layer, "pc") == model.Dead(dead_id)
     )
+
+
+@pytest.mark.parametrize("with_locale", [False, True], ids=["alone", "after-%L"])
+@pytest.mark.parametrize("dead_id", list(STATES))
+def test_dead_keys(xkb, dead_id, with_locale):
+    """Every key after every dead key, and after the two dead keys of a
+    chained dead key."""
+    ctx, keymap = xkb
+    kb = Keyboard(keymap)
+    compose = LIB.xkb_compose_state_new(compose_table(ctx, with_locale), 0)
+    dead = STATES[dead_id]
+    triggers = [trigger(d) for d in dead.after or (dead_id,)]
+
+    def start():
+        LIB.xkb_compose_state_reset(compose)
+        for key, layer in triggers:
+            LIB.xkb_compose_state_feed(compose, kb.press(key.physical.xkb, layer)[0])
+            assert LIB.xkb_compose_state_get_status(compose) == COMPOSING
+
+    def result():
+        status = LIB.xkb_compose_state_get_status(compose)
+        buf = ctypes.create_string_buffer(64)
+        LIB.xkb_compose_state_get_utf8(compose, buf, 64)
+        return buf.value.decode() if status == COMPOSED else status
+
     mismatches = []
     for key in LAYOUT.keys:
         for layer in linux.ALL_LAYERS:
             binding = LAYOUT.binding(key, layer, "pc")
             if binding is None:
                 continue
-            LIB.xkb_compose_state_reset(compose)
-            LIB.xkb_compose_state_feed(compose, kb.press(trigger[0].physical.xkb, trigger[1])[0])
-            assert LIB.xkb_compose_state_get_status(compose) == COMPOSING
+            start()
             LIB.xkb_compose_state_feed(compose, kb.press(key.physical.xkb, layer)[0])
-            status = LIB.xkb_compose_state_get_status(compose)
-            buf = ctypes.create_string_buffer(64)
-            LIB.xkb_compose_state_get_utf8(compose, buf, 64)
-            got = buf.value.decode() if status == COMPOSED else status
-            want = expected(dead, binding)
+            want, got = expected(dead, binding), result()
             if want != got:
                 mismatches.append((key.name, layer, want, got))
     for key in LAYOUT.keypad:  # with Num Lock on
@@ -231,14 +250,9 @@ def test_dead_keys(xkb, dead_id, with_locale):
             binding = key.pc_layers[layer]
             if binding is None:
                 continue
-            LIB.xkb_compose_state_reset(compose)
-            LIB.xkb_compose_state_feed(compose, kb.press(trigger[0].physical.xkb, trigger[1])[0])
+            start()
             LIB.xkb_compose_state_feed(compose, kb.keypad(key, layer, numlock=True)[0])
-            status = LIB.xkb_compose_state_get_status(compose)
-            buf = ctypes.create_string_buffer(64)
-            LIB.xkb_compose_state_get_utf8(compose, buf, 64)
-            got = buf.value.decode() if status == COMPOSED else status
-            want = expected(dead, binding)
+            want, got = expected(dead, binding), result()
             if want != got:
                 mismatches.append((key.name, layer, want, got))
     assert mismatches == []

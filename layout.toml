@@ -20,6 +20,10 @@
 # a mnemonic (`⟹` after `⇒`), unless that is a letter or listed in the dead
 # key's `no-hint`.
 #
+# A dead key with `after` instead of `key` is a chained dead key: it is
+# typed as two dead keys one after the other (their ids), e.g. Math Bold and
+# then Greek. Its map is keyed like the other dead keys'.
+#
 # [numpad.option] and [numpad.shift-option] are the number pad with Option
 # (AltGr) and with Shift+Option (Shift+AltGr), keyed by what the key types
 # with Num Lock on (`"7"`, `"+"`). The native Windows layout leaves the number
@@ -375,11 +379,39 @@ Y = "Ð"
 "™" = "trade mark sign (on `⌥2` in Apple's US layout)"
 "®" = "registered sign (on `⌥r` in Apple's US layout)"
 
+# Slash, then Math: the negations of the Math dead key's symbols
+[dead.slashmath]
+after = ["slash", "math"]
+name = "Negated Math"
+desc = "the negations of the Math dead key's symbols, where Unicode has them"
+symbol = "≠"  # after Space, or before a key without an entry
+
+[dead.slashmath.map]
+c = "⊄"  # ⊂
+d = "⊈"  # ⊆
+C = "⊅"  # ⊃
+D = "⊉"  # ⊇
+"∈" = "∌"  # ∋
+"∂" = "⋢"  # ⊑
+"Δ" = "⋣"  # ⊒
+"=" = "≇"  # ≅
+"~" = "≄"  # ≃
+"<" = "≴"  # ≲
+">" = "≵"  # ≳
+"{" = "⊀"  # ≺
+"}" = "⊁"  # ≻
+P = "∦"  # ∥
+- = "↮"  # ↔
+4 = "↚"  # ←
+5 = "↮"  # ↔
+6 = "↛"  # →
+
 [dead.math]
 key = "6"
 name = "Math"
 desc = "set operations, relations, and other math symbols"
 symbol = "⋅"  # after Space, or before a key without an entry
+windows-symbol = "·"  # starts Negated Math after Slash, so no key may type it
 table = true  # list the entries in the README
 no-hint = ["∂"]  # `⊑` (`⌥6⌥d`) builds on `⊆` (`⌥6d`), not on `∂`
 readme = '''
@@ -409,7 +441,7 @@ After `⌥6`, other keys go by their shape or name:
 - `!` gives `¬` (not)
 - `=` gives `≅`
 
-With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` (`⌥6d`, `⌥6D`) followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
+With these and the negated `⊈ ⊉` (`⌥/⌥6d`, `⌥/⌥6D`, the Slash dead key followed by Math), every Unicode operator of Julia's Base can be typed.
 '''
 
 [dead.math.map]
@@ -466,6 +498,8 @@ _ = "⊟"
 "#" = "∛"
 "$" = "∜"
 # other symbols
+R = "ℜ"
+I = "ℑ"
 l = "ℓ"
 m = "↦"
 "." = "⋯"
@@ -492,6 +526,8 @@ m = "↦"
 
 [dead.math.notes]
 "ℓ" = "script l (angular momentum)"
+"ℜ" = "black-letter R, real part (`\\Re`)"
+"ℑ" = "black-letter I, imaginary part (`\\Im`)"
 "⟂" = "perpendicular, `\\perp` in Julia (not the up tack `⊥`, `\\bot`)"
 "‖" = "double vertical line (norm, `\\Vert` in Julia and LaTeX)"
 "∥" = "parallel (`\\parallel`)"
@@ -548,6 +584,7 @@ key = "f"
 name = "Greek"
 desc = "Greek letters, polytonic accents (typed after the letter), and the first few Hebrew letters used in mathematics"
 symbol = "α"  # after Space, or before a key without an entry
+windows-symbol = "⍺"  # starts chained dead keys, so no key may type it
 readme = '''
 The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and `⌥ff` gives `ϕ` (`\phi`). These are the math symbols, not the letters of Greek text, which are `ε` (`\varepsilon`, on `v`) and `φ` (`\varphi`, on `V`). For Greek text, use `v` and `V`: an accent on `ϵ` doesn't normalize to a precomposed letter, while `ε⌥f'` becomes `έ`.
 '''
@@ -645,7 +682,7 @@ name = "Subscript"
 desc = "subscripts"
 symbol = "₀"  # after Space, or before a key without an entry
 readme = '''
-Unicode doesn't have a complete alphabet of subscripts, so some letters are missing. Of the Greek subscripts, `ᵦ` and `ᵨ` follow `⌥b` (`β`) and `⌥r` (`ρ`); `ᵧ`, `ᵩ`, and `ᵪ` are on `G`, `F`, and `X`, the keys of `γ`, `ϕ`, and `χ` in the Greek dead key (uppercase, so the lowercase keys stay free for Latin subscripts Unicode might add).
+Unicode doesn't have a complete alphabet of subscripts, so some letters are missing. It has only five Greek subscripts, `ᵦ ᵧ ᵨ ᵩ ᵪ`, which are after the Greek dead key (below).
 '''
 
 [dead.subscript.map]
@@ -681,11 +718,21 @@ x = "ₓ"
 "+" = "₊"
 - = "₋"
 "=" = "₌"
-"β" = "ᵦ"
-"ρ" = "ᵨ"
-G = "ᵧ"
-F = "ᵩ"
-X = "ᵪ"
+
+# Subscript, then Greek: the Greek subscripts Unicode has
+[dead.subscriptgreek]
+after = ["subscript", "greek"]
+name = "Subscript Greek"
+desc = "the Greek subscripts Unicode has, on the keys of the Greek dead key"
+symbol = "ᵦ"  # after Space, or before a key without an entry
+
+[dead.subscriptgreek.map]
+b = "ᵦ"  # β
+g = "ᵧ"  # γ
+r = "ᵨ"  # ρ
+f = "ᵩ"  # ϕ
+V = "ᵩ"  # φ
+x = "ᵪ"  # χ
 
 [dead.superscript]
 key = "Z"
@@ -760,8 +807,26 @@ W = "ᵂ"
 "+" = "⁺"
 - = "⁻"
 "=" = "⁼"
-"α" = "ᵅ"
-"β" = "ᵝ"
+
+# Superscript, then Greek: the Greek superscripts Unicode has
+[dead.superscriptgreek]
+after = ["superscript", "greek"]
+name = "Superscript Greek"
+desc = "the Greek superscripts Unicode has, on the keys of the Greek dead key"
+symbol = "ᵅ"  # after Space, or before a key without an entry
+
+[dead.superscriptgreek.map]
+a = "ᵅ"  # α
+b = "ᵝ"  # β
+g = "ᵞ"  # γ
+d = "ᵟ"  # δ
+e = "ᵋ"  # ϵ
+v = "ᵋ"  # ε
+h = "ᶿ"  # θ
+i = "ᶥ"  # ι
+f = "ᶲ"  # ϕ
+V = "ᵠ"  # φ
+x = "ᵡ"  # χ
 
 [dead.script]
 key = "R"
@@ -892,16 +957,71 @@ Z = "𝐙"
 7 = "𝟕"
 8 = "𝟖"
 9 = "𝟗"
-"α" = "𝛂"
-"β" = "𝛃"
-"π" = "𝛑"
-"ρ" = "𝛒"
-"ω" = "𝛚"
-"Γ" = "𝚪"
-"Δ" = "𝚫"
-"Φ" = "𝚽"
-"Ψ" = "𝚿"
 "∇" = "𝛁"
+
+# A chained dead key: Math Bold, then Greek, then the key of a Greek letter
+# gives its bold version.
+[dead.boldgreek]
+after = ["bold", "greek"]
+name = "Math Bold Greek"
+desc = "bold Greek letters, on the keys of the Greek dead key"
+symbol = "𝛂"  # after Space, or before a key without an entry
+
+[dead.boldgreek.map]
+a = "𝛂"
+b = "𝛃"
+c = "𝛏"
+d = "𝛅"
+e = "𝛜"
+f = "𝛟"
+g = "𝛄"
+h = "𝛉"
+i = "𝛊"
+j = "𝛓"
+k = "𝛋"
+l = "𝛌"
+m = "𝛍"
+n = "𝛎"
+o = "𝛐"
+p = "𝛑"
+q = "𝛙"
+r = "𝛒"
+s = "𝛔"
+t = "𝛕"
+u = "𝛖"
+v = "𝛆"
+w = "𝛚"
+x = "𝛘"
+y = "𝛈"
+z = "𝛇"
+A = "𝚨"
+B = "𝚩"
+C = "𝚵"
+D = "𝚫"
+E = "𝚬"
+F = "𝚽"
+G = "𝚪"
+H = "𝚯"
+I = "𝚰"
+K = "𝚱"
+L = "𝚲"
+M = "𝚳"
+N = "𝚴"
+O = "𝚶"
+P = "𝚷"
+Q = "𝚿"
+R = "𝚸"
+S = "𝚺"
+T = "𝚻"
+U = "𝚼"
+V = "𝛗"
+W = "𝛀"
+X = "𝚾"
+Y = "𝚮"
+Z = "𝚭"
+J = "𝛝"
+"π" = "𝛡"
+"ρ" = "𝛠"
 
 [dead.doublestruck]
 key = "M"
@@ -982,6 +1102,19 @@ Z = "ℤ"
 "+" = "⧺"
 "⟨" = "⟪"
 "⟩" = "⟫"
+
+# Double-Struck, then Greek: the double-struck Greek letters Unicode has
+[dead.doublestruckgreek]
+after = ["doublestruck", "greek"]
+name = "Double-Struck Greek"
+desc = "the double-struck Greek letters Unicode has, on the keys of the Greek dead key"
+symbol = "ℾ"  # after Space, or before a key without an entry
+
+[dead.doublestruckgreek.map]
+g = "ℽ"  # γ
+p = "ℼ"  # π
+G = "ℾ"  # Γ
+P = "ℿ"  # Π
 
 [notes]
 "\u0303" = "combining over-tilde for the previous character, e.g., ``S⌥⇧` `` gives `S\u0303` (Fourier transform)"  # combining tilde

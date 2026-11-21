@@ -12,13 +12,26 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ### Added
 
+- Chained dead keys: two dead keys, one after the other, then a key. All but Math Bold Greek are in the native Windows layout too, whose dead keys can't type bold letters (use Keyman for those).
+  - Math Bold, then Greek: the bold version of the Greek letter, for all 54 that Unicode has (e.g., `⌥⇧f⌥fh` gives `𝛉`, `⌥⇧f⌥fm` gives `𝛍`, `⌥⇧f⌥fS` gives `𝚺`).
+  - Slash, then Math: the negations of the Math dead key's symbols, `⊄ ⊈ ⊅ ⊉ ∌ ⋢ ⋣ ≇ ≄ ≴ ≵ ⊀ ⊁ ∦ ↚ ↛ ↮` (e.g., `⌥/⌥6d` gives `⊈`).
+  - Subscript, then Greek: `ᵦ ᵧ ᵨ ᵩ ᵪ`; Superscript, then Greek: `ᵅ ᵝ ᵞ ᵟ ᵋ ᶿ ᶥ ᶲ ᵠ ᵡ` (e.g., `⌥⇧z⌥fh` gives `ᶿ`). Of these, `ᵞ ᵟ ᵋ ᶿ ᶥ ᶲ ᵠ ᵡ` are new.
+  - Double-Struck, then Greek: `ℽ ℼ ℾ ℿ` (`g p G P`).
+- Math dead key: `ℜ` (`R`, real part, `\Re`) and `ℑ` (`I`, imaginary part, `\Im`).
 - Double-Struck dead key: the double square brackets `⟦ ⟧` (`[` and `]`), `‖` (`|`, also on `⌥6|`), `⧺` (`+`), and the double angle brackets `⟪ ⟫` (`⌥⇧m⌥[` and `⌥⇧m⌥]`, after the keys of `⟨ ⟩`), for vectors in Liouville space.
 - Math dead key (`⌥6`, then the key): the squared `⊞ ⊟` (`+`, `_`), the triangles `◁ ▷` (`⌥[` and `⌥]`, the keys of `⟨ ⟩`; series product in SLH), and the square versions of the set symbols, `⊏ ⊑ ⊐ ⊒` (`⌥c`, `⌥d`, `⌥⇧c`, `⌥⇧d`, the keys of `⊂ ⊆ ⊃ ⊇` with Option) and `⊓ ⊔` (`⌥n`, `⌥u`, the keys of `∩ ∪` with Option).
 
 ### Changed
 
+- The Greek letters in the Math Bold, Subscript, and Superscript dead keys moved to the chained dead keys with Greek: `𝛂 𝛃 𝛑 𝛒 𝛚 𝚪 𝚫 𝚽 𝚿` (e.g., `⌥⇧f⌥q`; now `⌥⇧f⌥fa`), `ᵦ ᵨ` (`⌥z⌥b`, `⌥z⌥r`), `ᵧ ᵩ ᵪ` (`⌥zG`, `⌥zF`, `⌥zX`), and `ᵅ ᵝ` (`⌥⇧z⌥q`, `⌥⇧z⌥b`). `⌥⇧f⌥⇧b` still gives `𝛁`.
+- Native Windows: the Greek and Math dead keys, before a key they have no entry for, type `⍺` and `·` instead of `α` and `⋅` (e.g., `⌥f5` gives `⍺5`). Windows finds a dead key by its character, as if a key had typed it, and `⌥q` types `α` and `⌥⇧8` types `⋅`, which would start the chained dead keys. Space after them still types `α` and `⋅`.
+- Linux: a dead key followed by the second dead key of a chain (e.g., Math Bold, then Greek) no longer types both their symbols; it starts the chained dead key.
 - Math dead key: `⊆ ⊇` moved from `s` and `S` to `d` and `D`, the key above `c` and `C` (`⊂ ⊃`); `⊇` looks like a D. `⌥6s` and `⌥6S` type `⋅s` and `⋅S` now, like other keys without an entry.
-- Cheat sheet: the dead keys' entries that follow an Option key are in the diagrams, in a second column on each key, instead of in a list below the description; a result that builds on what the key types with Option has that symbol small and gray behind it (e.g., `⟹⇒` on `K`). The Slash dead key's description has a legend.
+- Cheat sheet: the dead keys' entries that follow an Option key are in the diagrams, in a second column on each key, instead of in a list below the description; a result that builds on what the key types with Option has that symbol small and gray behind it (e.g., `⟹⇒` on `K`). A legend explains this. The description of a dead key that starts a chain lists what the second dead key gives that the chain has (e.g., under Math Bold, the Greek letters).
+
+### Fixed
+
+- Native Windows: the Double-Struck dead key followed by Shift+M typed `ℍ`, the dead key's stand-in for its symbol `𝕄`; like the other double-struck letters outside the BMP, it isn't in the native layout.
 
 ## [5.2.0] - 2026-11-19
 

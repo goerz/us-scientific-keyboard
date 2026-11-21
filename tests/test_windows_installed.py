@@ -35,6 +35,10 @@ MODIFIERS = {
     "option": ALTGR, "caps-option": ALTGR, "shift-option": SHIFT + ALTGR,
 }
 KLF_NOTELLSHELL = 0x80
+# ToUnicodeEx gives the character of a chained dead key as U+0000, not the
+# one in its DEADTRANS entry; the key typed after it shows that it works
+CHAINED = "\x00"
+CHAIN_CHARS = {DEAD_CHAR[chain.id] for chain in LAYOUT.chains.values() if chain.id in DEAD_CHAR}
 
 
 def vk_code(vk: str) -> int:
@@ -118,6 +122,15 @@ def keyboard():
     return Keyboard(klid)
 
 
+def triggers(dead_id):
+    """[(virtual key, layer)] of the keys that type dead key `dead_id`: one,
+    or for a chained dead key, those of its two dead keys."""
+    chain = next((d for d in LAYOUT.chains.values() if d.id == dead_id), None)
+    if chain is not None:
+        return [trigger(d) for d in chain.after]
+    return [trigger(dead_id)]
+
+
 def trigger(dead_id):
     """(virtual key, layer) of the key that types dead key `dead_id`."""
     for key, layer in itertools.product(LAYOUT.keys, LAYERS):
@@ -136,9 +149,13 @@ def test_keys(keyboard, dead_id):
             continue
         keyboard.clear()
         if dead_id is not None:
-            dead = keyboard.press(*trigger(dead_id))
-            assert dead == ("dead", DEAD_CHAR[dead_id])
+            for vk, trigger_layer in triggers(dead_id):
+                dead = keyboard.press(vk, trigger_layer)
+            chained = len(triggers(dead_id)) == 2
+            assert dead == ("dead", CHAINED if chained else DEAD_CHAR[dead_id])
         got = keyboard.press(key.physical.vk, layer)
+        if isinstance(want, tuple) and want[0] == "dead" and want[1] in CHAIN_CHARS:
+            want = ("dead", CHAINED)
         if want != got:
             mismatches.append((key.name, layer, want, got))
     keyboard.clear()

@@ -1,8 +1,8 @@
 """The generated .keylayout does exactly what layout.toml says.
 
 The .keylayout is read back and every character key is checked in every
-layer (including the derived Caps Lock layers), in every dead-key state, and
-every dead key's terminator.
+layer (including the derived Caps Lock layers), in every dead-key state
+(the chained dead keys' too), and every dead key's terminator.
 """
 
 from pathlib import Path
@@ -15,6 +15,7 @@ from layoutgen.macos import MAP_LAYERS
 
 ROOT = Path(__file__).resolve().parent.parent
 LAYOUT = model.load(ROOT / "layout.toml")
+STATES = {dead.id: dead for dead in LAYOUT.states}
 
 
 @pytest.fixture(scope="module")
@@ -28,14 +29,17 @@ def expected(binding, state):
     if binding is None:
         return None
     if isinstance(binding, model.Dead):
-        return Next(binding.id) if state == "none" else None
+        if state == "none":
+            return Next(binding.id)
+        chain = LAYOUT.chain(state, binding)
+        return Next(chain.id) if chain else None
     if state == "none":
         return Output(binding.text)
-    result = LAYOUT.dead[state].map.get(binding.text)
+    result = STATES[state].map.get(binding.text)
     return None if result is None else Output(result)
 
 
-@pytest.mark.parametrize("state", ["none", *LAYOUT.dead])
+@pytest.mark.parametrize("state", ["none", *STATES])
 def test_keys(generated, state):
     mismatches = []
     for key in LAYOUT.keys + LAYOUT.keypad:
@@ -48,5 +52,5 @@ def test_keys(generated, state):
 
 
 def test_terminators(generated):
-    for dead in LAYOUT.dead.values():
+    for dead in LAYOUT.states:
         assert generated.terminators[dead.id] == dead.symbol

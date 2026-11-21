@@ -296,12 +296,13 @@ def _option_legend(binding, dead_map, no_hint=frozenset()):
 
 def _dead_legends(layout: Layout, dead_id: str, option=False):
     """The dead key's trigger key and `legends(key)` for its diagram (see
-    `dead_key`)."""
-    dead = layout.dead[dead_id]
+    `dead_key`). A chained dead key's trigger is the key of its second dead
+    key."""
+    dead = next(d for d in layout.states if d.id == dead_id)
     trigger = next(
         key.name for key in layout.keys
         for layer in ("option", "shift-option")
-        if isinstance(key.layers[layer], Dead) and key.layers[layer].id == dead_id
+        if isinstance(key.layers[layer], Dead) and key.layers[layer].id == (dead.after or (dead_id,))[-1]
     )
 
     def legends(key):
@@ -325,7 +326,7 @@ def dead_key(layout: Layout, font: Font, dead_id: str, compact=False, option=Fal
     """With `option`, each key has a second column on the right, for what it
     gives with Option after the dead key (see `_option_legend`). `marked` is
     what a key types, for a key with a black outline (see `single_key`)."""
-    dead = layout.dead[dead_id]
+    dead = next(d for d in layout.states if d.id == dead_id)
     trigger, legends = _dead_legends(layout, dead_id, option)
     marked_name = next(key.name for key in layout.keys if key.physical.base == marked) if marked else None
     return diagram(
@@ -431,13 +432,16 @@ def numpad(layout: Layout, font: Font, compact=False, layer=None, dead=None) -> 
     return "\n".join(parts) + "\n"
 
 
-def all_diagrams(layout: Layout, font_path: Path = DEFAULT_FONT, compact=False, option=False) -> dict:
+def all_diagrams(
+    layout: Layout, font_path: Path = DEFAULT_FONT, compact=False, option=False, chains=True
+) -> dict:
     """{file name: SVG} for all diagrams; `option` is the dead keys' Option
-    column (see `dead_key`)."""
+    column (see `dead_key`), `chains` whether the chained dead keys have
+    diagrams of their own."""
     font = Font(font_path)
     result = {"alternative.svg": alternative(layout, font, compact)}
-    for dead_id in layout.dead:
-        result[f"dead-{dead_id}.svg"] = dead_key(layout, font, dead_id, compact, option)
+    for dead in layout.states if chains else layout.dead.values():
+        result[f"dead-{dead.id}.svg"] = dead_key(layout, font, dead.id, compact, option)
     if layout.keypad:
         result["numpad.svg"] = numpad(layout, font, compact)
     return result

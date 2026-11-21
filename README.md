@@ -8,7 +8,7 @@ A keyboard layout for typing Unicode math and European accented characters direc
 
 <!-- BEGIN generated: count -->
 
-It types **about 630 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 580 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,200 in all**.
+It types **about 710 characters beyond ASCII**, 110 of them directly with Option or AltGr and the rest through dead keys. 23 are combining accents, which go on any letter (`ǖ`, `ṩ`, `x̲`), so you can also type the roughly 570 accented characters that Unicode has as single characters (330 Latin, 240 Greek, and a few symbols such as `≮`): **about 1,300 in all**.
 
 <!-- END generated: count -->
 
@@ -277,6 +277,10 @@ The digits `2` to `5` give the fractions 1/n (`½ ⅓ ¼ ⅕`), and with Shift, 
 | `⌥⇧k` (`⇒`) | `⇏` | rightwards double arrow with stroke |
 | `⌥⇧l` (`⇔`) | `⇎` | left right double arrow with stroke |
 
+`⌥/`, then the Math dead key (`⌥6`), then a key: the negations of the Math dead key's symbols, where Unicode has them.
+
+![Negated Math](docs/dead-slashmath.svg)
+
 ### Math dead key
 
 `⌥6`, then a key: set operations, relations, and other math symbols. Space types `⋅`.
@@ -309,7 +313,7 @@ After `⌥6`, other keys go by their shape or name:
 - `!` gives `¬` (not)
 - `=` gives `≅`
 
-With these, every Unicode operator of Julia's Base can be typed. The negated `⊈` and `⊉` are `⊆` and `⊇` (`⌥6d`, `⌥6D`) followed by the combining long solidus (`⌥;/`), which Julia reads as the same operator.
+With these and the negated `⊈ ⊉` (`⌥/⌥6d`, `⌥/⌥6D`, the Slash dead key followed by Math), every Unicode operator of Julia's Base can be typed.
 
 | Key | Symbol | Description |
 |-----|--------|-------------|
@@ -360,6 +364,8 @@ With these, every Unicode operator of Julia's Base can be typed. The negated `�
 | `⌥⇧x` (`⊗`) | `⨂` | n-ary circled times (tensor product of many, `\bigotimes`) |
 | `#` | `∛` | cube root (`cbrt` in Julia, `\cbrt`) |
 | `$` | `∜` | fourth root (`fourthroot` in Julia, `\fourthroot`) |
+| `R` | `ℜ` | black-letter R, real part (`\Re`) |
+| `I` | `ℑ` | black-letter I, imaginary part (`\Im`) |
 | `l` | `ℓ` | script l (angular momentum) |
 | `m` | `↦` | maps to |
 | `.` | `⋯` | midline ellipsis (`\cdots`) |
@@ -440,9 +446,11 @@ The Greek dead key follows LaTeX and Julia: `⌥fe` gives `ϵ` (`\epsilon`) and 
 
 ![Subscript dead key](docs/dead-subscript.svg)
 
-Unicode doesn't have a complete alphabet of subscripts, so some letters are missing. Of the Greek subscripts, `ᵦ` and `ᵨ` follow `⌥b` (`β`) and `⌥r` (`ρ`); `ᵧ`, `ᵩ`, and `ᵪ` are on `G`, `F`, and `X`, the keys of `γ`, `ϕ`, and `χ` in the Greek dead key (uppercase, so the lowercase keys stay free for Latin subscripts Unicode might add).
+Unicode doesn't have a complete alphabet of subscripts, so some letters are missing. It has only five Greek subscripts, `ᵦ ᵧ ᵨ ᵩ ᵪ`, which are after the Greek dead key (below).
 
-With an alternative character after the dead key: `⌥b` (`β`) gives `ᵦ`, `⌥r` (`ρ`) gives `ᵨ`.
+`⌥z`, then the Greek dead key (`⌥f`), then a key: the Greek subscripts Unicode has, on the keys of the Greek dead key.
+
+![Subscript Greek](docs/dead-subscriptgreek.svg)
 
 ### Superscript dead key
 
@@ -452,7 +460,9 @@ With an alternative character after the dead key: `⌥b` (`β`) gives `ᵦ`, `�
 
 Unicode doesn't have a complete alphabet of superscripts, so some letters are missing. A few of them, the superscript capital C, F, and Q and small q (on `C`, `F`, `Q`, and `q`), were only added in Unicode 14 and are missing from many fonts.
 
-With an alternative character after the dead key: `⌥q` (`α`) gives `ᵅ`, `⌥b` (`β`) gives `ᵝ`.
+`⌥⇧z`, then the Greek dead key (`⌥f`), then a key: the Greek superscripts Unicode has, on the keys of the Greek dead key.
+
+![Superscript Greek](docs/dead-superscriptgreek.svg)
 
 ### Math Script dead key
 
@@ -466,7 +476,11 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `ᵅ`, `�
 
 ![Math Bold dead key](docs/dead-bold.svg)
 
-With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `⌥b` (`β`) gives `𝛃`, `⌥p` (`π`) gives `𝛑`, `⌥r` (`ρ`) gives `𝛒`, `⌥w` (`ω`) gives `𝛚`, `⌥⇧g` (`Γ`) gives `𝚪`, `⌥⇧d` (`Δ`) gives `𝚫`, `⌥⇧y` (`Φ`) gives `𝚽`, `⌥y` (`Ψ`) gives `𝚿`, `⌥⇧b` (`∇`) gives `𝛁`.
+With an alternative character after the dead key: `⌥⇧b` (`∇`) gives `𝛁`.
+
+`⌥⇧f`, then the Greek dead key (`⌥f`), then a key: bold Greek letters, on the keys of the Greek dead key.
+
+![Math Bold Greek](docs/dead-boldgreek.svg)
 
 ### Double-Struck dead key
 
@@ -477,6 +491,10 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `�
 Some symbol keys give their doubled versions: `[` and `]` the double square brackets `⟦ ⟧`, `|` the double vertical line `‖` (norm; also on `⌥6|`), and `+` the double plus `⧺` (an operator in Julia, with the precedence of `+`). The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
 
 With an alternative character after the dead key: `⌥[` (`⟨`) gives `⟪`, `⌥]` (`⟩`) gives `⟫`.
+
+`⌥⇧m`, then the Greek dead key (`⌥f`), then a key: the double-struck Greek letters Unicode has, on the keys of the Greek dead key.
+
+![Double-Struck Greek](docs/dead-doublestruckgreek.svg)
 
 <!-- END generated: dead-keys -->
 
