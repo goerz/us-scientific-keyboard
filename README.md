@@ -474,7 +474,7 @@ With an alternative character after the dead key: `⌥q` (`α`) gives `𝛂`, `�
 
 ![Double-Struck dead key](docs/dead-doublestruck.svg)
 
-The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
+Some symbol keys give their doubled versions: `[` and `]` the double square brackets `⟦ ⟧`, `|` the double vertical line `‖` (norm; also on `⌥6|`), and `+` the double plus `⧺` (an operator in Julia, with the precedence of `+`). The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
 
 With an alternative character after the dead key: `⌥[` (`⟨`) gives `⟪`, `⌥]` (`⟩`) gives `⟫`.
 

@@ -910,7 +910,7 @@ desc = "letters from the double-struck alphabet, e.g., for number sets"
 symbol = "𝕄"  # after Space, or before a key without an entry
 windows-symbol = "ℍ"  # Windows needs a BMP character
 readme = '''
-The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
+Some symbol keys give their doubled versions: `[` and `]` the double square brackets `⟦ ⟧`, `|` the double vertical line `‖` (norm; also on `⌥6|`), and `+` the double plus `⧺` (an operator in Julia, with the precedence of `+`). The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
 '''
 
 [dead.doublestruck.map]
@@ -976,6 +976,10 @@ Z = "ℤ"
 7 = "𝟟"
 8 = "𝟠"
 9 = "𝟡"
+"[" = "⟦"
+"]" = "⟧"
+"|" = "‖"
+"+" = "⧺"
 "⟨" = "⟪"
 "⟩" = "⟫"
 

@@ -12,7 +12,7 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ### Added
 
-- Double-Struck dead key: the double angle brackets `⟪ ⟫` (`⌥⇧m⌥[` and `⌥⇧m⌥]`, after the keys of `⟨ ⟩`), for vectors in Liouville space.
+- Double-Struck dead key: the double square brackets `⟦ ⟧` (`[` and `]`), `‖` (`|`, also on `⌥6|`), `⧺` (`+`), and the double angle brackets `⟪ ⟫` (`⌥⇧m⌥[` and `⌥⇧m⌥]`, after the keys of `⟨ ⟩`), for vectors in Liouville space.
 - Math dead key (`⌥6`, then the key): the squared `⊞ ⊟` (`+`, `_`), the triangles `◁ ▷` (`⌥[` and `⌥]`, the keys of `⟨ ⟩`; series product in SLH), and the square versions of the set symbols, `⊏ ⊑ ⊐ ⊒` (`⌥c`, `⌥d`, `⌥⇧c`, `⌥⇧d`, the keys of `⊂ ⊆ ⊃ ⊇` with Option) and `⊓ ⊔` (`⌥n`, `⌥u`, the keys of `∩ ∪` with Option).
 
 ### Changed
