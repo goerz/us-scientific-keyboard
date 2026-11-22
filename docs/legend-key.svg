@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="58" height="58" viewBox="1.0 1.0 58 58" role="img">
+<style>
+  .key { fill: #ffffff; stroke: #9a9a9a; stroke-width: 1; }
+  .frame { fill: #ececec; stroke: #c4c4c4; stroke-width: 1; }
+  .badge { fill: #4a4a4a; }
+  .active { fill: #f6c445; stroke: #c99a17; }
+  .marked { stroke: #111111; stroke-width: 1.5; }
+  .unused { fill: #f4f4f4; stroke: #d6d6d6; }
+  .out { fill: #111111; }
+  .dead-out { fill: #ffffff; }
+  .label { fill: #8a8a8a; }
+  .note { fill: #5a5a5a; }
+  .hint { fill: #bdbdbd; }
+  .bg { fill: #f8f8f8; }
+  @media (prefers-color-scheme: dark) {
+    .bg { fill: #1e1e1e; }
+    .key { fill: #2d2d2d; stroke: #5c5c5c; }
+    .frame { fill: #262626; stroke: #444444; }
+    .unused { fill: #232323; stroke: #3a3a3a; }
+    .badge { fill: #c8c8c8; }
+    .dead-out { fill: #111111; }
+    .active { fill: #8a6a10; stroke: #c99a17; }
+    .marked { stroke: #eeeeee; }
+    .out { fill: #eeeeee; }
+    .label { fill: #8a8a8a; }
+    .note { fill: #b0b0b0; }
+    .hint { fill: #5a5a5a; }
+  }
+</style>
+<defs><path id="g0" d="M492 452H134V644H492V1026H706V644H1064V452H706V72H492Z"/><path id="g1" d="M142 848H1060V658H142ZM142 446H1060V256H142Z"/><path id="g2" d="M694 998V676H1082V476H694V154H486V476H116V676H486V998ZM1082 1322V1122H116V1322Z"/><path id="g3" d="M488 774H118V974H488V1296H696V974H1084V774H696V452H488ZM118 328H1084V128H118Z"/><path id="g4" d="M140 170Q140 267 176.0 347.5Q212 428 272.5 474.0Q333 520 403 520Q455 520 513 491L587 696Q539 736 496.5 758.5Q454 781 398 781Q344 781 315.5 760.5Q287 740 275.5 707.0Q264 674 252 610L246 579H141Q140 588 140 607Q140 704 176.0 784.5Q212 865 272.5 911.0Q333 957 403 957Q454 957 502.5 933.0Q551 909 618 863Q630 855 642 846L898 1550H1082L799 772Q807 772 814 771Q864 771 889.0 787.0Q914 803 927.0 844.0Q940 885 951 973H1061Q1062 964 1062 945Q1062 849 1026.5 768.0Q991 687 931.5 640.0Q872 593 805 593Q773 593 738 604L662 396L664 395Q689 378 713.5 363.5Q738 349 761.5 341.5Q785 334 814 334Q864 334 889.0 350.0Q914 366 927.0 407.0Q940 448 951 536H1061Q1062 527 1062 508Q1062 412 1026.5 331.0Q991 250 931.5 203.0Q872 156 805 156Q761 156 718.0 174.0Q675 192 617 235L607 243L380 -380H196L456 336Q427 344 398 344Q344 344 315.5 323.5Q287 303 275.5 270.0Q264 237 252 173L246 142H141Q140 151 140 170Z"/><path id="g5" d="M140 170Q140 267 176.0 347.5Q212 428 272.5 474.0Q333 520 403 520Q455 520 502.5 496.0Q550 472 618 426L664 395Q689 378 713.5 363.5Q738 349 761.5 341.5Q785 334 814 334Q864 334 889.0 350.0Q914 366 927.0 407.0Q940 448 951 536H1061Q1062 527 1062 508Q1062 412 1026.5 331.0Q991 250 931.5 203.0Q872 156 805 156Q761 156 718.0 174.0Q675 192 617 235L590 257Q543 297 499.5 320.5Q456 344 398 344Q344 344 315.5 323.5Q287 303 275.5 270.0Q264 237 252 173L246 142H141Q140 151 140 170ZM140 607Q140 704 176.0 784.5Q212 865 272.5 911.0Q333 957 403 957Q455 957 502.5 933.0Q550 909 618 863L664 832Q689 815 713.5 800.5Q738 786 761.5 778.5Q785 771 814 771Q864 771 889.0 787.0Q914 803 927.0 844.0Q940 885 951 973H1061Q1062 964 1062 945Q1062 849 1026.5 768.0Q991 687 931.5 640.0Q872 593 805 593Q761 593 718.0 611.0Q675 629 617 672L590 694Q543 734 499.5 757.5Q456 781 398 781Q344 781 315.5 760.5Q287 740 275.5 707.0Q264 674 252 610L246 579H141Q140 588 140 607Z"/><path id="g6" d="M136 848H643L898 1550H1082L827 848H1054V658H758L680 446H1054V256H611L380 -380H196L427 256H136V446H496L574 658H136Z"/></defs>
+<rect class="key marked" x="2.0" y="2.0" width="56.0" height="56" rx="6"/>
+<g class="label"><use href="#g0" transform="translate(35.0 15.0) scale(0.00500 -0.00500)"/><use href="#g1" transform="translate(47.0 15.0) scale(0.00500 -0.00500)"/></g>
+<g class="opt out"><use href="#g2" transform="translate(31.0 31.0) scale(0.00850 -0.00850)"/></g>
+<g class="hint"><use href="#g3" transform="translate(42.2 31.0) scale(0.00500 -0.00500)"/></g>
+<g class="opt out"><use href="#g4" transform="translate(31.0 49.0) scale(0.00850 -0.00850)"/></g>
+<g class="hint"><use href="#g5" transform="translate(42.2 49.0) scale(0.00500 -0.00500)"/></g>
+<g class="out"><use href="#g2" transform="translate(9.0 26.0) scale(0.01100 -0.01100)"/></g>
+<g class="out"><use href="#g6" transform="translate(9.0 48.0) scale(0.01100 -0.01100)"/></g>
+</svg>

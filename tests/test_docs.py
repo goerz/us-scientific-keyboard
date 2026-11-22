@@ -23,7 +23,7 @@ def test_readme_up_to_date():
 @pytest.mark.skipif(not FONT.exists(), reason="run `make fonts`")
 def test_diagrams_up_to_date():
     diagram_dir = ROOT / docs.DIAGRAM_DIR
-    expected = svg.all_diagrams(LAYOUT, FONT)
+    expected = svg.all_diagrams(LAYOUT, FONT, option=True)
     assert sorted(p.name for p in diagram_dir.glob("*.svg")) == sorted(expected), "run `make docs`"
     for name, content in expected.items():
         assert (diagram_dir / name).read_text(encoding="utf-8") == content, f"{name}: run `make docs`"

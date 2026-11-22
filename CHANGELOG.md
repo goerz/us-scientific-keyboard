@@ -28,6 +28,7 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 - Linux: a dead key followed by the second dead key of a chain (e.g., Math Bold, then Greek) no longer types both their symbols; it starts the chained dead key.
 - Math dead key: `⊆ ⊇` moved from `s` and `S` to `d` and `D`, the key above `c` and `C` (`⊂ ⊃`); `⊇` looks like a D. `⌥6s` and `⌥6S` type `⋅s` and `⋅S` now, like other keys without an entry.
 - Cheat sheet: the dead keys' entries that follow an Option key are in the diagrams, in a second column on each key, instead of in a list below the description; a result that builds on what the key types with Option has that symbol small and gray behind it (e.g., `⟹⇒` on `K`). A legend explains this. The description of a dead key that starts a chain lists what the second dead key gives that the chain has (e.g., under Math Bold, the Greek letters).
+- README: the dead keys' diagrams have the cheat sheet's Option column, explained by a legend, instead of the lists of these entries below them ("With an alternative character after the dead key").
 
 ### Fixed
 

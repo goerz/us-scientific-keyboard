@@ -13,12 +13,10 @@ from . import svg
 from .model import Char, Dead, Layout
 
 PER_PAGE = 6
-# The key that explains the dead keys' Option column (see `svg.dead_key`):
-# (dead key, what the key types), a key with all four legends and a gray
-# hint, outlined in its dead key's diagram. The legend is right above that
-# dead key's description, in the space the description before leaves free
-# (it has to be short).
-LEGEND_KEY = ("slash", "=")
+# The legend for the dead keys' Option column is right above the description
+# of `svg.LEGEND_KEY`'s dead key, in the space the description before leaves
+# free (it has to be short).
+LEGEND_KEY = svg.LEGEND_KEY
 DIAGRAM_WIDTH = 4.6  # inches; six diagrams fit in the height of a letter page
 
 TEX = r"""\documentclass[10pt]{{article}}
@@ -196,14 +194,9 @@ def svg_width(content: str) -> float:
 def write(layout: Layout, outdir: Path, font: Path = svg.DEFAULT_FONT) -> None:
     outdir.mkdir(parents=True, exist_ok=True)
     diagrams = svg.all_diagrams(layout, font, compact=True, option=True, chains=False)
-    # the key that the legend explains, marked in its dead key's diagram
-    diagrams[f"dead-{LEGEND_KEY[0]}.svg"] = svg.dead_key(
-        layout, svg.Font(font), LEGEND_KEY[0], compact=True, option=True, marked=LEGEND_KEY[1]
-    )
     for name, content in diagrams.items():
         (outdir / name).write_text(content, encoding="utf-8")
-    legend_key = svg.single_key(layout, svg.Font(font), *LEGEND_KEY)
-    (outdir / "legend-key.svg").write_text(legend_key, encoding="utf-8")
+    legend_key = diagrams.pop("legend-key.svg")
     numpad = diagrams.pop("numpad.svg", None)
     if numpad is not None:  # on the cheat sheet, each layer by itself
         (outdir / "numpad.svg").unlink()

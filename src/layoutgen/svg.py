@@ -335,6 +335,12 @@ def dead_key(layout: Layout, font: Font, dead_id: str, compact=False, option=Fal
     )
 
 
+# The key that explains the dead keys' Option column in the legends of the
+# README and the cheat sheet: (dead key, what the key types), a key with all
+# four legends and a gray hint
+LEGEND_KEY = ("slash", "=")
+
+
 def single_key(layout: Layout, font: Font, dead_id: str, base: str) -> str:
     """SVG of one key of a dead key's diagram, the one that types `base`, to
     explain the legends (the cheat sheet's legend), marked like in the
@@ -436,12 +442,16 @@ def all_diagrams(
     layout: Layout, font_path: Path = DEFAULT_FONT, compact=False, option=False, chains=True
 ) -> dict:
     """{file name: SVG} for all diagrams; `option` is the dead keys' Option
-    column (see `dead_key`), `chains` whether the chained dead keys have
-    diagrams of their own."""
+    column (see `dead_key`), with the key that explains it (`LEGEND_KEY`) by
+    itself in `legend-key.svg` and marked in its dead key's diagram;
+    `chains` whether the chained dead keys have diagrams of their own."""
     font = Font(font_path)
     result = {"alternative.svg": alternative(layout, font, compact)}
     for dead in layout.states if chains else layout.dead.values():
-        result[f"dead-{dead.id}.svg"] = dead_key(layout, font, dead.id, compact, option)
+        marked = LEGEND_KEY[1] if option and dead.id == LEGEND_KEY[0] else None
+        result[f"dead-{dead.id}.svg"] = dead_key(layout, font, dead.id, compact, option, marked)
+    if option:
+        result["legend-key.svg"] = single_key(layout, font, *LEGEND_KEY)
     if layout.keypad:
         result["numpad.svg"] = numpad(layout, font, compact)
     return result

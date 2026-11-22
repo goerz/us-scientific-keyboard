@@ -13,6 +13,7 @@ import re
 import sys
 import unicodedata
 
+from . import svg
 from .model import Char, Dead, Layout
 from .svg import display
 
@@ -98,24 +99,62 @@ def alternative_tables(layout: Layout) -> str:
     return "\n".join(out)
 
 
+def trigger_keys(layout: Layout, dead_id: str) -> str:
+    """The keys that type dead key `dead_id`, like ⌥/."""
+    key, layer = next(
+        (key, layer) for key in layout.keys for layer in ("option", "shift-option")
+        if isinstance(key.layers[layer], Dead) and key.layers[layer].id == dead_id
+    )
+    return keys(key.physical, layer == "shift-option")
+
+
+def dead_key_legend(layout: Layout) -> str:
+    """How to read a key in a dead key's diagram, on the key `svg.LEGEND_KEY`."""
+    dead_id, base = svg.LEGEND_KEY
+    dead = layout.dead[dead_id]
+    key = next(key for key in layout.keys if key.physical.base == base)
+    trigger = trigger_keys(layout, dead_id)
+    places = (
+        ("shift", "large, top left"), ("base", "large, bottom left"),
+        ("shift-option", "small, top right"), ("option", "small, bottom right"),
+    )
+    rows, hints = [], []
+    for layer, place in places:
+        typed = key.layers[layer].text
+        pressed = keys(key.physical, layer == "shift-option") if "option" in layer else typed
+        rows.append(f"| {place} | {code(trigger)}, then {code(pressed)} | {code(display(dead.map[typed]))} |")
+        if "option" in layer and len(svg._option_legend(key.layers[layer], dead.map, dead.no_hint)) == 3:
+            hints.append(f"{code(display(typed))} on {code(pressed)}")
+    width = 2 * (svg.U - svg.GAP + 2)
+    return "\n".join([
+        f"Each key in a dead key's diagram shows what it gives after the dead key: on the left, typed "
+        f"without Option, and on the right, smaller, typed with Option. The upper character is with Shift. "
+        f"For example, the {code(base)} key, outlined in the {dead.name} dead key's diagram:",
+        "",
+        f'<img src="{DIAGRAM_DIR}/legend-key.svg" width="{width}" '
+        f'alt="The {base} key in the {dead.name} dead key\'s diagram">',
+        "",
+        "| On the key | Keys | Gives |",
+        "|------------|------|-------|",
+        *rows,
+        "",
+        f"A small gray character behind a result on the right is what the key types with Option, when the "
+        f"result builds on it (here {' and '.join(hints)}). A result after a letter key with Option doesn't "
+        f"have one; it goes with the result of the letter on the left.",
+    ])
+
+
 def dead_key_sections(layout: Layout) -> str:
     out = []
     # The keys the diagrams show (not the ISO key)
     drawn = [k for k in layout.keys if k.physical.name != "iso"]
     typed_on_keys = {k.physical.base for k in drawn} | {k.physical.shift for k in drawn}
 
-    def trigger_keys(dead_id):
-        key, layer = next(
-            (key, layer) for key in layout.keys for layer in ("option", "shift-option")
-            if isinstance(key.layers[layer], Dead) and key.layers[layer].id == dead_id
-        )
-        return keys(key.physical, layer == "shift-option")
-
     for dead in layout.dead.values():
         out += [
             f"### {dead_heading(dead)}",
             "",
-            f"{code(trigger_keys(dead.id))}, then a key: {dead.desc}. Space types {code(display(dead.symbol))}.",
+            f"{code(trigger_keys(layout, dead.id))}, then a key: {dead.desc}. Space types {code(display(dead.symbol))}.",
             "",
             f"![{dead.name} dead key]({DIAGRAM_DIR}/dead-{dead.id}.svg)",
             "",
@@ -127,29 +166,14 @@ def dead_key_sections(layout: Layout) -> str:
         for (first, second), chain in layout.chains.items():
             if first == dead.id:
                 chained += [
-                    f"{code(trigger_keys(first))}, then the {layout.dead[second].name} dead key "
-                    f"({code(trigger_keys(second))}), then a key: {chain.desc}.",
+                    f"{code(trigger_keys(layout, first))}, then the {layout.dead[second].name} dead key "
+                    f"({code(trigger_keys(layout, second))}), then a key: {chain.desc}.",
                     "",
                     f"![{chain.name}]({DIAGRAM_DIR}/dead-{chain.id}.svg)",
                     "",
                 ]
         if dead.table:
-            out += [dead_entries_table(layout, dead, drawn, typed_on_keys), "", *chained]
-            continue
-        extras = []
-        for typed, result in dead.map.items():
-            if typed in typed_on_keys:
-                continue
-            for key in drawn:
-                for layer in ("option", "shift-option"):
-                    b = key.layers[layer]
-                    if isinstance(b, Char) and b.text == typed:
-                        extras.append(
-                            f"{code(keys(key.physical, layer == 'shift-option'))} ({code(typed)}) "
-                            f"gives {code(display(result))}"
-                        )
-        if extras:
-            out += ["With an alternative character after the dead key: " + ", ".join(extras) + ".", ""]
+            out += [dead_entries_table(layout, dead, drawn, typed_on_keys), ""]
         out += chained
     return "\n".join(out)
 
@@ -299,6 +323,7 @@ SECTIONS = {
     "count": character_count,
     "alternative": alternative_tables,
     "dead-key-table": dead_key_table,
+    "dead-key-legend": dead_key_legend,
     "dead-keys": dead_key_sections,
     "numpad": numpad_section,
 }

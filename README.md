@@ -179,6 +179,23 @@ In the diagrams, dead keys show their symbol on a dark badge. In each dead key's
 
 <!-- END generated: dead-key-table -->
 
+<!-- BEGIN generated: dead-key-legend -->
+
+Each key in a dead key's diagram shows what it gives after the dead key: on the left, typed without Option, and on the right, smaller, typed with Option. The upper character is with Shift. For example, the `=` key, outlined in the Slash dead key's diagram:
+
+<img src="docs/legend-key.svg" width="116" alt="The = key in the Slash dead key's diagram">
+
+| On the key | Keys | Gives |
+|------------|------|-------|
+| large, top left | `⌥/`, then `+` | `∓` |
+| large, bottom left | `⌥/`, then `=` | `≠` |
+| small, top right | `⌥/`, then `⌥⇧=` | `∓` |
+| small, bottom right | `⌥/`, then `⌥=` | `≉` |
+
+A small gray character behind a result on the right is what the key types with Option, when the result builds on it (here `±` on `⌥⇧=` and `≈` on `⌥=`). A result after a letter key with Option doesn't have one; it goes with the result of the letter on the left.
+
+<!-- END generated: dead-key-legend -->
+
 <!-- BEGIN generated: dead-keys -->
 
 ### Acute dead key
@@ -476,8 +493,6 @@ Unicode doesn't have a complete alphabet of superscripts, so some letters are mi
 
 ![Math Bold dead key](docs/dead-bold.svg)
 
-With an alternative character after the dead key: `⌥⇧b` (`∇`) gives `𝛁`.
-
 `⌥⇧f`, then the Greek dead key (`⌥f`), then a key: bold Greek letters, on the keys of the Greek dead key.
 
 ![Math Bold Greek](docs/dead-boldgreek.svg)
@@ -489,8 +504,6 @@ With an alternative character after the dead key: `⌥⇧b` (`∇`) gives `𝛁`
 ![Double-Struck dead key](docs/dead-doublestruck.svg)
 
 Some symbol keys give their doubled versions: `[` and `]` the double square brackets `⟦ ⟧`, `|` the double vertical line `‖` (norm; also on `⌥6|`), and `+` the double plus `⧺` (an operator in Julia, with the precedence of `+`). The double angle brackets `⟪ ⟫` are for vectors in Liouville space: `⌥⇧m⌥]` gives `⟫`, as in `|ρ⟫`.
-
-With an alternative character after the dead key: `⌥[` (`⟨`) gives `⟪`, `⌥]` (`⟩`) gives `⟫`.
 
 `⌥⇧m`, then the Greek dead key (`⌥f`), then a key: the double-struck Greek letters Unicode has, on the keys of the Greek dead key.
 

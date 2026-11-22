@@ -63,7 +63,7 @@ def main(argv=None) -> None:
     elif args.target == "docs":
         args.readme.write_text(docs.update_readme(args.readme.read_text(encoding="utf-8"), layout), encoding="utf-8")
         args.diagrams.mkdir(parents=True, exist_ok=True)
-        for name, content in svg.all_diagrams(layout, args.font).items():
+        for name, content in svg.all_diagrams(layout, args.font, option=True).items():
             (args.diagrams / name).write_text(content, encoding="utf-8")
     elif args.target == "cheatsheet":
         cheatsheet.write(layout, args.output, args.font)
