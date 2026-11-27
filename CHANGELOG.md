@@ -32,6 +32,7 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ### Fixed
 
+- Keyman for Windows: the number pad typed nothing (Num Lock on, without AltGr). Keyman swallowed its keys because they had rules only after a dead key.
 - Native Windows: the Double-Struck dead key followed by Shift+M typed `ℍ`, the dead key's stand-in for its symbol `𝕄`; like the other double-struck letters outside the BMP, it isn't in the native layout.
 
 ## [5.2.0] - 2026-11-19

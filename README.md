@@ -570,7 +570,7 @@ Use the **right** Alt key (AltGr) wherever this README shows `⌥`. The left Alt
 
 There is also a native Windows keyboard layout that doesn't need Keyman. It can't do everything:
 
-* Native Windows dead keys can only produce characters from the Unicode Basic Multilingual Plane. The math bold dead key is therefore missing, and the script and double-struck dead keys only have the letters from the "Letterlike Symbols" block (`ℂ ℕ ℍ ℙ ℚ ℝ ℤ`, `ℬ ℰ ℱ ℋ ℐ ℒ ℳ ℛ ℯ ℊ ℴ`). The double-struck dead key's symbol is `ℍ`.
+* Native Windows dead keys can only produce characters from the Unicode Basic Multilingual Plane. The math bold dead key is therefore missing (`⌥⇧f` types nothing, and the key after it types its own character), and the script and double-struck dead keys only have the letters from the "Letterlike Symbols" block (`ℂ ℕ ℍ ℙ ℚ ℝ ℤ`, `ℬ ℰ ℱ ℋ ℐ ℒ ℳ ℛ ℯ ℊ ℴ`). The double-struck dead key's symbol is `ℍ`.
 * `𝕚` and `𝟙` on AltGr+I and Shift+AltGr+I may not work in all programs.
 * The [number pad](#number-pad) has no box drawing.
 * Shift with Caps Lock on gives lowercase letters, as usual on Windows.

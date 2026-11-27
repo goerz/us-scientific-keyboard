@@ -3,9 +3,13 @@
 The alternative layer is on Right Alt (AltGr), so Left Alt keeps working for
 menu shortcuts. Keys follow Windows/Linux conventions (platform "pc").
 
-The number pad only has rules with AltGr and after a dead key: without
-them, its keys keep doing what the system does (digits or, with Num Lock
-off, navigation).
+The number pad has rules with AltGr and after a dead key. Without a modifier
+or dead key, its keys do what the system does (digits or, with Num Lock off,
+navigation), except on Windows: there, Keyman reserves every key that any
+rule names (as a TSF preserved key) and can't pass one on unchanged when no
+rule matches, so a key that only has rules after a dead key would type
+nothing. The number pad digits and operators get a rule of their own on
+Windows, which only sends their key codes with Num Lock on.
 """
 
 from xml.sax.saxutils import escape
@@ -96,6 +100,11 @@ def kmn(layout: Layout, bitmap: str | None = None) -> str:
     for vkey, binding in specs + [(vkey, b) for vkey, b in keypad if "RALT" in vkey]:
         out, note = rhs(binding)
         lines.append(f"+ {vkey} > {out}  c {note}")
+    lines += ["", "c ---- number pad on Windows (see keyman.py) ----"]
+    for vkey, binding in keypad:
+        if "SHIFT" not in vkey and "RALT" not in vkey:
+            out, note = rhs(binding)
+            lines.append(f"platform('windows') + {vkey} > {out}  c {note}")
     return "\n".join(lines) + "\n"
 
 

@@ -27,6 +27,7 @@ LAYER_STATE = {
 }
 
 RULE = re.compile(r"^(?:dk\((\w+)\) )?\+ \[([A-Z ]*?) ?(K_\w+)\] > (.*?)  c ")
+WINDOWS_RULE = re.compile(r"^platform\('windows'\) \+ \[(K_\w+)\] > (.*?)  c ")
 
 
 @pytest.fixture(scope="module")
@@ -39,9 +40,20 @@ def rules():
             mods = set(mods.split())
             caps = True if "CAPS" in mods else False if "NCAPS" in mods else None
             parsed.append((dead, frozenset(mods - {"CAPS", "NCAPS"}), caps, vkey, out.split()))
-        elif line.startswith(("+", "dk(")):
+        elif line.startswith(("+", "dk(", "platform(")) and not WINDOWS_RULE.match(line):
             pytest.fail(f"unparsed rule: {line}")
     return parsed
+
+
+def test_windows_numpad():
+    """On Windows, the plain number pad keys have rules typing their own
+    character (Keyman would swallow them otherwise; see keyman.py)."""
+    got = {}
+    for line in keyman.kmn(LAYOUT).splitlines():
+        if m := WINDOWS_RULE.match(line):
+            got[m[1]] = m[2].split()
+    want = {key.physical.keyman: tokens(LAYOUT.binding(key, "base", "pc")) for key in LAYOUT.keypad}
+    assert got == want
 
 
 def press(rules, dead, vkey, layer):
