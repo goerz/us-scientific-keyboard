@@ -94,7 +94,7 @@ wheels = [
 
 [[package]]
 name = "layoutgen"
-version = "6.0.0.dev0"
+version = "6.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "fonttools" },

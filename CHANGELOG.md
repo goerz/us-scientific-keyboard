@@ -10,6 +10,8 @@ Between releases, the version (`version` in `layout.toml` and `pyproject.toml`) 
 
 ## [Unreleased]
 
+## [6.0.0] - 2026-11-26
+
 ### Added
 
 - Chained dead keys: two dead keys, one after the other, then a key. All but Math Bold Greek are in the native Windows layout too, whose dead keys can't type bold letters (use Keyman for those).
@@ -127,7 +129,8 @@ First release of U.S. Scientific, the successor of the macOS-only "U.S. Internat
 - Caps Lock uppercases letters consistently, also after dead keys and on the alternative layer, and no longer turns `'` and `` ` `` into dead keys.
 - Grave dead key: removed the stray `c` and `C` entries.
 
-[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v5.2.0...HEAD
+[unreleased]: https://github.com/goerz/us-scientific-keyboard/compare/v6.0.0...HEAD
+[6.0.0]: https://github.com/goerz/us-scientific-keyboard/compare/v5.2.0...v6.0.0
 [5.2.0]: https://github.com/goerz/us-scientific-keyboard/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/goerz/us-scientific-keyboard/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/goerz/us-scientific-keyboard/compare/v4.1.0...v5.0.0
